@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import { useRef } from 'react';
 
 function App() {
+  const ref = useRef(null);
+
+  function handleMouseMove(event){
+    console.log(event);
+  }
+
+  function handleDrag(event){
+    console.log(event.pageX, event.pageY);
+    ref.current.addEventListener('mousemove', handleMouseMove);
+  }
+
+  function handleLeave(){
+    ref.current.removeEventListener('mousemove', handleMouseMove);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <img src={logo} className="App-logo" alt="logo" height={40} width={40}/>
+        <div ref={ref} id='drawer' onMouseDown={handleDrag} onMouseUp={handleLeave}>   
+        </div>
     </div>
   );
 }
