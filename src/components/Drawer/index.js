@@ -9,7 +9,7 @@ function Drawer() {
   const canRef = useRef(null);
   const ctx = useRef(null);
   const [pressed, setPressed] = useState(false);
-  const [size, setSize] = useState(30);
+  const [size, setSize] = useState(15);
   const [color, setColor] = useState("#ff0000");
   const width = window.innerWidth;
   const height = window.innerHeight;
