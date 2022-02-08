@@ -23,11 +23,6 @@ function Drawer() {
     canRef.current.addEventListener("touchstart", function (event) {
       event.preventDefault();
     });
-    return () => {
-      canRef.current.addEventListener("touchstart", function (event) {
-        event.preventDefault();
-      });
-    };
   }, []);
 
   useEffect(() => {
