@@ -20,30 +20,41 @@ function Drawer() {
     canRef.current.height = height;
     ctx.current.fillStyle = "rgb(0,0,0)";
     ctx.current.fillRect(0, 0, width, height);
+    canRef.current.addEventListener("touchstart", function (event) {
+      event.preventDefault();
+    });
+    return () => {
+      canRef.current.addEventListener("touchstart", function (event) {
+        event.preventDefault();
+      });
+    };
   }, []);
 
   useEffect(() => {
-    canRef.current.addEventListener("mousemove", handleMouseMove);
+    if (pressed) {
+      canRef.current.addEventListener("touchmove", handleMouseMove);
+      canRef.current.addEventListener("mousemove", handleMouseMove);
+    }
     return () => {
+      canRef.current.removeEventListener("touchmove", handleMouseMove);
       canRef.current.removeEventListener("mousemove", handleMouseMove);
     };
   }, [pressed]);
 
   const handleMouseMove = useCallback(
     (e) => {
-      e.preventDefault();
-      let curX = window.Event
-        ? e.pageX
-        : e.clientX +
-          (document.documentElement.scrollLeft
-            ? document.documentElement.scrollLeft
-            : document.body.scrollLeft);
-      let curY = window.Event
-        ? e.pageY
-        : e.clientY +
-          (document.documentElement.scrollTop
-            ? document.documentElement.scrollTop
-            : document.body.scrollTop);
+      let curX =
+        ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
+        (document.documentElement.scrollLeft
+          ? document.documentElement.scrollLeft
+          : document.body.scrollLeft);
+
+      let curY =
+        ((e.touches && e.touches[0].clientY) || e.clientY || e.pageY) +
+        (document.documentElement.scrollTop
+          ? document.documentElement.scrollTop
+          : document.body.scrollTop);
+
       function draw() {
         if (pressed) {
           ctx.current.fillStyle = color;
@@ -93,6 +104,9 @@ function Drawer() {
 
       <canvas
         ref={canRef}
+        // onTouchStart={() => console.log("hey")}
+        onTouchStart={() => setPressed(true)}
+        onTouchEnd={() => setPressed(false)}
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}
       >
