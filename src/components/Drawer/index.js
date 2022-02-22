@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
+import webSocketClient from "../../Websocket/index";
 
 function degToRad(degrees) {
   return (degrees * Math.PI) / 180;
@@ -13,6 +14,7 @@ function Drawer() {
   const [color, setColor] = useState("#ff0000");
   const width = window.innerWidth;
   const height = window.innerHeight;
+  const webSocketRef = useRef(null);
 
   useEffect(() => {
     ctx.current = canRef.current.getContext("2d");
@@ -23,6 +25,11 @@ function Drawer() {
     canRef.current.addEventListener("touchstart", function (event) {
       event.preventDefault();
     });
+  }, []);
+
+  useEffect(() => {
+    webSocketRef.current = webSocketClient();
+    webSocketRef.current.connectToSocket();
   }, []);
 
   useEffect(() => {
