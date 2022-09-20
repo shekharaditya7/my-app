@@ -28,8 +28,8 @@ function Drawer() {
   }, []);
 
   useEffect(() => {
-    webSocketRef.current = webSocketClient();
-    webSocketRef.current.connectToSocket();
+    // webSocketRef.current = webSocketClient();
+    // webSocketRef.current.connectToSocket();
   }, []);
 
   useEffect(() => {
