@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Drawer from "./components/Drawer";
+import YTDeepLink from "./components/YTDeepLink";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Drawer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Drawer />} />
+          <Route path="/deeplink/:videoId/" element={<YTDeepLink />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
