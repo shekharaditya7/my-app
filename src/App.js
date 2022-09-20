@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Drawer />} />
           <Route path="/deeplink/:videoId/" element={<YTDeepLink />} />
+          <Route path="/deeplink/" element={<YTDeepLink />} />
         </Routes>
       </BrowserRouter>
     </div>
