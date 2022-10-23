@@ -1,12 +1,26 @@
 .wrapper {
+  display: block;
+  position: relative;
   color: white;
   border: 1px solid white;
   border-radius: 5px;
   padding: 6px;
   cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: #7ed321;
+    color: #7ed321;
+  }
 }
 
 .arrow {
   font-size: 12px;
   margin-left: 12px;
+  font-weight: 800;
+}
+
+.listWrapper {
+  position: absolute;
+  top: 0;
 }

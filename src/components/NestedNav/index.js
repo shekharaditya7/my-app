@@ -20,7 +20,7 @@ export default function NestedNav() {
         <button className="button"> Submit </button>
       </div>
       <div className="vertical-line"></div>
-      <div className="rhs">
+      <div className={styles.rhs}>
         <NestedNavItem />
       </div>
     </div>

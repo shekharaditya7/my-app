@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import styles from "./NestedNavItem.module.scss";
 
 const defaultNavObject = {
@@ -49,12 +52,39 @@ const defaultNavObject = {
 };
 
 export default function NestedNavItem({ navObject = defaultNavObject }) {
+  const [showListItems, setShowListItems] = useState(false);
+  const [style, setStyle] = useState(null);
+
+  const handleNavItemClick = (event) => {
+    event.stopPropagation();
+    const left =
+      event.currentTarget.offsetLeft + event.currentTarget.clientWidth;
+    setStyle({
+      left,
+    });
+    setShowListItems(true);
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <Link
+      to={`/${navObject.label}`}
+      className={styles.wrapper}
+      onMouseOver={handleNavItemClick}
+      onMouseLeave={() => setShowListItems(false)}
+    >
       {navObject.label}
       {navObject.listItems?.length > 0 ? (
-        <span className={styles.arrow}> {">"} </span>
+        <>
+          <span className={styles.arrow}> {">"} </span>
+          {showListItems ? (
+            <div className={styles.listWrapper} style={style}>
+              {navObject.listItems.map((navObject) => (
+                <NestedNavItem key={navObject.label} navObject={navObject} />
+              ))}
+            </div>
+          ) : null}
+        </>
       ) : null}
-    </div>
+    </Link>
   );
 }
