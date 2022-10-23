@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 20px;
+  display: flex;
+  height: 100%;
+}
+
+.lhs {
+  width: 50%;
+  height: calc(100vh - 100px);
+  width: 50%;
+}
+
+.textArea {
+  display: block;
+  background-color: white;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+.rhs {
+}

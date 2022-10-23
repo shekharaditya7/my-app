@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Drawer from "./components/Drawer";
 import YTDeepLink from "./components/YTDeepLink";
 import ImageHome from "./components/Images";
+import NestedNav from "./components/NestedNav";
+
 import "./App.css";
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
           <Route path="/deeplink/:videoId/" element={<YTDeepLink />} />
           <Route path="/deeplink/" element={<YTDeepLink />} />
           <Route path="/images/" element={<ImageHome />} />
+          <Route path="/nav/" element={<NestedNav />} />
         </Routes>
       </BrowserRouter>
     </div>
