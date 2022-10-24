@@ -11,6 +11,12 @@ export default function validateNavObject(navObjectString) {
   return validateNavObjectUtil(parsedNavObj);
 }
 
+/**
+ *
+ * @param {object} navObj - The parsed Nested Config Object
+ * @returns {boolean} - whether the navObject input is valid
+ */
+
 function validateNavObjectUtil(navObj) {
   if (typeof navObj !== "object") return false;
   if (
