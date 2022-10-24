@@ -73,7 +73,9 @@ export default function NestedNavItem({ navObject = defaultNavObject }) {
       onMouseLeave={() => setShowListItems(false)}
     >
       {navObject.label}
-      {navObject.listItems?.length > 0 ? (
+      {navObject.listItems &&
+      Array.isArray(navObject.listItems) &&
+      navObject.listItems?.length > 0 ? (
         <>
           <span className={styles.arrow}> {">"} </span>
           {showListItems ? (

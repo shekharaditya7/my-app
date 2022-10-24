@@ -5,6 +5,24 @@ import parseNavObjectInput from "./parseNavObjectInput";
  * @returns {boolean} - whether the navObject input is valid
  */
 
-export default validateNavObject(navObject){}
+export default function validateNavObject(navObjectString) {
+  const parsedNavObj = parseNavObjectInput(navObjectString);
 
-function validateNavObjectUtil(nav) {}
+  return validateNavObjectUtil(parsedNavObj);
+}
+
+function validateNavObjectUtil(navObj) {
+  if (typeof navObj !== "object") return false;
+  if (
+    navObj.label &&
+    typeof navObj.label === "string" &&
+    ((navObj.listItems && Array.isArray(navObj.listItems)) || !navObj.listItems)
+  ) {
+    let ans = true;
+    navObj.listItems.forEach((item) => {
+      ans = ans && validateNavObjectUtil(item);
+    });
+    return ans;
+  }
+  return false;
+}
