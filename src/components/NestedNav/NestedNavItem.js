@@ -46,12 +46,11 @@ const defaultNavObject = {
     },
     {
       label: "5",
-      listItems: [],
     },
   ],
 };
 
-export default function NestedNavItem({ navObject = defaultNavObject }) {
+export default function NestedNavItem({ navObject }) {
   const [showListItems, setShowListItems] = useState(false);
   const [style, setStyle] = useState(null);
 
@@ -64,6 +63,8 @@ export default function NestedNavItem({ navObject = defaultNavObject }) {
     });
     setShowListItems(true);
   };
+
+  if (!navObject.label) return null;
 
   return (
     <Link

@@ -5,6 +5,8 @@
 }
 
 .lhs {
+  display: flex;
+  flex-direction: column;
   width: 50%;
   height: calc(100vh - 100px);
   width: 50%;

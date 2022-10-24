@@ -107,7 +107,6 @@ function Drawer() {
 
       <canvas
         ref={canRef}
-        // onTouchStart={() => console.log("hey")}
         onTouchStart={() => setPressed(true)}
         onTouchEnd={() => setPressed(false)}
         onMouseDown={() => setPressed(true)}

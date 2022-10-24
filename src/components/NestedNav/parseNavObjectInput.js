@@ -8,7 +8,8 @@ export default function parseNavObjectInput(navObjectString) {
   try {
     parsedNavObject = JSON.parse(navObjectString);
   } catch (error) {
-    console.log("Error Parsing JSON ", error);
+    alert("Error Parsing JSON ", error);
+    console.log(error);
   }
   return parsedNavObject;
 }

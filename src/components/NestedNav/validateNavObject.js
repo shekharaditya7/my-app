@@ -6,9 +6,12 @@ import parseNavObjectInput from "./parseNavObjectInput";
  */
 
 export default function validateNavObject(navObjectString) {
-  const parsedNavObj = parseNavObjectInput(navObjectString);
+  if (typeof navObjectString !== "string") return {};
+  const plainText = navObjectString.replace(/\n/g, "");
+  const parsedNavObj = parseNavObjectInput(plainText);
 
-  return validateNavObjectUtil(parsedNavObj);
+  if (validateNavObjectUtil(parsedNavObj)) return parsedNavObj;
+  return {};
 }
 
 /**
@@ -25,9 +28,11 @@ function validateNavObjectUtil(navObj) {
     ((navObj.listItems && Array.isArray(navObj.listItems)) || !navObj.listItems)
   ) {
     let ans = true;
-    navObj.listItems.forEach((item) => {
-      ans = ans && validateNavObjectUtil(item);
-    });
+    if (navObj.listItems) {
+      navObj.listItems?.forEach((item) => {
+        ans = ans && validateNavObjectUtil(item);
+      });
+    }
     return ans;
   }
   return false;
