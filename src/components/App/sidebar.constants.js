@@ -13,6 +13,12 @@ const NAV_ITEMS = [
     alt: "draw",
   },
   {
+    label: "Nested Nav",
+    url: pages.NESTED_NAV,
+    logoSrc: "/images/sidebar/HomeIcon.png",
+    alt: "nav",
+  },
+  {
     label: "Deeplink",
     url: pages.DEEPLINK,
     logoSrc: "/images/sidebar/HomeIcon.png",
@@ -21,7 +27,7 @@ const NAV_ITEMS = [
   {
     label: "Images",
     url: pages.IMAGE_OPERATIONS,
-    logoSrc: "images/sidebar/HomeIcon.png",
+    logoSrc: "/images/sidebar/HomeIcon.png",
     alt: "images",
   },
 ];

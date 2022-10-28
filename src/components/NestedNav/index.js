@@ -3,9 +3,11 @@ import NestedNavItem from "./NestedNavItem";
 import validateNavObject from "./validateNavObject";
 import styles from "./index.module.scss";
 
+import { defaultNavObject } from "./NestedNavItem";
+
 export default function NestedNav() {
-  const [text, setText] = useState("");
-  const [navObject, setNavObject] = useState({});
+  const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 2));
+  const [navObject, setNavObject] = useState(defaultNavObject);
   const handleTextChange = (event) => {
     setText(event.target.value);
   };

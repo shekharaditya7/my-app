@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./NestedNavItem.module.scss";
 
-const defaultNavObject = {
+export const defaultNavObject = {
   label: "1",
   listItems: [
     {
