@@ -18,7 +18,7 @@ function App() {
           <Route path={pages.HOME} element={<></>} />
           <Route path={pages.DRAWER} element={<Drawer />} />
           <Route path={pages.DEEPLINK} element={<YTDeepLink />} />
-          <Route path={pages.IMAGE_OPEATIONS} element={<ImageHome />} />
+          <Route path={pages.IMAGE_OPERATIONS} element={<ImageHome />} />
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
         </Routes>
       </Layout>

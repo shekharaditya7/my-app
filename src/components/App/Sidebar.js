@@ -1,18 +1,29 @@
+import { Link } from "react-router-dom";
+import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Sidebar.module.scss";
 
-function SideBarItem({ sideBarObj, className }) {
+function SideBarItem({ url, logoSrc, alt, className, label }) {
   return (
-    <div className={className}>
-      <img
-        height={32}
-        width={32}
-        alt={"home" || sideBarObj.alt}
-        src="/images/sidebar/HomeIcon.webp/"
-      ></img>
-    </div>
+    <Link to={url} className={className}>
+      <img height={32} width={32} alt={alt} src={logoSrc}></img>
+      <div>{label}</div>
+    </Link>
   );
 }
 
 export default function Sidebar() {
-  return <SideBarItem className={styles.sidebarItem} />;
+  return (
+    <div className={styles.sidebarWrapper}>
+      {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
+        <SideBarItem
+          key={url}
+          className={styles.sidebarItem}
+          url={url}
+          logoSrc={logoSrc}
+          alt={alt}
+          label={label}
+        />
+      ))}
+    </div>
+  );
 }
