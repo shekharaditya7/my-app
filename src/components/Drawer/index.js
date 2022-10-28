@@ -39,8 +39,8 @@ function Drawer() {
       canRef.current.addEventListener("mousemove", handleMouseMove);
     }
     return () => {
-      canRef.current.removeEventListener("touchmove", handleMouseMove);
-      canRef.current.removeEventListener("mousemove", handleMouseMove);
+      canRef.current?.removeEventListener("touchmove", handleMouseMove);
+      canRef.current?.removeEventListener("mousemove", handleMouseMove);
     };
   }, [pressed]);
 

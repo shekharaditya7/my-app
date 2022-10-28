@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <div className={styles.layout}>
       <Sidebar />
-      <div className={styles.contentWrapper}>
+      <div className={styles.rhs}>
         <Header />
         {children}
       </div>
