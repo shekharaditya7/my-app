@@ -1,7 +1,10 @@
 import { useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
-import getOperatingSystem, { ANDROID, IOS } from "../utils/getOperatingSystem";
-import getIsMobileView from "../utils/getIsMobileView";
+import getOperatingSystem, {
+  ANDROID,
+  IOS,
+} from "./../../utils/getOperatingSystem";
+import getIsMobileView from "./../../utils/getIsMobileView";
 
 export default function YTDeepLink() {
   const { videoId } = useParams();

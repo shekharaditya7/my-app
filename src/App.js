@@ -1,6 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/App/Layout";
+
+import pages from "./pages";
+
 import Drawer from "./components/Drawer";
-import YTDeepLink from "./components/YTDeepLink";
+import YTDeepLink from "./components/YTDeeplink";
 import ImageHome from "./components/Images";
 import NestedNav from "./components/NestedNav";
 
@@ -8,17 +12,17 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <BrowserRouter>
+      <Layout>
         <Routes>
-          <Route path="/drawer/" element={<Drawer />} />
-          <Route path="/deeplink/:videoId/" element={<YTDeepLink />} />
-          <Route path="/deeplink/" element={<YTDeepLink />} />
-          <Route path="/images/" element={<ImageHome />} />
-          <Route path="/nav/" element={<NestedNav />} />
+          <Route path={pages.HOME} element={<></>} />
+          <Route path={pages.DRAWER} element={<Drawer />} />
+          <Route path={pages.DEEPLINK} element={<YTDeepLink />} />
+          <Route path={pages.IMAGE_OPEATIONS} element={<ImageHome />} />
+          <Route path={pages.NESTED_NAV} element={<NestedNav />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
