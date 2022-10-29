@@ -1,7 +1,7 @@
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 
   span {
     margin-right: 16px;
@@ -9,7 +9,7 @@
 }
 .urlInput {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 6px;
   line-height: 28px;
   padding: 4px;
   flex: 1;
@@ -17,7 +17,25 @@
   color: grey;
   font-weight: bold;
 }
-
+.deeplinkUrl {
+  display: flex;
+  margin-bottom: 32px;
+  align-items: center;
+  span {
+    background-color: white;
+    padding: 6px;
+    color: black;
+    border-radius: 6px;
+    margin-left: 20px;
+    margin-right: 16px;
+  }
+  img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
 .video {
   padding-top: 56%;
   position: relative;

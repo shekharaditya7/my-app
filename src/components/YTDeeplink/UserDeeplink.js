@@ -25,10 +25,12 @@ function matchYoutubeUrl(url) {
 
 export default function UserDeeplink() {
   const [ytUrl, setYtUrl] = useState("");
+  const [videoId, setVideoId] = useState(null);
 
-  const handleUrlSubmit = () => {
-    const videoId = matchYoutubeUrl(ytUrl);
-    console.log(videoId);
+  const handleCopyClick = () => {
+    navigator.clipboard
+      .writeText(`${window.location.origin}/deeplink/${videoId}`)
+      .then(() => alert("Copied to clipboard"));
   };
 
   return (
@@ -42,19 +44,35 @@ export default function UserDeeplink() {
           className={styles.urlInput}
           height={28}
         ></input>
-        <button onClick={handleUrlSubmit}>Submit</button>
+        <button onClick={() => setVideoId(matchYoutubeUrl(ytUrl))}>
+          Submit
+        </button>
       </div>
-      <section>
-        <div className={styles.video}>
-          <iframe
-            src="https://www.youtube.com/embed/o8CeEHqyn64"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
+
+      {videoId ? (
+        <>
+          <div className={styles.deeplinkUrl}>
+            URL to launch youtube :
+            <span>
+              {window.location.origin}/deeplink/{videoId}
+            </span>
+            <img
+              src={"/images/CopyIcon.jpeg"}
+              alt={"copy"}
+              onClick={handleCopyClick}
+            ></img>
+          </div>
+          <div className={styles.video}>
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
