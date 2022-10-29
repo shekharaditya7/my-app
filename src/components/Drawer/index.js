@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import getIsMobileView from "../../utils/getIsMobileView";
+import useWindowResize from "../../utils/hooks/useWindowResize";
 import styles from "./index.module.scss";
 
 function degToRad(degrees) {
@@ -13,6 +14,7 @@ function Drawer() {
   const [pressed, setPressed] = useState(false);
   const [size, setSize] = useState(15);
   const [color, setColor] = useState("#ff0000");
+  const [screenWidth] = useWindowResize();
 
   useEffect(() => {
     ctx.current = canRef.current.getContext("2d");
@@ -20,20 +22,14 @@ function Drawer() {
     const height = wrapperRef.current.clientHeight;
     canRef.current.width = width;
     canRef.current.height = height;
-    ctx.current.fillStyle = "rgb(0,0,0)";
+    ctx.current.fillStyle = "rgb(255,255,255)";
     ctx.current.fillRect(0, 0, width, height);
     canRef.current.addEventListener("touchstart", function (event) {
       event.preventDefault();
     });
-  }, []);
+  }, [screenWidth]);
 
   useEffect(() => {
-    // webSocketRef.current = webSocketClient();
-    // webSocketRef.current.connectToSocket();
-  }, []);
-
-  useEffect(() => {
-    //test commit
     if (pressed) {
       canRef.current.addEventListener("touchmove", handleMouseMove);
       canRef.current.addEventListener("mousemove", handleMouseMove);
