@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
-import webSocketClient from "../../Websocket/index";
 
 function degToRad(degrees) {
   return (degrees * Math.PI) / 180;
@@ -9,15 +8,15 @@ function degToRad(degrees) {
 function Drawer() {
   const canRef = useRef(null);
   const ctx = useRef(null);
+  const wrapperRef = useRef(null);
   const [pressed, setPressed] = useState(false);
   const [size, setSize] = useState(15);
   const [color, setColor] = useState("#ff0000");
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const webSocketRef = useRef(null);
 
   useEffect(() => {
     ctx.current = canRef.current.getContext("2d");
+    const width = wrapperRef.current.clientWidth;
+    const height = wrapperRef.current.clientHeight;
     canRef.current.width = width;
     canRef.current.height = height;
     ctx.current.fillStyle = "rgb(0,0,0)";
@@ -46,6 +45,7 @@ function Drawer() {
 
   const handleMouseMove = useCallback(
     (e) => {
+      console.log(e);
       let curX =
         ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
         (document.documentElement.scrollLeft
@@ -86,34 +86,36 @@ function Drawer() {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.toolbar}>
-        <input
-          type="color"
-          aria-label="select pen color"
-          value={color}
-          onInput={(event) => setColor(event.target.value)}
-        />
-        <input
-          type="range"
-          min="2"
-          max="50"
-          value={size}
-          aria-label="select pen size"
-          onInput={(event) => setSize(event.target.value)}
-        ></input>
-        <button onClick={handleClear}>Clear canvas</button>
-      </div>
-
+    <div className={styles.wrapper} ref={wrapperRef}>
       <canvas
         ref={canRef}
         onTouchStart={() => setPressed(true)}
         onTouchEnd={() => setPressed(false)}
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}
+        className={styles.canvas}
       >
         <p>Add suitable fallback here.</p>
       </canvas>
+      <div className={styles.toolbar}>
+        <div className={styles.drawerInput}>
+          <input
+            type="color"
+            aria-label="select pen color"
+            value={color}
+            onInput={(event) => setColor(event.target.value)}
+          />
+          <input
+            type="range"
+            min="2"
+            max="50"
+            value={size}
+            aria-label="select pen size"
+            onInput={(event) => setSize(event.target.value)}
+          ></input>
+        </div>
+        <button onClick={handleClear}>Clear canvas</button>
+      </div>
     </div>
   );
 }

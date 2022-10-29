@@ -1,12 +1,6 @@
 import { useState } from "react";
 import styles from "./UserDeeplink.module.scss";
 
-/**
- * JavaScript function to match (and return) the video Id
- * of any valid Youtube Url, given as input string.
- * @author: Stephan Schmitz <eyecatchup@gmail.com>
- * @url: https://stackoverflow.com/a/10315969/624466
- */
 function matchYoutubeUrl(url) {
   let videoId;
   const p =
