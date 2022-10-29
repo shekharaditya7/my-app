@@ -5,7 +5,7 @@ import styles from "./Sidebar.module.scss";
 function SideBarItem({ url, logoSrc, alt, className, label }) {
   return (
     <Link to={url} className={className}>
-      <img height={32} width={32} alt={alt} src={logoSrc}></img>
+      <img alt={alt} src={logoSrc}></img>
       <div>{label}</div>
     </Link>
   );
