@@ -9,8 +9,6 @@ import ImageHome from "./components/Images";
 import NestedNav from "./components/NestedNav";
 import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
 
-import "./App.css";
-
 function App() {
   return (
     <BrowserRouter>

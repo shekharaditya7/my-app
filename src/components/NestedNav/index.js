@@ -27,7 +27,7 @@ export default function NestedNav() {
         ></textarea>
         <button onClick={handleTextSubmit}>Submit</button>
       </div>
-      <div className="vertical-line"></div>
+      <div className={styles.verticalLine}></div>
       <div className={styles.rhs}>
         <NestedNavItem navObject={navObject} />
       </div>
