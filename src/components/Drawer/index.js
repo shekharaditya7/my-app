@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import getIsMobileView from "../../utils/getIsMobileView";
 import styles from "./index.module.scss";
 
 function degToRad(degrees) {
@@ -45,7 +46,7 @@ function Drawer() {
 
   const handleMouseMove = useCallback(
     (e) => {
-      console.log(e);
+      const { isMobileViewUtil } = getIsMobileView();
       let curX =
         ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
         (document.documentElement.scrollLeft
@@ -58,18 +59,19 @@ function Drawer() {
           ? document.documentElement.scrollTop
           : document.body.scrollTop);
 
+      if (isMobileViewUtil) {
+        curX -= 80;
+        curY -= 72;
+      } else {
+        curX -= 172;
+        curY -= 56;
+      }
+
       function draw() {
         if (pressed) {
           ctx.current.fillStyle = color;
           ctx.current.beginPath();
-          ctx.current.arc(
-            curX,
-            curY - 85,
-            size,
-            degToRad(0),
-            degToRad(360),
-            false
-          );
+          ctx.current.arc(curX, curY, size, degToRad(0), degToRad(360), false);
           ctx.current.fill();
           requestAnimationFrame(draw);
         }
