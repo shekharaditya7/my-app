@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+
+  span {
+    margin-right: 16px;
+  }
+}
+.urlInput {
+  background-color: white;
+  border-radius: 5px;
+  line-height: 28px;
+  padding: 4px;
+  flex: 1;
+  margin-right: 16px;
+  color: grey;
+  font-weight: bold;
+}
+
+.video {
+  padding-top: 56%;
+  position: relative;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+}

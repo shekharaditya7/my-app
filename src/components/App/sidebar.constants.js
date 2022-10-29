@@ -3,7 +3,7 @@ const NAV_ITEMS = [
   {
     label: "Home",
     url: pages.HOME,
-    logoSrc: "/images/sidebar/HomeIcon1.png",
+    logoSrc: "/images/sidebar/HomeIcon.png",
     alt: "home",
   },
   {
@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Deeplink",
-    url: pages.DEEPLINK,
+    url: pages.USER_DEEPLINK,
     logoSrc: "/images/sidebar/YoutubeIcon.webp",
     alt: "deeplink",
   },

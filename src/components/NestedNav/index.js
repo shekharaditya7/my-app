@@ -25,9 +25,7 @@ export default function NestedNav() {
           onChange={handleTextChange}
           className={styles.textArea}
         ></textarea>
-        <button className="button" onClick={handleTextSubmit}>
-          Submit
-        </button>
+        <button onClick={handleTextSubmit}>Submit</button>
       </div>
       <div className="vertical-line"></div>
       <div className={styles.rhs}>

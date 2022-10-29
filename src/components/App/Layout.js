@@ -8,7 +8,7 @@ export default function Layout({ children }) {
       <Sidebar />
       <div className={styles.rhs}>
         <Header />
-        {children}
+        <div className={styles.rhsContent}>{children}</div>
       </div>
     </div>
   );
