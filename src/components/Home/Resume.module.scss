@@ -23,12 +23,20 @@
 
 .resumeItem {
   font-size: 14px;
+  letter-spacing: -0.5px;
   font-family: "Times New Roman", Times, serif;
   padding-bottom: 16px;
   margin-bottom: 16px;
   border-bottom: 1px solid gray;
   ul {
     padding-left: 16px;
+    li {
+      margin-bottom: 8px;
+    }
+  }
+  a {
+    color: #0f59bb;
+    text-decoration: underline;
   }
 }
 
@@ -36,11 +44,16 @@
   color: gray;
   font-size: 14px;
   margin-bottom: 10px;
+  span {
+    margin-left: 16px;
+    font-weight: bold;
+  }
 }
 
 @include if-device(desktop-tablet) {
   .wrapper {
     display: flex;
+    column-gap: 20px;
   }
   .heading {
     font-size: 14px;
