@@ -29,11 +29,6 @@ ul {
   padding: 0;
 }
 
-ol,
-ul {
-  list-style: none;
-}
-
 img {
   height: auto;
 }
@@ -65,10 +60,6 @@ button {
 button:focus {
   border: 0;
   outline: 0;
-}
-
-li {
-  list-style-type: none;
 }
 
 small {
@@ -261,10 +252,6 @@ menu,
 nav,
 section {
   display: block;
-}
-
-nav ul {
-  list-style: none;
 }
 
 blockquote,

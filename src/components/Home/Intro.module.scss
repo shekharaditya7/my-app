@@ -4,7 +4,7 @@
   font-size: 0.875rem;
   display: block;
   border-bottom: 1px solid grey;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 
   h2 {
     margin-bottom: 16px;
@@ -49,8 +49,10 @@
     display: flex;
     font-size: 1rem;
   }
-  h2 {
-    margin-bottom: 32px;
+  .description {
+    h2 {
+      margin-bottom: 32px;
+    }
   }
 
   .profile {

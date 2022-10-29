@@ -22,7 +22,7 @@ export default function Intro() {
                 alt="call"
                 className={styles.phoneImg}
               ></img>
-              <span>+91 7979972041</span>
+              <span>7979972041</span>
             </div>
             <div className={styles.phone}>
               <img
