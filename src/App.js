@@ -3,6 +3,7 @@ import Layout from "./components/App/Layout";
 
 import pages from "./pages";
 
+import Intro from "./components/Intro";
 import Drawer from "./components/Drawer";
 import YTDeepLink from "./components/YTDeeplink";
 import ImageHome from "./components/Images";
@@ -14,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path={pages.HOME} element={<></>} />
+          <Route path={pages.HOME} element={<Intro />} />
           <Route path={pages.DRAWER} element={<Drawer />} />
           <Route path={pages.DEEPLINK} element={<YTDeepLink />} />
           <Route path={pages.USER_DEEPLINK} element={<UserDeeplink />} />

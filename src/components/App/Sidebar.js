@@ -6,7 +6,7 @@ function SideBarItem({ url, logoSrc, alt, className, label }) {
   return (
     <Link to={url} className={className}>
       <img alt={alt} src={logoSrc}></img>
-      <div>{label}</div>
+      <div className={styles.label}> {label}</div>
     </Link>
   );
 }

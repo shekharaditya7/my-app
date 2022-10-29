@@ -1,3 +1,4 @@
+@import "./../../styles/index.scss";
 .sidebarWrapper {
   border-right: 1px solid gray;
   min-height: 100vh;
@@ -22,12 +23,13 @@
     border-radius: 50%;
     margin-right: 16px;
   }
-  @media screen and (max-width: 480px) {
-    img {
-      margin-right: 0;
-    }
-    img + div {
-      display: none;
-    }
+}
+.label {
+  display: none;
+}
+
+@include if-device(desktop-tablet) {
+  .label {
+    display: block;
   }
 }
