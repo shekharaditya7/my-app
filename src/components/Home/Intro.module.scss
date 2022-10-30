@@ -2,9 +2,13 @@
 
 .header {
   font-size: 0.875rem;
-  display: block;
+  display: flex;
   border-bottom: 1px solid grey;
   margin-bottom: 20px;
+
+  .contact {
+    display: none;
+  }
 
   h2 {
     margin-bottom: 16px;
@@ -20,41 +24,61 @@
     font-family: "Times New Roman", Times, serif;
     margin-bottom: 16px;
   }
-  .contact {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 32px;
-  }
-  .phone {
-    background-color: white;
-    color: black;
-    border-radius: 8px;
-    padding: 4px;
-    font-family: "Times New Roman", Times, serif;
-    display: flex;
+}
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 32px;
+}
+.phone {
+  font-size: 12px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  padding: 4px;
+  font-family: "Times New Roman", Times, serif;
+  display: flex;
 
-    align-items: center;
-    margin-bottom: 16px;
-    .phoneImg {
-      height: 24px;
-      width: 24px;
-      border-radius: 50%;
-      margin-right: 4px;
-    }
+  align-items: center;
+  margin-bottom: 16px;
+  .phoneImg {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    margin-right: 4px;
   }
 }
 
 @include if-device(desktop-tablet) {
   .header {
-    display: flex;
     font-size: 1rem;
-  }
-  .description {
-    h2 {
-      margin-bottom: 32px;
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 32px;
+    }
+    .phone {
+      font-size: 12px;
+      background-color: white;
+      color: black;
+      border-radius: 8px;
+      padding: 4px;
+      font-family: "Times New Roman", Times, serif;
+      display: flex;
+
+      align-items: center;
+      margin-bottom: 16px;
+      .phoneImg {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        margin-right: 4px;
+      }
     }
   }
-
+  .contact {
+    display: none;
+  }
   .profile {
     margin-bottom: 0;
   }

@@ -1,10 +1,20 @@
 import styles from "./Header.module.scss";
 
-export default function Header() {
+export default function Header({ onMenuIconClick }) {
   return (
     <div className={styles.wrapper}>
+      <img
+        className={styles.menuIcon}
+        src="/images/MenuIcon.png"
+        alt="menu"
+        onClick={onMenuIconClick}
+      ></img>
       <div>Playground </div>
-      <img src="/icon192.jpeg" alt="adi" height={32} width={32}></img>
+      <img
+        className={styles.profileIcon}
+        src="/icon192.jpeg"
+        alt="profile"
+      ></img>
     </div>
   );
 }
