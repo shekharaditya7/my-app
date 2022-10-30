@@ -1,6 +1,6 @@
 @import "./../../styles/index.scss";
 .wrapper {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 360px);
   .toolbar {
     display: flex;
     width: 100%;
@@ -28,11 +28,12 @@
   margin-right: 32px;
 }
 .canvas {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 @include if-device(desktop-tablet) {
   .wrapper {
     width: calc(100vw - 200px);
+    height: calc(100vh - 200px);
   }
 }
