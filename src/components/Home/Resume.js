@@ -9,8 +9,8 @@ export default function Resume() {
           <strong>BYJU’s - </strong>
           <i>Senior Software Engineer </i>
           <div className={styles.duration}>Jun 2022 - Present</div>
-          Working as a Frontend Engineer handling the core website, legacy and
-          the new one.
+          Working as a Full Stack Engineer handling the legacy (php, Wordpress)
+          and the new website (Nextjs, GraphQL);
         </div>
         <div className={styles.resumeItem}>
           <strong>Toppr — </strong>

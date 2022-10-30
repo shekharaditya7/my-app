@@ -42,7 +42,7 @@ function Drawer() {
 
   const handleMouseMove = useCallback(
     (e) => {
-      const { isMobileViewUtil } = getIsMobileView();
+      const { isMobileViewOnlyUtil } = getIsMobileView();
       let curX =
         ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
         (document.documentElement.scrollLeft
@@ -55,7 +55,7 @@ function Drawer() {
           ? document.documentElement.scrollTop
           : document.body.scrollTop);
 
-      if (isMobileViewUtil) {
+      if (isMobileViewOnlyUtil) {
         curX -= 16;
         curY -= 72;
       } else {
