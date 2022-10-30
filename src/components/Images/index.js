@@ -1,3 +1,3 @@
 export default function ImageHome() {
-  return <>Image Opeations</>;
+  return <>Image Operations... WIP</>;
 }
