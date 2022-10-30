@@ -7,8 +7,21 @@
   min-width: fit-content;
   position: fixed;
   top: 0;
+  left: -300px;
   background-color: #282c34;
   z-index: 1;
+}
+.crossIcon {
+  color: black;
+  border-radius: 50%;
+  background-color: white;
+  text-align: center;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  top: 12px;
+  right: -40px;
+  cursor: pointer;
 }
 .sidebarItem {
   display: flex;
@@ -39,11 +52,32 @@
   cursor: pointer;
 }
 
+.animateSlide {
+  -webkit-animation: slide 0.5s forwards;
+  animation: slide 0.5s forwards;
+}
+
+@keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
+@-webkit-keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
 @include if-device(desktop-tablet) {
   .sidebarWrapper {
     position: relative;
+    left: 0;
   }
   .menuIcon {
+    display: none;
+  }
+  .crossIcon {
     display: none;
   }
 }

@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import cx from "classnames";
 import { Link } from "react-router-dom";
 import getIsMobileView from "../../utils/getIsMobileView";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
@@ -20,8 +21,17 @@ export default function Sidebar() {
       if (isMobileViewOnlyUtil) setShowSidebar(false);
     },
   });
+
   return showSidebar ? (
-    <div className={styles.sidebarWrapper} ref={ref}>
+    <div
+      className={cx(styles.sidebarWrapper, {
+        [styles.animateSlide]: showSidebar,
+      })}
+      ref={ref}
+    >
+      <div className={styles.crossIcon} onClick={() => setShowSidebar(false)}>
+        x
+      </div>
       {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
         <Link
           to={url}
