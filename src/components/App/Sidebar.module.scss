@@ -5,8 +5,9 @@
   border-right: 1px solid gray;
   min-height: 100vh;
   min-width: fit-content;
-  position: sticky;
+  position: absolute;
   top: 0;
+  background-color: #282c34;
 }
 .sidebarItem {
   display: flex;
@@ -23,19 +24,22 @@
     height: 32px;
     width: 32px;
     border-radius: 50%;
+    margin-right: 16px;
   }
 }
-.label {
-  display: none;
+.menuIconWrapper {
+  display: flex;
+  padding: 12px 16px;
+  position: absolute;
+}
+.menuIcon {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
 }
 
 @include if-device(desktop-tablet) {
-  .sidebarItem {
-    img {
-      margin-right: 16px;
-    }
-  }
-  .label {
-    display: block;
+  .menuIcon {
+    display: none;
   }
 }

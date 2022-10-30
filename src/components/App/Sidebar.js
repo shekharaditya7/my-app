@@ -1,29 +1,50 @@
+import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import getIsMobileView from "../../utils/getIsMobileView";
+import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Sidebar.module.scss";
 
-function SideBarItem({ url, logoSrc, alt, className, label }) {
-  return (
-    <Link to={url} className={className}>
-      <img alt={alt} src={logoSrc}></img>
-      <div className={styles.label}> {label}</div>
-    </Link>
-  );
-}
-
 export default function Sidebar() {
-  return (
-    <div className={styles.sidebarWrapper}>
+  const ref = useRef();
+  const { isMobileViewUtil } = getIsMobileView();
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  useLayoutEffect(() => {
+    setShowSidebar(!isMobileViewUtil);
+  }, [isMobileViewUtil]);
+
+  useOutsideClick({
+    ref,
+    onOutsideClick: () => {
+      if (isMobileViewUtil) setShowSidebar(false);
+    },
+  });
+  return showSidebar ? (
+    <div className={styles.sidebarWrapper} ref={ref}>
       {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
-        <SideBarItem
-          key={url}
+        <Link
+          to={url}
           className={styles.sidebarItem}
-          url={url}
-          logoSrc={logoSrc}
-          alt={alt}
-          label={label}
-        />
+          key={url}
+          onClick={() => setShowSidebar(false)}
+        >
+          <img alt={alt} src={logoSrc}></img>
+          <div className={styles.label}> {label}</div>
+        </Link>
       ))}
+    </div>
+  ) : (
+    <div className={styles.menuIconWrapper}>
+      <img
+        className={styles.menuIcon}
+        src="/images/MenuIcon.png"
+        alt="menu"
+        onClick={(event) => {
+          event.stopPropagation();
+          setShowSidebar((prev) => !prev);
+        }}
+      ></img>
     </div>
   );
 }
