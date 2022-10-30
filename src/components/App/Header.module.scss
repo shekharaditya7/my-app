@@ -2,21 +2,26 @@
 .wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 57px;
   padding: 12px 16px;
   border-bottom: 1px solid gray;
+  span {
+    margin-left: 64px;
+  }
   .profileIcon {
     height: 32px;
     width: 32px;
     border-radius: 50%;
     cursor: pointer;
-    align-self: flex-end;
   }
 }
 
 @include if-device(desktop-tablet) {
   .wrapper {
     justify-content: space-between;
+    span {
+      margin-left: 0;
+    }
   }
 }

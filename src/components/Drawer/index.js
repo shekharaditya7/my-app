@@ -56,11 +56,11 @@ function Drawer() {
           : document.body.scrollTop);
 
       if (isMobileViewUtil) {
-        curX -= 80;
+        curX -= 16;
         curY -= 72;
       } else {
         curX -= 172;
-        curY -= 56;
+        curY -= 72;
       }
 
       function draw() {

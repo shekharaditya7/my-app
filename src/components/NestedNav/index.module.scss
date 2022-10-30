@@ -1,14 +1,15 @@
+@import "./../../styles/index.scss";
 .wrapper {
-  display: flex;
+  padding-bottom: 20px;
   height: 100%;
 }
 
 .lhs {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: calc(100vh - 100px);
-  width: 50%;
+  width: 100%;
+  height: 60vh;
+  margin-bottom: 24px;
 }
 
 .textArea {
@@ -27,4 +28,16 @@
 }
 .rhs {
   position: relative;
+  margin-bottom: 20px;
+}
+
+@include if-device(desktop-tablet) {
+  .wrapper {
+    display: flex;
+  }
+  .lhs {
+    height: calc(100vh - 100px);
+    width: 50%;
+    margin-bottom: 0;
+  }
 }

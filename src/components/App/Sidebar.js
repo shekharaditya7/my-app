@@ -7,17 +7,17 @@ import styles from "./Sidebar.module.scss";
 
 export default function Sidebar() {
   const ref = useRef();
-  const { isMobileViewUtil } = getIsMobileView();
+  const { isMobileViewOnlyUtil } = getIsMobileView();
   const [showSidebar, setShowSidebar] = useState(false);
 
   useLayoutEffect(() => {
-    setShowSidebar(!isMobileViewUtil);
-  }, [isMobileViewUtil]);
+    setShowSidebar(!isMobileViewOnlyUtil);
+  }, [isMobileViewOnlyUtil]);
 
   useOutsideClick({
     ref,
     onOutsideClick: () => {
-      if (isMobileViewUtil) setShowSidebar(false);
+      if (isMobileViewOnlyUtil) setShowSidebar(false);
     },
   });
   return showSidebar ? (
@@ -27,7 +27,7 @@ export default function Sidebar() {
           to={url}
           className={styles.sidebarItem}
           key={url}
-          onClick={() => setShowSidebar(false)}
+          onClick={isMobileViewOnlyUtil ? () => setShowSidebar(false) : null}
         >
           <img alt={alt} src={logoSrc}></img>
           <div className={styles.label}> {label}</div>

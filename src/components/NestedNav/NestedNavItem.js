@@ -67,11 +67,11 @@ export default function NestedNavItem({ navObject }) {
   if (!navObject.label) return null;
 
   return (
-    <Link
-      to={`/${navObject.label}`}
+    <div
       className={styles.wrapper}
       onMouseOver={handleNavItemClick}
       onMouseLeave={() => setShowListItems(false)}
+      onClick={handleNavItemClick}
     >
       {navObject.label}
       {navObject.listItems &&
@@ -88,6 +88,6 @@ export default function NestedNavItem({ navObject }) {
           ) : null}
         </>
       ) : null}
-    </Link>
+    </div>
   );
 }

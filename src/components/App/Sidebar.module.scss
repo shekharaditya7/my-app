@@ -5,9 +5,10 @@
   border-right: 1px solid gray;
   min-height: 100vh;
   min-width: fit-content;
-  position: absolute;
+  position: fixed;
   top: 0;
   background-color: #282c34;
+  z-index: 1;
 }
 .sidebarItem {
   display: flex;
@@ -39,6 +40,9 @@
 }
 
 @include if-device(desktop-tablet) {
+  .sidebarWrapper {
+    position: relative;
+  }
   .menuIcon {
     display: none;
   }
