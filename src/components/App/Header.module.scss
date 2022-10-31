@@ -8,12 +8,22 @@
   border-bottom: 1px solid gray;
   span {
     margin-left: 64px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: rgba($color: gray, $alpha: 0.3);
   }
   .profileIcon {
     height: 32px;
     width: 32px;
     border-radius: 50%;
     cursor: pointer;
+  }
+
+  .label {
+    display: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: rgba($color: gray, $alpha: 0.3);
   }
 }
 
@@ -22,6 +32,10 @@
     justify-content: space-between;
     span {
       margin-left: 0;
+      display: none;
+    }
+    .label {
+      display: block;
     }
   }
 }
