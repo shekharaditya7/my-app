@@ -1,4 +1,4 @@
-import { BrowserRouter, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Header.module.scss";
 

@@ -76,8 +76,9 @@
 
 @include if-device(desktop-tablet) {
   .sidebarWrapper {
-    position: relative;
+    position: sticky;
     left: 0;
+    height: 100vh;
   }
   .menuIcon {
     display: none;

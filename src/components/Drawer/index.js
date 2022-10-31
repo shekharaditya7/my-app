@@ -59,7 +59,7 @@ function Drawer() {
         curX -= 16;
         curY -= 72;
       } else {
-        curX -= 172;
+        curX -= 220;
         curY -= 72;
       }
 

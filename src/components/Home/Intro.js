@@ -31,7 +31,9 @@ export default function Intro() {
                 alt="email"
                 className={styles.phoneImg}
               ></img>
-              <span>shekharaditya7@gmail.com</span>
+              <a href="mailto:shekharaditya7@gmail.com">
+                shekharaditya7@gmail.com
+              </a>
             </div>
           </div>
         </div>

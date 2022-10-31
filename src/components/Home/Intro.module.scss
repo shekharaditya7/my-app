@@ -1,5 +1,10 @@
 @import "./../../styles/index.scss";
 
+.wrapper {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
 .header {
   font-size: 0.875rem;
   display: flex;
