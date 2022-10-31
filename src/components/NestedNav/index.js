@@ -3,7 +3,7 @@ import NestedNavItem from "./NestedNavItem";
 import validateNavObject from "./validateNavObject";
 import styles from "./index.module.scss";
 
-import { defaultNavObject } from "./NestedNavItem";
+import defaultNavObject from "./nestedNav.constants";
 
 export default function NestedNav() {
   const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 2));
