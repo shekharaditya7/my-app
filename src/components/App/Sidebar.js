@@ -28,12 +28,16 @@ export default function Sidebar() {
     <div
       className={cx(styles.sidebarWrapper, {
         [styles.animateSlide]: showSidebar,
+        [styles.animateSlideOut]: !showSidebar,
       })}
       ref={ref}
     >
-      <div className={styles.crossIcon} onClick={() => setShowSidebar(false)}>
-        x
-      </div>
+      <img
+        className={styles.crossIcon}
+        onClick={() => setShowSidebar(false)}
+        alt={"cross"}
+        src={"/images/sidebar/CrossIcon.png"}
+      ></img>
       {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
         <Link
           to={url}
