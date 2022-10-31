@@ -1,6 +1,6 @@
 const pages = {
   HOME: "/",
-  DRAWER: "/drawer",
+  DRAWER: "/drawer/",
   DEEPLINK: "/deeplink/:videoId/",
   NESTED_NAV: "/nested-nav/",
   IMAGE_OPERATIONS: "/image-opeations/",

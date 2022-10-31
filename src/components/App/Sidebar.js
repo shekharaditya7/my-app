@@ -1,12 +1,14 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import cx from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import getIsMobileView from "../../utils/getIsMobileView";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar() {
+  const { pathname } = useLocation();
+
   const ref = useRef();
   const { isMobileViewOnlyUtil } = getIsMobileView();
   const [showSidebar, setShowSidebar] = useState(false);
@@ -35,7 +37,9 @@ export default function Sidebar() {
       {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
         <Link
           to={url}
-          className={styles.sidebarItem}
+          className={cx(styles.sidebarItem, {
+            [styles.active]: url === pathname,
+          })}
           key={url}
           onClick={isMobileViewOnlyUtil ? () => setShowSidebar(false) : null}
         >
