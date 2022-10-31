@@ -17,8 +17,8 @@
   border-radius: 50%;
   background-color: rgba(128, 128, 128, 0.3);
   text-align: center;
-  height: 24px;
-  width: 24px;
+  height: 28px;
+  width: 28px;
   position: absolute;
   top: 16px;
   right: -40px;
@@ -64,8 +64,8 @@
 }
 
 .animationSlideOut {
-  -webkit-animation: slideOut 0.5s ease;
-  animation: slide 0.5s ease;
+  -webkit-animation: slideOut 0.5s linear;
+  animation: slideOut 0.5s linear;
 }
 
 @keyframes slide {
@@ -81,12 +81,18 @@
 }
 
 @keyframes slideOut {
+  50% {
+    left: 0px;
+  }
   100% {
     left: -300px;
   }
 }
 
 @-webkit-keyframes slideOut {
+  50% {
+    left: 0px;
+  }
   100% {
     left: -300px;
   }
