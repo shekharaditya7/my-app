@@ -1,5 +1,6 @@
 import Intro from "./Intro";
 import Resume from "./Resume";
+
 import styles from "./Intro.module.scss";
 export default function Home() {
   return (

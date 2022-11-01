@@ -9,13 +9,13 @@ function Modal({
   onRequestClose,
   hideCloseButton,
   overlayClassName,
-  shouldCloseOnOverlayClick = false,
+  shouldCloseOnOverlayClick = true,
   shouldCloseOnEscape = true,
   crossButtonClassName,
 }) {
   useEffect(() => {
     const handleKeyPress = (event) => {
-      event.Propagation();
+      event.stopPropagation();
       if (event.keyCode === 27) {
         handleCloseClick();
       }
@@ -26,7 +26,9 @@ function Modal({
     };
   }, []);
 
-  const handleCloseClick = () => onRequestClose();
+  const handleCloseClick = () => {
+    onRequestClose && onRequestClose();
+  };
   const _className = cx(styles.modal, className);
   const _overlayClassName = cx(styles.overlay, overlayClassName);
 
@@ -37,6 +39,8 @@ function Modal({
       contentLabel="Modal"
       className={_className}
       overlayClassName={_overlayClassName}
+      shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+      onRequestClose={handleCloseClick}
     >
       {hideCloseButton ? null : (
         <div
@@ -45,14 +49,9 @@ function Modal({
             "flex_centered",
             crossButtonClassName
           )}
-          onClick={this.handleCloseClick}
+          onClick={handleCloseClick}
         >
-          <img
-            src={"/images/sidebar/CrossIcon.png"}
-            width={10}
-            height={10}
-            alt={"close"}
-          />
+          x
         </div>
       )}
       {children}
