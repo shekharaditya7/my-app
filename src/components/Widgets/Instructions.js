@@ -12,7 +12,7 @@ export default function Instruction({
       className={styles.modal}
       shouldCloseOnEscape={false}
     >
-      <div className={styles.title}> {title}</div>
+      <div className={styles.title}> {title} .... W.I.P. </div>
       <ul>
         {instructions.map((step) => (
           <div className={styles.step}>{step}</div>
