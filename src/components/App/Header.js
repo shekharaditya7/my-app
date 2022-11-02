@@ -14,8 +14,22 @@ export default function Header({ onMenuIconClick }) {
 
   return (
     <div className={styles.wrapper}>
-      <span>{getActivePathTitle()} </span>
-      <div className={styles.label}>Frontend Playground</div>
+      <span>
+        {getActivePathTitle()}
+        <img
+          src="/images/InfoIcon-white.jpeg"
+          alt="info"
+          className={styles.info}
+        ></img>
+      </span>
+      <div className={styles.label}>
+        {getActivePathTitle()}
+        <img
+          src="/images/InfoIcon-white.jpeg"
+          alt="info"
+          className={styles.info}
+        ></img>
+      </div>
       <img
         className={styles.profileIcon}
         src="/icon192.jpeg"

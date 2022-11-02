@@ -7,10 +7,13 @@
   padding: 12px 16px;
   border-bottom: 1px solid gray;
   span {
+    display: inline-flex;
+    align-items: center;
     margin-left: 64px;
     padding: 6px 10px;
     border-radius: 6px;
     background-color: rgba($color: gray, $alpha: 0.3);
+    white-space: nowrap;
   }
   .profileIcon {
     height: 32px;
@@ -21,10 +24,15 @@
 
   .label {
     display: none;
-    // padding: 6px 10px;
-    // border-radius: 6px;
-    // background-color: rgba($color: gray, $alpha: 0.3);
   }
+}
+
+.info {
+  margin-left: 8px;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 @include if-device(desktop-tablet) {
@@ -35,7 +43,11 @@
       display: none;
     }
     .label {
-      display: block;
+      display: flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background-color: rgba($color: gray, $alpha: 0.3);
     }
   }
 }
