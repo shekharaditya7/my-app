@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Header.module.scss";
 
-export default function Header({ onMenuIconClick }) {
+export default function Header({ onInfoIconClick }) {
   const { pathname } = useLocation();
   const getActivePathTitle = () => {
     let title = "Home";
@@ -20,6 +20,7 @@ export default function Header({ onMenuIconClick }) {
           src="/images/InfoIcon-white.jpeg"
           alt="info"
           className={styles.info}
+          onClick={onInfoIconClick}
         ></img>
       </span>
       <div className={styles.label}>
@@ -28,6 +29,7 @@ export default function Header({ onMenuIconClick }) {
           src="/images/InfoIcon-white.jpeg"
           alt="info"
           className={styles.info}
+          onClick={onInfoIconClick}
         ></img>
       </div>
       <img

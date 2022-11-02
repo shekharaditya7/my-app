@@ -1,39 +1,22 @@
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useLayoutEffect, useState, useRef } from "react";
 import cx from "classnames";
 import { Link, useLocation } from "react-router-dom";
-import Instructions from "../Widgets/Instructions";
+
 import getIsMobileView from "../../utils/getIsMobileView";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import NAV_ITEMS from "./sidebar.constants";
-import INSTRUCTIONS from "../Widgets/instructions.contants";
-import pages from "../../pages";
-
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar() {
   const { pathname } = useLocation();
   const ref = useRef();
-  const activePathKey = useRef("");
 
   const { isMobileViewOnlyUtil } = getIsMobileView();
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(false);
 
   useLayoutEffect(() => {
     setShowSidebar(!isMobileViewOnlyUtil);
   }, [isMobileViewOnlyUtil]);
-
-  useEffect(() => {
-    Object.keys(pages).forEach((key) => {
-      if (pages[key] === pathname) activePathKey.current = key;
-    });
-
-    if (
-      pages[activePathKey.current] &&
-      !localStorage.getItem(activePathKey.current)
-    )
-      setShowInstructions(true);
-  }, [pathname]);
 
   useOutsideClick({
     ref,
@@ -41,11 +24,6 @@ export default function Sidebar() {
       if (isMobileViewOnlyUtil) setShowSidebar(false);
     },
   });
-
-  const handleInstructionClose = () => {
-    localStorage.setItem(activePathKey.current, "true");
-    setShowInstructions(false);
-  };
 
   return (
     <>
@@ -92,12 +70,6 @@ export default function Sidebar() {
           ></img>
         </div>
       )}
-      {showInstructions ? (
-        <Instructions
-          onClose={handleInstructionClose}
-          {...INSTRUCTIONS[pages[activePathKey.current]]}
-        />
-      ) : null}
     </>
   );
 }
