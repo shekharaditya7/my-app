@@ -14,22 +14,22 @@ export default function Header({ onInfoIconClick }) {
 
   return (
     <div className={styles.wrapper}>
-      <span>
+      <span onClick={onInfoIconClick}>
         {getActivePathTitle()}
         <img
           src="/images/InfoIcon-white.jpeg"
           alt="info"
           className={styles.info}
-          onClick={onInfoIconClick}
+          
         ></img>
       </span>
-      <div className={styles.label}>
+      <div className={styles.label} onClick={onInfoIconClick}>
         {getActivePathTitle()}
         <img
           src="/images/InfoIcon-white.jpeg"
           alt="info"
           className={styles.info}
-          onClick={onInfoIconClick}
+          
         ></img>
       </div>
       <img

@@ -32,7 +32,6 @@
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 @include if-device(desktop-tablet) {
@@ -48,6 +47,7 @@
       padding: 6px 10px;
       border-radius: 6px;
       background-color: rgba($color: gray, $alpha: 0.3);
+      cursor: pointer;
     }
   }
 }
