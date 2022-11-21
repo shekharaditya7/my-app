@@ -1,8 +1,13 @@
+import { useRef } from "react";
+import useDetectSwipe from "../../utils/hooks/useDetectSwipe";
 import styles from "./Resume.module.scss";
 
 export default function Resume() {
+  const ref = useRef(null);
+  useDetectSwipe({ elementRef: ref });
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={ref}>
       <div className={styles.lhs}>
         <h2 className={styles.heading}> Experience </h2>
         <div className={styles.resumeItem}>
