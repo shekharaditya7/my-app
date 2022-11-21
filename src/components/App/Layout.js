@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Instructions from "../Widgets/Instructions";
+import Instructions from "../Widgets/InstructionModal";
 
 import INSTRUCTIONS from "../Widgets/instructions.contants";
 import pages from "../../pages";

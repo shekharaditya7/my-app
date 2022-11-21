@@ -44,14 +44,10 @@ function Modal({
     >
       {hideCloseButton ? null : (
         <div
-          className={cx(
-            styles.closeButton,
-            "flex_centered",
-            crossButtonClassName
-          )}
+          className={cx(styles.closeButton, crossButtonClassName)}
           onClick={handleCloseClick}
         >
-          x
+          <img alt="cross" src={"/images/sidebar/CrossIcon.png"}></img>
         </div>
       )}
       {children}

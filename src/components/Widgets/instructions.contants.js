@@ -5,7 +5,7 @@ const INSTRUCTIONS = {
     title: "Hello there, welcome!",
     instructions: [
       "The website is mostly about the little things you can do as a Frontend Developer.",
-      "It really amazes me when I think about what all you can do with JavaScript.",
+      "It really amazes me when I think about what all you can do with HTML, CSS and JavaScript.",
     ],
   },
   [pages.DRAWER]: {

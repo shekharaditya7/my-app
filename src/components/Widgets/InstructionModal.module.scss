@@ -4,10 +4,15 @@
   font-family: "Times New Roman", Times, serif;
   margin-top: auto;
   margin-bottom: 0;
+  height: fit-content;
 }
 .title {
   font-weight: bold;
   margin-bottom: 24px;
+  width: fit-content;
+  padding: 4px 10px;
+  background-color: rgb(210, 235, 243);
+  border-radius: 6px;
 }
 
 .step {

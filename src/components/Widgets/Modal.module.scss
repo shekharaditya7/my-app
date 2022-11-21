@@ -43,4 +43,10 @@ $close-button-color: #b4b7bc;
   border-radius: 50%;
   background-color: rgba($color: #d8d8d8, $alpha: 0.4);
   cursor: pointer;
+
+  img {
+    border-radius: 50%;
+    padding: 3px;
+    opacity: 0.3;
+  }
 }
