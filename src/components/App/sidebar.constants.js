@@ -30,6 +30,12 @@ const NAV_ITEMS = [
     logoSrc: "/images/sidebar/ImageIcon.png",
     alt: "images",
   },
+  {
+    label: "Animations",
+    url: pages.ANIMATIONS,
+    logoSrc: '/images/sidebar/AnimateIcon.jpeg',
+    alt: 'animate'
+  }
 ];
 
 export default NAV_ITEMS;

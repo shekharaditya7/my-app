@@ -9,6 +9,7 @@ import YTDeepLink from "./components/YTDeeplink";
 import ImageHome from "./components/Images";
 import NestedNav from "./components/NestedNav";
 import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
+import Animations from "./components/Animations";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path={pages.USER_DEEPLINK} element={<UserDeeplink />} />
           <Route path={pages.IMAGE_OPERATIONS} element={<ImageHome />} />
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
+          <Route path={pages.ANIMATIONS} element={<Animations />} />
         </Routes>
       </Layout>
     </BrowserRouter>
