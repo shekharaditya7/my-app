@@ -37,6 +37,13 @@ const INSTRUCTIONS = {
       "Showcases basic image operations one can do.",
     ],
   },
+  [pages.ANIMATIONS]: {
+    title: "CSS Animations",
+    instructions: [
+      "Showcases basic and advanced CSS animations.",
+      "Choose among several types of animations available!",
+    ],
+  },
 };
 
 export default INSTRUCTIONS;
