@@ -19,17 +19,14 @@
 
   .active {
     display: flex;
-    position: absolute;
-    height: 90%;
-    width: 90%;
+    position: relative;
     margin: 0 auto;
     min-width: unset;
-    margin-right: 20px;
     border-radius: 12px;
     background-color: red;
     opacity: 0.6;
     color: black;
-    transition: cubic-bezier(1, 0, 0, 1);
+    transition: all 2s ease-in;
   }
 }
 
@@ -39,7 +36,6 @@
   width: 100%;
   margin: 0 auto;
   min-width: 100%;
-  margin-right: 20px;
   border-radius: 12px;
   background-color: red;
   opacity: 0.6;
