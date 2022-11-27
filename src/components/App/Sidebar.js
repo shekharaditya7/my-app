@@ -18,10 +18,15 @@ export default function Sidebar() {
     setShowSidebar(!isMobileViewOnlyUtil);
   }, [isMobileViewOnlyUtil]);
 
+  const handleSideBarClose = () => {
+    ref.current.classList.add(styles.animateSlideOut);
+    setTimeout(() => setShowSidebar(false), 300);
+  };
+
   useOutsideClick({
     ref,
     onOutsideClick: () => {
-      if (isMobileViewOnlyUtil) setShowSidebar(false);
+      if (isMobileViewOnlyUtil) handleSideBarClose();
     },
   });
 
@@ -31,13 +36,12 @@ export default function Sidebar() {
         <div
           className={cx(styles.sidebarWrapper, {
             [styles.animateSlide]: showSidebar,
-            [styles.animateSlideOut]: !showSidebar,
           })}
           ref={ref}
         >
           <img
             className={styles.crossIcon}
-            onClick={() => setShowSidebar(false)}
+            onClick={handleSideBarClose}
             alt={"cross"}
             src={"/images/sidebar/CrossIcon.png"}
           ></img>
@@ -48,9 +52,7 @@ export default function Sidebar() {
                 [styles.active]: url === pathname,
               })}
               key={url}
-              onClick={
-                isMobileViewOnlyUtil ? () => setShowSidebar(false) : null
-              }
+              onClick={isMobileViewOnlyUtil ? handleSideBarClose : null}
             >
               <img alt={alt} src={logoSrc}></img>
               <div className={styles.label}> {label}</div>

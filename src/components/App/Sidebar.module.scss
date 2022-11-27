@@ -10,6 +10,7 @@
   z-index: 1;
   background-color: black;
   padding: 20px;
+  box-shadow: 10px 10px 10px rgb(0 0 0 / 30%);
 }
 .crossIcon {
   color: black;
@@ -62,9 +63,9 @@
   animation: slide 0.5s forwards;
 }
 
-.animationSlideOut {
-  -webkit-animation: slideOut 0.5s linear;
-  animation: slideOut 0.5s linear;
+.animateSlideOut {
+  -webkit-animation: slideOut 0.5s forwards;
+  animation: slideOut 0.5s forwards;
 }
 
 @keyframes slide {
@@ -80,8 +81,8 @@
 }
 
 @keyframes slideOut {
-  50% {
-    left: 0px;
+  0% {
+    left: 0;
   }
   100% {
     left: -300px;
@@ -102,6 +103,7 @@
     position: sticky;
     left: 0;
     height: 100vh;
+    box-shadow: none;
   }
   .menuIcon {
     display: none;

@@ -27,7 +27,7 @@ export default function AnimateSlide() {
             className={cx(styles.item, {
               [styles.active]: index === activeSlide,
             })}
-            key={item}
+            key={index}
           >
             {index}
           </div>

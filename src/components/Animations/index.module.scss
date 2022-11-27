@@ -1,6 +1,20 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 100%;
   flex: 1;
+}
+
+select {
+  color: white;
+  border: 0.1px solid gray;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-position-x: 100px;
+
+  option {
+    padding: 12px;
+  }
 }

@@ -1,10 +1,20 @@
+import { useState } from "react";
 import styles from "./index.module.scss";
-import AnimateSlide from "./AnimateSlide";
+import ANIMATIONS from "./animations.constants";
+// import Tabs from "./../Widgets/Tabs";
+import CustomSelect from "../Widgets/CustomSelect";
 
 export default function Animations() {
+  const [activeAnimation, setActiveAnimation] = useState("");
+
   return (
     <div className={styles.wrapper}>
-      <AnimateSlide />
+      <CustomSelect
+        options={ANIMATIONS}
+        placeholder={"Choose an animation ..."}
+        onChange={({ option }) => setActiveAnimation(option)}
+      ></CustomSelect>
+      {activeAnimation?.component}
     </div>
   );
 }

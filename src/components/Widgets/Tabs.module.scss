@@ -1,0 +1,12 @@
+.tabWrapper {
+  display: flex;
+  //   width: 100%;
+  overflow-x: auto;
+}
+
+.tabItem {
+  text-align: center;
+  flex-wrap: nowrap;
+  border: 0.1px solid gray;
+  white-space: nowrap;
+}
