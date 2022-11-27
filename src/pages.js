@@ -4,7 +4,8 @@ const DEEPLINK = "/deeplink/:videoId/";
 const NESTED_NAV = "/nested-nav/";
 const IMAGE_OPERATIONS = "/image-opeations/";
 const USER_DEEPLINK = "/user-deeplink/";
-const ANIMATIONS = '/animations/';
+const ANIMATIONS = "/animations/";
+const CHESS = "/chess/";
 
 const pages = {
   HOME,
@@ -14,6 +15,7 @@ const pages = {
   IMAGE_OPERATIONS,
   USER_DEEPLINK,
   ANIMATIONS,
+  CHESS,
 };
 
 export default pages;

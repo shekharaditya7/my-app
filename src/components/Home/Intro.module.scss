@@ -24,6 +24,7 @@
     height: 120px;
     width: 96px;
     margin-bottom: 16px;
+    border-radius: 8px;
   }
   p {
     font-family: "Times New Roman", Times, serif;
@@ -57,10 +58,19 @@
 @include if-device(desktop-tablet) {
   .header {
     font-size: 1rem;
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    border: none;
     .contact {
       display: flex;
       flex-wrap: wrap;
       column-gap: 32px;
+    }
+    .profile {
+      margin-bottom: 0;
+      height: 130px;
+      width: 104px;
     }
     .phone {
       font-size: 12px;

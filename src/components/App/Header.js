@@ -14,6 +14,7 @@ export default function Header({ onInfoIconClick }) {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.borderWrapper}>
       <span onClick={onInfoIconClick}>
         {getActivePathTitle()}
         <img
@@ -37,6 +38,7 @@ export default function Header({ onInfoIconClick }) {
         src="/icon192.jpeg"
         alt="profile"
       ></img>
+      </div>
     </div>
   );
 }

@@ -33,9 +33,15 @@ const NAV_ITEMS = [
   {
     label: "Animations",
     url: pages.ANIMATIONS,
-    logoSrc: '/images/sidebar/AnimateIcon.jpeg',
-    alt: 'animate'
-  }
+    logoSrc: "/images/sidebar/AnimateIcon.jpeg",
+    alt: "animate",
+  },
+  {
+    label: "Chess",
+    url: pages.CHESS,
+    logoSrc: "/images/sidebar/ChessIcon.png",
+    alt: "chess",
+  },
 ];
 
 export default NAV_ITEMS;
