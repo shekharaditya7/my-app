@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   const handleSideBarClose = () => {
     ref.current.classList.add(styles.animateSlideOut);
-    setTimeout(() => setShowSidebar(false), 300);
+    setTimeout(() => setShowSidebar(false), 350);
   };
 
   useOutsideClick({
@@ -32,6 +32,7 @@ export default function Sidebar() {
 
   return (
     <>
+      {showSidebar ? <div className={styles.overlay}></div> : null}
       {showSidebar ? (
         <div
           className={cx(styles.sidebarWrapper, {

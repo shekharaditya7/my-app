@@ -1,5 +1,14 @@
 @import "./../../styles/index.scss";
 
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .sidebarWrapper {
   display: block;
   min-height: 100vh;
@@ -99,6 +108,9 @@
 }
 
 @include if-device(desktop-tablet) {
+  .overlay {
+    display: none;
+  }
   .sidebarWrapper {
     position: sticky;
     left: 0;
