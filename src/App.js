@@ -10,6 +10,7 @@ import ImageHome from "./components/Images";
 import NestedNav from "./components/NestedNav";
 import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
 import Animations from "./components/Animations";
+import Chess from "./components/Chess";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path={pages.IMAGE_OPERATIONS} element={<ImageHome />} />
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
           <Route path={pages.ANIMATIONS} element={<Animations />} />
+          <Route path={pages.CHESS} element={<Chess />} />
         </Routes>
       </Layout>
     </BrowserRouter>
