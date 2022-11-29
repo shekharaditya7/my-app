@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import cx from "classnames";
 import BOARD, { getMovesByType } from "./chess.constants";
 import styles from "./index.module.scss";
 
 export default function Chess() {
   const [chessBoard, setChessboard] = useState(BOARD);
-  const handleBoxClick = (row, col) => {
-    const { piece } = chessBoard[row][col];
-    if (!piece) return;
+  const pressedPiece = useRef(null);
 
-    const moves = getMovesByType(piece.type, row, col, chessBoard);
-    const currChessBoard = [...chessBoard];
-
+  const resetActiveState = (currChessBoard) => {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
     }
+  };
+
+  const handleBoxClick = (row, col) => {
+    const { piece } = chessBoard[row][col];
+    const currChessBoard = [...chessBoard];
+    if (!piece) {
+      if (chessBoard[row][col].isActive) {
+        currChessBoard[pressedPiece.current.pressedRow][
+          pressedPiece.current.pressedCol
+        ].piece = null;
+        currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
+        setChessboard(currChessBoard);
+        resetActiveState(currChessBoard);
+        return;
+      } else return;
+    }
+
+    resetActiveState(currChessBoard);
+
+    pressedPiece.current = { piece, pressedRow: row, pressedCol: col };
+    const moves = getMovesByType(piece.type, row, col, chessBoard);
+
     if (!chessBoard[row][col].isActive) {
       chessBoard[row][col].isActive = true;
       if (moves.length) {
