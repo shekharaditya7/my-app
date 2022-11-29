@@ -46,7 +46,11 @@
 
 .whitePieceImg {
   background: white;
-  border: 0.1px solid black;
+  border: 1px solid black;
 }
 .blackPieceImg {
+}
+
+.active {
+  border: 6px solid yellow;
 }

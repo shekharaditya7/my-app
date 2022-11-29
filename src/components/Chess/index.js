@@ -1,26 +1,41 @@
-import { useRef } from "react";
+import { useState } from "react";
 import cx from "classnames";
 import BOARD, { getMovesByType } from "./chess.constants";
 import styles from "./index.module.scss";
 
 export default function Chess() {
-  const chessBoard = useRef(BOARD);
+  const [chessBoard, setChessboard] = useState(BOARD);
   const handleBoxClick = (row, col) => {
-    const { piece } = chessBoard.current[row][col];
+    const { piece } = chessBoard[row][col];
     if (!piece) return;
 
-    console.log(getMovesByType(piece.type, row, col, chessBoard.current));
+    const moves = getMovesByType(piece.type, row, col, chessBoard);
+    const currChessBoard = [...chessBoard];
+
+    for (let i = 0; i <= 7; i++) {
+      for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
+    }
+    chessBoard[row][col].isActive = true;
+    if (moves.length) {
+      moves.forEach((moveArray) => {
+        moveArray.forEach(({ row, col }) => {
+          currChessBoard[row][col].isActive = true;
+        });
+      });
+    }
+    setChessboard(currChessBoard);
   };
+  console.log(chessBoard);
   return (
     <div className={styles.wrapper}>
       <div className={styles.board}>
-        {chessBoard.current.map((rowItems, row) => {
+        {chessBoard.map((rowItems, row) => {
           return (
             <div className={styles.row} key={row}>
-              {rowItems.map(({ piece, color }, col) => {
+              {rowItems.map(({ piece, color, isActive }, col) => {
                 return (
                   <div
-                    className={cx(styles.box)}
+                    className={cx(styles.box, { [styles.active]: isActive })}
                     key={col}
                     style={{
                       backgroundColor: color === "black" ? "green" : "white",
