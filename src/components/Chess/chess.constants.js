@@ -431,20 +431,36 @@ export function getMovesByType(type, row, col, board) {
       const color = board[row][col]?.piece?.color;
       if (color === BLACK) {
         if (row === 6) {
-          movesArray.push([
-            createPoint(row - 1, col),
-            createPoint(row - 2, col),
-          ]);
-        } else if (row >= 1) {
+          if (
+            isValidBox(row - 1, col, board) &&
+            isValidBox(row - 2, col, board)
+          )
+            movesArray.push([
+              createPoint(row - 1, col),
+              createPoint(row - 2, col),
+            ]);
+          else if (isValidBox(row - 1, col, board)) {
+            movesArray.push([createPoint(row - 1, col)]);
+          } else if (isValidBox(row - 2, col, board))
+            movesArray.push([createPoint(row - 2, col)]);
+        } else if (row >= 1 && isValidBox(row - 1, col, board)) {
           movesArray.push([createPoint(row - 1, col)]);
         }
       } else if (color === WHITE) {
         if (row === 1) {
-          movesArray.push([
-            createPoint(row + 1, col),
-            createPoint(row + 2, col),
-          ]);
-        } else if (row <= 6) {
+          if (
+            isValidBox(row + 1, col, board) &&
+            isValidBox(row + 2, col, board)
+          )
+            movesArray.push([
+              createPoint(row + 1, col),
+              createPoint(row + 2, col),
+            ]);
+          else if (isValidBox(row + 1, col, board))
+            movesArray.push([createPoint(row + 1, col)]);
+          else if (isValidBox(row + 2, col, board))
+            movesArray.push(createPoint(row + 2, col));
+        } else if (row <= 6 && isValidBox(row + 1, col, board)) {
           movesArray.push([createPoint(row + 1, col)]);
         }
       }
