@@ -15,17 +15,20 @@ export default function Chess() {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
     }
-    chessBoard[row][col].isActive = true;
-    if (moves.length) {
-      moves.forEach((moveArray) => {
-        moveArray.forEach(({ row, col }) => {
-          currChessBoard[row][col].isActive = true;
+    if (!chessBoard[row][col].isActive) {
+      chessBoard[row][col].isActive = true;
+      if (moves.length) {
+        moves.forEach((moveArray) => {
+          moveArray.forEach(({ row, col }) => {
+            currChessBoard[row][col].isActive = true;
+          });
         });
-      });
+      }
     }
+
     setChessboard(currChessBoard);
   };
-  console.log(chessBoard);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.board}>

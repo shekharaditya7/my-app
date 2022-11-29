@@ -17,10 +17,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 80px;
   height: 80px;
-  min-width: 80px;
-  min-height: 80px;
+  // min-width: 80px;
+  // min-height: 80px;
   padding: 10px;
 
   &:hover {
@@ -41,6 +42,11 @@
 }
 
 .pieceImg {
+  position: absolute;
+  top: 12.5%;
+  left: 12.5%;
+  width: 75%;
+  height: 75%;
   border-radius: 50%;
 }
 
@@ -52,5 +58,12 @@
 }
 
 .active {
-  border: 6px solid yellow;
+  border: 4px solid wheat;
+}
+
+@media only screen and (max-width: 680px) {
+  .box {
+    height: 40px;
+    width: 40px;
+  }
 }
