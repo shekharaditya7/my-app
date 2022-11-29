@@ -441,8 +441,9 @@ export function getMovesByType(type, row, col, board) {
             ]);
           else if (isValidBox(row - 1, col, board)) {
             movesArray.push([createPoint(row - 1, col)]);
-          } else if (isValidBox(row - 2, col, board))
-            movesArray.push([createPoint(row - 2, col)]);
+            if (isValidBox(row - 2, col, board))
+              movesArray = [...movesArray, createPoint(row - 2, col)];
+          }
         } else if (row >= 1 && isValidBox(row - 1, col, board)) {
           movesArray.push([createPoint(row - 1, col)]);
         }
@@ -456,10 +457,11 @@ export function getMovesByType(type, row, col, board) {
               createPoint(row + 1, col),
               createPoint(row + 2, col),
             ]);
-          else if (isValidBox(row + 1, col, board))
+          else if (isValidBox(row + 1, col, board)) {
             movesArray.push([createPoint(row + 1, col)]);
-          else if (isValidBox(row + 2, col, board))
-            movesArray.push(createPoint(row + 2, col));
+            if (isValidBox(row + 2, col, board))
+              movesArray = [...movesArray, createPoint(row + 2, col)];
+          }
         } else if (row <= 6 && isValidBox(row + 1, col, board)) {
           movesArray.push([createPoint(row + 1, col)]);
         }
