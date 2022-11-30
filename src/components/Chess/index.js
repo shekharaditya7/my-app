@@ -1,38 +1,47 @@
 import { useState, useRef } from "react";
 import cx from "classnames";
-import BOARD, { getMovesByType } from "./chess.constants";
+import BOARD, { getMovesByType, COLORS } from "./chess.constants";
 import styles from "./index.module.scss";
+
+const resetActiveState = (currChessBoard) => {
+  for (let i = 0; i <= 7; i++) {
+    for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
+  }
+};
 
 export default function Chess() {
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
-
-  const resetActiveState = (currChessBoard) => {
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
-    }
-  };
+  const turn = useRef(COLORS.WHITE);
 
   const handleBoxClick = (row, col) => {
     const { piece } = chessBoard[row][col];
     const currChessBoard = [...chessBoard];
-    if (!piece) {
-      if (chessBoard[row][col].isActive) {
-        currChessBoard[pressedPiece.current.pressedRow][
-          pressedPiece.current.pressedCol
-        ].piece = null;
-        currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
-        setChessboard(currChessBoard);
-        resetActiveState(currChessBoard);
-        return;
-      } else return;
+
+    if (chessBoard[row][col].isActive) {
+      // MOVE COMPLETE
+
+      currChessBoard[pressedPiece.current.pressedRow][
+        pressedPiece.current.pressedCol
+      ].piece = null;
+      currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
+
+      //CHANGE TURN
+      turn.current =
+        turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
+      setChessboard(currChessBoard);
+      resetActiveState(currChessBoard);
+      return;
     }
+
+    if (turn.current !== piece?.color) return;
 
     resetActiveState(currChessBoard);
 
     pressedPiece.current = { piece, pressedRow: row, pressedCol: col };
     const moves = getMovesByType(piece.type, row, col, chessBoard);
 
+    //SHOW MOVES
     if (!chessBoard[row][col].isActive) {
       chessBoard[row][col].isActive = true;
       if (moves.length) {
@@ -43,7 +52,6 @@ export default function Chess() {
         });
       }
     }
-
     setChessboard(currChessBoard);
   };
 
