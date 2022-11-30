@@ -125,7 +125,10 @@
 }
 .metaItem {
   display: flex;
+  flex: 1;
+  text-align: center;
   align-items: center;
+  justify-content: center;
   padding: 6px 10px;
   border-radius: 6px;
   background-color: rgba(128, 128, 128, 0.3);
@@ -136,10 +139,19 @@
 
   &:last-child {
     margin-bottom: 0;
+    margin-left: 0;
   }
 
   &:hover {
     transform: scale(1.1);
+  }
+}
+
+.diabledMetaItem {
+  opacity: 0.6;
+  cursor: unset;
+  &:hover {
+    transform: scale(1);
   }
 }
 
@@ -168,5 +180,8 @@
   }
   .metaItem {
     margin-bottom: 0;
+    &:first-child {
+      margin-right: 12px;
+    }
   }
 }

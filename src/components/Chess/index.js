@@ -6,6 +6,7 @@ import BOARD, {
   getMovesByType,
   COLORS,
   LOCAL_CONFIG_KEY,
+  REDO_KEY,
 } from "./chess.constants";
 import styles from "./index.module.scss";
 
@@ -21,26 +22,36 @@ export default function Chess() {
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
   const turn = useRef(COLORS.WHITE);
+  const isUndoAvailable = !!(
+    JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY))?.length >= 1
+  );
+  const isRedoAvailable = !!(
+    JSON.parse(localStorage.getItem(REDO_KEY))?.length >= 1
+  );
 
   useEffect(() => {
-    const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY));
-    if (configData?.currChessBoard) {
-      setChessboard(configData.currChessBoard);
-      turn.current = configData.currentTurn;
+    const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+    if (
+      configData.length &&
+      configData[configData.length - 1]?.currChessBoard
+    ) {
+      setChessboard(configData[configData.length - 1].currChessBoard);
+      turn.current = configData[configData.length - 1].currentTurn;
     }
   }, []);
 
   const saveToLocal = (currChessBoard, currentTurn) => {
+    const prevData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
     const data = {
       currentTurn,
       currChessBoard,
     };
-    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(data));
+    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify([...prevData, data]));
   };
 
   const handleBoxClick = (row, col) => {
     const { piece } = chessBoard[row][col];
-    const currChessBoard = [...chessBoard];
+    const currChessBoard = JSON.parse(JSON.stringify(chessBoard));
 
     if (chessBoard[row][col].isActive) {
       //If clicked on a box that belongs to moves
@@ -82,8 +93,8 @@ export default function Chess() {
     const moves = getMovesByType(piece.type, row, col, chessBoard);
 
     //Display possible Moves
-    if (!chessBoard[row][col].isActive) {
-      chessBoard[row][col].isActive = true;
+    if (!currChessBoard[row][col].isActive) {
+      currChessBoard[row][col].isActive = true;
       if (moves.length) {
         moves.forEach((moveArray) => {
           moveArray.forEach(({ row, col }) => {
@@ -97,14 +108,57 @@ export default function Chess() {
 
   const handleReset = () => {
     localStorage.removeItem(LOCAL_CONFIG_KEY);
-    setChessboard([...BOARD]);
+    localStorage.removeItem(REDO_KEY);
+    const baseBoard = JSON.parse(JSON.stringify(BOARD));
+    setChessboard(baseBoard);
     turn.current = COLORS.WHITE;
     setShowConfirmationModal(false);
   };
 
-  const handleUndo = () => {};
+  const handleUndo = () => {
+    const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+    const redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
+    let lastData;
+    if (configData.length) {
+      lastData = configData.pop();
+    }
 
-  const handleRedo = () => {};
+    if (
+      configData.length &&
+      configData[configData.length - 1]?.currChessBoard
+    ) {
+      setChessboard(configData[configData.length - 1].currChessBoard);
+      turn.current = configData[configData.length - 1].currentTurn;
+    } else {
+      const baseBoard = JSON.parse(JSON.stringify(BOARD));
+      setChessboard(baseBoard);
+      turn.current = COLORS.WHITE;
+    }
+    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
+    if (lastData)
+      localStorage.setItem(REDO_KEY, JSON.stringify([...redoList, lastData]));
+  };
+
+  const handleRedo = () => {
+    let configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+    let redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
+    let lastData;
+
+    if (redoList.length) {
+      lastData = redoList.pop();
+    }
+    if (lastData) configData = [...configData, lastData];
+
+    if (
+      configData.length &&
+      configData[configData.length - 1]?.currChessBoard
+    ) {
+      setChessboard(configData[configData.length - 1].currChessBoard);
+      turn.current = configData[configData.length - 1].currentTurn;
+    }
+    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
+    localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -126,7 +180,7 @@ export default function Chess() {
                     {piece?.logoSrc ? (
                       <img
                         src={piece?.logoSrc}
-                        alt="ok"
+                        alt="chess-piece"
                         className={cx(styles.pieceImg, {
                           [styles.whitePieceImg]: piece?.color === "white",
                           [styles.blackPieceImg]: piece?.color === "black",
@@ -141,18 +195,32 @@ export default function Chess() {
         })}
       </div>
       <div className={styles.metaSection}>
-        <div className={styles.metaItem} onClick={handleRedo}>
+        <div
+          className={cx(styles.metaItem, {
+            [styles.diabledMetaItem]: !isUndoAvailable,
+          })}
+          onClick={isUndoAvailable ? handleUndo : null}
+        >
           Undo
         </div>
         <div
-          className={styles.metaItem}
-          onClick={() => setShowConfirmationModal(true)}
+          className={cx(styles.metaItem, {
+            [styles.diabledMetaItem]: !isUndoAvailable,
+          })}
+          onClick={
+            isUndoAvailable ? () => setShowConfirmationModal(true) : null
+          }
         >
           Reset
         </div>
-        <div className={styles.metaItem} onClick={handleRedo}>
+        {/* <div
+          className={cx(styles.metaItem, {
+            [styles.diabledMetaItem]: !isRedoAvailable,
+          })}
+          onClick={handleRedo}
+        >
           Redo
-        </div>
+        </div> */}
       </div>
       {showInstructions ? (
         <Instructions

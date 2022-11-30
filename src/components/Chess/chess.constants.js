@@ -1,4 +1,5 @@
 export const LOCAL_CONFIG_KEY = "chess-config";
+export const REDO_KEY = "redo-list";
 const BLACK = "black";
 const WHITE = "white";
 
