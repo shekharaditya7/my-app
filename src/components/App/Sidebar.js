@@ -30,7 +30,7 @@ export default function Sidebar() {
   useOutsideClick({
     ref,
     onOutsideClick: () => {
-      if (isWideScreen) handleSideBarClose();
+      if (!isWideScreen) handleSideBarClose();
     },
   });
 
