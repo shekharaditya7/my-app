@@ -1,3 +1,4 @@
+export const LOCAL_CONFIG_KEY = "chess-config";
 const BLACK = "black";
 const WHITE = "white";
 

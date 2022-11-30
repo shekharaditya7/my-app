@@ -20,12 +20,16 @@ export default function Sidebar() {
   useLayoutEffect(() => {
     setShowSidebar(isWideScreen);
   }, [isWideScreen]);
+  // console.log(isWideScreen);
 
   const handleSideBarClose = () => {
+    console.log("Lol");
     ref.current.classList.add(styles.animateSlideOut);
-    setTimeout(() => setShowSidebar(false), 350);
+    setTimeout(() => {
+      console.log("Making false");
+      setShowSidebar(false);
+    }, 350);
   };
-  console.log(navigator.userAgent);
 
   useOutsideClick({
     ref,
@@ -57,7 +61,7 @@ export default function Sidebar() {
                 [styles.active]: url === pathname,
               })}
               key={url}
-              onClick={isMobileViewUtil ? handleSideBarClose : null}
+              onClick={!isWideScreen ? handleSideBarClose : null}
             >
               <img alt={alt} src={logoSrc}></img>
               <div className={styles.label}> {label}</div>

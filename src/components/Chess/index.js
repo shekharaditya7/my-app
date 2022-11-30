@@ -1,7 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import cx from "classnames";
 import Instructions from "../Widgets/InstructionModal";
-import BOARD, { getMovesByType, COLORS } from "./chess.constants";
+import ConfirmationModal from "../Widgets/ConfirmationModal";
+import BOARD, {
+  getMovesByType,
+  COLORS,
+  LOCAL_CONFIG_KEY,
+} from "./chess.constants";
 import styles from "./index.module.scss";
 
 const resetActiveState = (currChessBoard) => {
@@ -12,9 +17,26 @@ const resetActiveState = (currChessBoard) => {
 
 export default function Chess() {
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
   const turn = useRef(COLORS.WHITE);
+
+  useEffect(() => {
+    const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY));
+    if (configData?.currChessBoard) {
+      setChessboard(configData.currChessBoard);
+      turn.current = configData.currentTurn;
+    }
+  }, []);
+
+  const saveToLocal = (currChessBoard, currentTurn) => {
+    const data = {
+      currentTurn,
+      currChessBoard,
+    };
+    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(data));
+  };
 
   const handleBoxClick = (row, col) => {
     const { piece } = chessBoard[row][col];
@@ -29,7 +51,7 @@ export default function Chess() {
       ) {
         // clicked on the same piece
         resetActiveState(currChessBoard);
-        setChessboard(currChessBoard);
+        setChessboard([...currChessBoard]);
         return;
       }
       // MOVE COMPLETE
@@ -42,8 +64,9 @@ export default function Chess() {
       //CHANGE TURN
       turn.current =
         turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
-      setChessboard(currChessBoard);
+      setChessboard([...currChessBoard]);
       resetActiveState(currChessBoard);
+      saveToLocal(currChessBoard, turn.current);
       return;
     }
 
@@ -69,8 +92,19 @@ export default function Chess() {
         });
       }
     }
-    setChessboard(currChessBoard);
+    setChessboard([...currChessBoard]);
   };
+
+  const handleReset = () => {
+    localStorage.removeItem(LOCAL_CONFIG_KEY);
+    setChessboard([...BOARD]);
+    turn.current = COLORS.WHITE;
+    setShowConfirmationModal(false);
+  };
+
+  const handleUndo = () => {};
+
+  const handleRedo = () => {};
 
   return (
     <div className={styles.wrapper}>
@@ -106,11 +140,37 @@ export default function Chess() {
           );
         })}
       </div>
+      <div className={styles.metaSection}>
+        <div className={styles.metaItem} onClick={handleRedo}>
+          Undo
+        </div>
+        <div
+          className={styles.metaItem}
+          onClick={() => setShowConfirmationModal(true)}
+        >
+          Reset
+        </div>
+        <div className={styles.metaItem} onClick={handleRedo}>
+          Redo
+        </div>
+      </div>
       {showInstructions ? (
         <Instructions
           title={"Oops!"}
           instructions={[`It's ${turn.current} color's turn!`]}
           onClose={() => setShowInstructions(false)}
+        />
+      ) : null}
+      {showConfirmationModal ? (
+        <ConfirmationModal
+          title={"Are you sure?"}
+          items={[
+            "All your progress will be lost.",
+            "Are you sure you want to reset the game?",
+          ]}
+          onClose={() => setShowConfirmationModal(false)}
+          onYesClick={handleReset}
+          onCancelClick={() => setShowConfirmationModal(false)}
         />
       ) : null}
     </div>
