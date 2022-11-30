@@ -44,6 +44,12 @@ const INSTRUCTIONS = {
       "Choose among several types of animations available!",
     ],
   },
+  [pages.CHESS]: {
+    title: "Chess",
+    instructions: [
+      "The classic chess implementation! Play with a friend of yours.",
+    ],
+  },
 };
 
 export default INSTRUCTIONS;
