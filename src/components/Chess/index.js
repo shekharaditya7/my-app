@@ -21,12 +21,23 @@ export default function Chess() {
     const currChessBoard = [...chessBoard];
 
     if (chessBoard[row][col].isActive) {
-      // MOVE COMPLETE
+      //If clicked on a box that belongs to moves
 
+      if (
+        row === pressedPiece.current.pressedRow &&
+        col === pressedPiece.current.pressedCol
+      ) {
+        // clicked on the same piece
+        resetActiveState(currChessBoard);
+        setChessboard(currChessBoard);
+        return;
+      }
+      // MOVE COMPLETE
       currChessBoard[pressedPiece.current.pressedRow][
         pressedPiece.current.pressedCol
       ].piece = null;
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
+      pressedPiece.current = null;
 
       //CHANGE TURN
       turn.current =
@@ -37,7 +48,8 @@ export default function Chess() {
     }
 
     if (turn.current !== piece?.color) {
-      if (!!piece) setShowInstructions(true);
+      //Turn wise moves
+      if (piece && !pressedPiece?.current?.piece) setShowInstructions(true);
       return;
     }
 
@@ -46,7 +58,7 @@ export default function Chess() {
     pressedPiece.current = { piece, pressedRow: row, pressedCol: col };
     const moves = getMovesByType(piece.type, row, col, chessBoard);
 
-    //SHOW MOVES
+    //Display possible Moves
     if (!chessBoard[row][col].isActive) {
       chessBoard[row][col].isActive = true;
       if (moves.length) {

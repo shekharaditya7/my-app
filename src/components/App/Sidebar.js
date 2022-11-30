@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import getIsMobileView from "../../utils/getIsMobileView";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
+import useWindowResize from "../../utils/hooks/useWindowResize";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Sidebar.module.scss";
 
@@ -11,22 +12,25 @@ export default function Sidebar() {
   const { pathname } = useLocation();
   const ref = useRef();
 
-  const { isMobileViewOnlyUtil } = getIsMobileView();
+  const [screenWidth] = useWindowResize();
+  const isWideScreen = !!(screenWidth >= 1024);
+  const { isMobileViewUtil } = getIsMobileView();
   const [showSidebar, setShowSidebar] = useState(false);
 
   useLayoutEffect(() => {
-    setShowSidebar(!isMobileViewOnlyUtil);
-  }, [isMobileViewOnlyUtil]);
+    setShowSidebar(isWideScreen);
+  }, [isWideScreen]);
 
   const handleSideBarClose = () => {
     ref.current.classList.add(styles.animateSlideOut);
     setTimeout(() => setShowSidebar(false), 350);
   };
+  console.log(navigator.userAgent);
 
   useOutsideClick({
     ref,
     onOutsideClick: () => {
-      if (isMobileViewOnlyUtil) handleSideBarClose();
+      if (isWideScreen) handleSideBarClose();
     },
   });
 
@@ -53,7 +57,7 @@ export default function Sidebar() {
                 [styles.active]: url === pathname,
               })}
               key={url}
-              onClick={isMobileViewOnlyUtil ? handleSideBarClose : null}
+              onClick={isMobileViewUtil ? handleSideBarClose : null}
             >
               <img alt={alt} src={logoSrc}></img>
               <div className={styles.label}> {label}</div>
