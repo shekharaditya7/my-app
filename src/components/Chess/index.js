@@ -37,7 +37,7 @@ export default function Chess() {
     }
 
     if (turn.current !== piece?.color) {
-      setShowInstructions(true);
+      if (!!piece) setShowInstructions(true);
       return;
     }
 
