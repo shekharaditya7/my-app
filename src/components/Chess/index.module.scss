@@ -23,6 +23,7 @@
   // min-width: 80px;
   // min-height: 80px;
   padding: 10px;
+  background-color: white;
 
   &:hover {
     transition: all 0.2s;
@@ -39,6 +40,14 @@
       border: 1px solid black;
     }
   }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.dark {
+  background-color: green;
 }
 
 .pieceImg {
@@ -58,6 +67,7 @@
 }
 
 .active {
+  cursor: pointer;
   box-shadow: rgb(255 205 0 / 17%) 0px -23px 25px 0px inset,
     rgb(228 189 12 / 15%) 0px -36px 30px 0px inset,
     rgb(230 221 16 / 10%) 0px -79px 40px 0px inset,
@@ -76,6 +86,30 @@
     rgb(227 169 9 / 6%) 0px 2px 1px, rgb(228 175 7 / 9%) 0px 4px 2px inset,
     rgb(232 180 9 / 9%) 0px 8px 4px, rgb(235 178 6 / 9%) 0px 16px 8px inset,
     rgb(243 164 7 / 9%) 0px 32px 16px inset;
+
+  &:hover {
+    box-shadow: rgb(255 205 0 / 17%) 0px -23px 25px 0px inset,
+      rgb(228 189 12 / 15%) 0px -36px 30px 0px inset,
+      rgb(230 221 16 / 10%) 0px -79px 40px 0px inset,
+      rgb(227 169 9 / 6%) 0px 2px 1px, rgb(228 175 7 / 9%) 0px 4px 2px inset,
+      rgb(232 180 9 / 9%) 0px 8px 4px, rgb(235 178 6 / 9%) 0px 16px 8px inset,
+      rgb(243 164 7 / 9%) 0px 32px 16px inset,
+      rgb(255 205 0 / 17%) 0px -23px 25px 0px inset,
+      rgb(228 189 12 / 15%) 0px -36px 30px 0px inset,
+      rgb(230 221 16 / 10%) 0px -79px 40px 0px inset,
+      rgb(227 169 9 / 6%) 0px 2px 1px, rgb(228 175 7 / 9%) 0px 4px 2px inset,
+      rgb(232 180 9 / 9%) 0px 8px 4px, rgb(235 178 6 / 9%) 0px 16px 8px inset,
+      rgb(243 164 7 / 9%) 0px 32px 16px inset,
+      rgb(255 205 0 / 17%) 0px -23px 25px 0px inset,
+      rgb(228 189 12 / 15%) 0px -36px 30px 0px inset,
+      rgb(230 221 16 / 10%) 0px -79px 40px 0px inset,
+      rgb(227 169 9 / 6%) 0px 2px 1px, rgb(228 175 7 / 9%) 0px 4px 2px inset,
+      rgb(232 180 9 / 9%) 0px 8px 4px, rgb(235 178 6 / 9%) 0px 16px 8px inset,
+      rgb(243 164 7 / 9%) 0px 32px 16px inset;
+    transform: scale(1.05);
+    transition: transform 0.5s;
+    z-index: 2;
+  }
 }
 
 @media only screen and (max-width: 680px) {

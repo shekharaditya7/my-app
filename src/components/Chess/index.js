@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import cx from "classnames";
+import Instructions from "../Widgets/InstructionModal";
 import BOARD, { getMovesByType, COLORS } from "./chess.constants";
 import styles from "./index.module.scss";
 
@@ -10,6 +11,7 @@ const resetActiveState = (currChessBoard) => {
 };
 
 export default function Chess() {
+  const [showInstructions, setShowInstructions] = useState(false);
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
   const turn = useRef(COLORS.WHITE);
@@ -34,7 +36,10 @@ export default function Chess() {
       return;
     }
 
-    if (turn.current !== piece?.color) return;
+    if (turn.current !== piece?.color) {
+      setShowInstructions(true);
+      return;
+    }
 
     resetActiveState(currChessBoard);
 
@@ -64,16 +69,12 @@ export default function Chess() {
               {rowItems.map(({ piece, color, isActive }, col) => {
                 return (
                   <div
-                    className={cx(styles.box, { [styles.active]: isActive })}
+                    className={cx(styles.box, {
+                      [styles.active]: isActive,
+                      [styles.pointer]: !!piece,
+                      [styles.dark]: color === COLORS.BLACK,
+                    })}
                     key={col}
-                    style={{
-                      backgroundColor: color === "black" ? "green" : "white",
-                      cursor: piece ? "pointer" : "initial",
-                      // backgroundImage:
-                      //   color === "black"
-                      //     ? "linear-gradient(120deg, rgb(0, 0, 0) 0%, rgb(3 178 27) 100%)"
-                      //     : "white",
-                    }}
                     onClick={() => handleBoxClick(row, col)}
                   >
                     {piece?.logoSrc ? (
@@ -93,6 +94,13 @@ export default function Chess() {
           );
         })}
       </div>
+      {showInstructions ? (
+        <Instructions
+          title={"Oops!"}
+          instructions={[`It's ${turn.current} color's turn!`]}
+          onClose={() => setShowInstructions(false)}
+        />
+      ) : null}
     </div>
   );
 }
