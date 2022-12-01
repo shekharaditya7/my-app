@@ -6,7 +6,7 @@ import pages from "./pages";
 import Home from "./components/Home";
 import Drawer from "./components/Drawer";
 import YTDeepLink from "./components/YTDeeplink";
-import ImageHome from "./components/Images";
+import Media from "./components/Media";
 import NestedNav from "./components/NestedNav";
 import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
 import Animations from "./components/Animations";
@@ -21,7 +21,7 @@ function App() {
           <Route path={pages.DRAWER} element={<Drawer />} />
           <Route path={pages.DEEPLINK} element={<YTDeepLink />} />
           <Route path={pages.USER_DEEPLINK} element={<UserDeeplink />} />
-          <Route path={pages.IMAGE_OPERATIONS} element={<ImageHome />} />
+          <Route path={pages.MEDIA} element={<Media />} />
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
           <Route path={pages.ANIMATIONS} element={<Animations />} />
           <Route path={pages.CHESS} element={<Chess />} />

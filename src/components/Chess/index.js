@@ -8,6 +8,7 @@ import BOARD, {
   LOCAL_CONFIG_KEY,
   REDO_KEY,
 } from "./chess.constants";
+import playAudio from "../../utils/audio";
 import styles from "./index.module.scss";
 
 const resetActiveState = (currChessBoard) => {
@@ -25,9 +26,9 @@ export default function Chess() {
   const isUndoAvailable = !!(
     JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY))?.length >= 1
   );
-  const isRedoAvailable = !!(
-    JSON.parse(localStorage.getItem(REDO_KEY))?.length >= 1
-  );
+  // const isRedoAvailable = !!(
+  //   JSON.parse(localStorage.getItem(REDO_KEY))?.length >= 1
+  // );
 
   useEffect(() => {
     const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
@@ -62,6 +63,7 @@ export default function Chess() {
       ) {
         // clicked on the same piece
         resetActiveState(currChessBoard);
+        pressedPiece.current = null;
         setChessboard([...currChessBoard]);
         return;
       }
@@ -71,6 +73,7 @@ export default function Chess() {
       ].piece = null;
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
       pressedPiece.current = null;
+      playAudio();
 
       //CHANGE TURN
       turn.current =
@@ -82,6 +85,7 @@ export default function Chess() {
     }
 
     if (turn.current !== piece?.color) {
+      console.log("h");
       //Turn wise moves
       if (piece && !pressedPiece?.current?.piece) setShowInstructions(true);
       return;
@@ -139,26 +143,26 @@ export default function Chess() {
       localStorage.setItem(REDO_KEY, JSON.stringify([...redoList, lastData]));
   };
 
-  const handleRedo = () => {
-    let configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
-    let redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
-    let lastData;
+  // const handleRedo = () => {
+  //   let configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+  //   let redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
+  //   let lastData;
 
-    if (redoList.length) {
-      lastData = redoList.pop();
-    }
-    if (lastData) configData = [...configData, lastData];
+  //   if (redoList.length) {
+  //     lastData = redoList.pop();
+  //   }
+  //   if (lastData) configData = [...configData, lastData];
 
-    if (
-      configData.length &&
-      configData[configData.length - 1]?.currChessBoard
-    ) {
-      setChessboard(configData[configData.length - 1].currChessBoard);
-      turn.current = configData[configData.length - 1].currentTurn;
-    }
-    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
-    localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
-  };
+  //   if (
+  //     configData.length &&
+  //     configData[configData.length - 1]?.currChessBoard
+  //   ) {
+  //     setChessboard(configData[configData.length - 1].currChessBoard);
+  //     turn.current = configData[configData.length - 1].currentTurn;
+  //   }
+  //   localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
+  //   localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
+  // };
 
   return (
     <div className={styles.wrapper}>
@@ -226,6 +230,7 @@ export default function Chess() {
         <Instructions
           title={"Oops!"}
           instructions={[`It's ${turn.current} color's turn!`]}
+          className={styles.alert}
           onClose={() => setShowInstructions(false)}
         />
       ) : null}

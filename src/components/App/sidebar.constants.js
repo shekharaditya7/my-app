@@ -25,10 +25,10 @@ const NAV_ITEMS = [
     alt: "deeplink",
   },
   {
-    label: "Images",
-    url: pages.IMAGE_OPERATIONS,
+    label: "Media",
+    url: pages.MEDIA,
     logoSrc: "/images/sidebar/ImageIcon.png",
-    alt: "images",
+    alt: "media",
   },
   {
     label: "Animations",

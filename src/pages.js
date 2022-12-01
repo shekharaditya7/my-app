@@ -2,7 +2,7 @@ const HOME = "/";
 const DRAWER = "/drawer/";
 const DEEPLINK = "/deeplink/:videoId/";
 const NESTED_NAV = "/nested-nav/";
-const IMAGE_OPERATIONS = "/image-opeations/";
+const MEDIA = "/media/";
 const USER_DEEPLINK = "/user-deeplink/";
 const ANIMATIONS = "/animations/";
 const CHESS = "/chess/";
@@ -12,7 +12,7 @@ const pages = {
   DRAWER,
   DEEPLINK,
   NESTED_NAV,
-  IMAGE_OPERATIONS,
+  MEDIA,
   USER_DEEPLINK,
   ANIMATIONS,
   CHESS,

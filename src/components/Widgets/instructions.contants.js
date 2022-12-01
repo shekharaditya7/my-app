@@ -30,11 +30,11 @@ const INSTRUCTIONS = {
       "Generates a URL that one can use to directly open the Youtube app, if installed.",
     ],
   },
-  [pages.IMAGE_OPERATIONS]: {
-    title: "Play with Images",
+  [pages.MEDIA]: {
+    title: "Play with Media",
     instructions: [
-      "Takes an image as input from gallery. camera.",
-      "Showcases basic image operations one can do.",
+      "Takes an image/video as input from gallery or camera.",
+      "And perform basic media operation like crop, trim.",
     ],
   },
   [pages.ANIMATIONS]: {

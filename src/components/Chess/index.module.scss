@@ -1,3 +1,4 @@
+@import "./../../styles/index.scss";
 .wrapper {
   display: flex;
   user-select: none;
@@ -111,6 +112,12 @@
     transform: scale(1.05);
     transition: transform 0.5s;
     z-index: 2;
+  }
+}
+
+@include if-device(desktop-tablet) {
+  .alert {
+    max-width: 260px;
   }
 }
 
