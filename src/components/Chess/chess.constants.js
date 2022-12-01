@@ -528,7 +528,7 @@ export function getMovesByType(type, row, col, board) {
             ]);
           else if (
             isValidBox(row + 1, col, board, color) &&
-            !isOpponentPiece(board[row][col].piece, board[row + 2][col].piece)
+            !isOpponentPiece(board[row][col].piece, board[row + 1][col].piece)
           ) {
             movesArray.push([createPoint(row + 1, col)]);
             if (
