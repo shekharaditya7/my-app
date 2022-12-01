@@ -12,10 +12,8 @@ export default function Intro() {
         ></img>
         <div className={styles.description}>
           <h2> Hi, I'm Aditya Shekhar </h2>
-          <p>
-            I'm currently working at BYJU’s (Think and Learn Pvt. Limited) as a
-            Senior Software Engineer (Full Stack)
-          </p>
+          <p>Senior Software Engineer, BYJU'S</p>
+          <p className={styles.isLast}>Think and Learn Private Limited</p>
           <div className={styles.contact}>
             <div className={styles.phone}>
               <img
