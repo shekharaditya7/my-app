@@ -1,7 +1,7 @@
 import AnimateSlide from "./AnimateSlide";
 
-const FADE_IN = "Fade In";
-const SLIDE_IN = "Slide In";
+const FADE_IN = "Fade In-Out";
+const SLIDE_IN = "Slide In-Out";
 
 const ANIMATIONS = [
   {
