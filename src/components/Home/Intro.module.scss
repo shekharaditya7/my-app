@@ -56,6 +56,8 @@
   display: flex;
   align-items: center;
   border: 1px solid gray;
+  margin-bottom: 16px;
+
   .phoneImg {
     height: 24px;
     width: 24px;
@@ -103,12 +105,12 @@
   .contact {
     display: none;
   }
+  .phone {
+    margin-bottom: 0;
+  }
 }
 @media only screen and (max-width: 767px) {
   .header {
-    margin-bottom: 16px;
-  }
-  .phone {
     margin-bottom: 16px;
   }
 }
