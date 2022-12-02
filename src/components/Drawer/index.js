@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import getIsMobileView from "../../utils/getIsMobileView";
+import { useEffect, useRef, useState } from "react";
 import useWindowResize from "../../utils/hooks/useWindowResize";
 import styles from "./index.module.scss";
 
@@ -15,34 +14,25 @@ function Drawer() {
   const [size, setSize] = useState(15);
   const [color, setColor] = useState("#ff0000");
   const [screenWidth] = useWindowResize();
+  const isWideScreen = !!(screenWidth >= 1024);
 
   useEffect(() => {
     ctx.current = canRef.current.getContext("2d");
     const width = wrapperRef.current.clientWidth;
     const height = wrapperRef.current.clientHeight;
+
     canRef.current.width = width;
     canRef.current.height = height;
     ctx.current.fillStyle = "rgb(255,255,255)";
     ctx.current.fillRect(0, 0, width, height);
-    canRef.current.addEventListener("touchstart", function (event) {
-      event.preventDefault();
-    });
+    // canRef.current.addEventListener("touchstart", function (event) {
+    //   event.preventDefault();
+    // });
   }, [screenWidth]);
 
   useEffect(() => {
-    if (pressed) {
-      canRef.current.addEventListener("touchmove", handleMouseMove);
-      canRef.current.addEventListener("mousemove", handleMouseMove);
-    }
-    return () => {
-      canRef.current?.removeEventListener("touchmove", handleMouseMove);
-      canRef.current?.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [pressed]);
-
-  const handleMouseMove = useCallback(
-    (e) => {
-      const { isMobileViewOnlyUtil } = getIsMobileView();
+    const container = canRef?.current;
+    const handleMouseMove = (e) => {
       let curX =
         ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
         (document.documentElement.scrollLeft
@@ -55,12 +45,12 @@ function Drawer() {
           ? document.documentElement.scrollTop
           : document.body.scrollTop);
 
-      if (isMobileViewOnlyUtil) {
+      if (!isWideScreen) {
         curX -= 16;
         curY -= 72;
       } else {
         curX -= 220;
-        curY -= 72;
+        curY -= 80;
       }
 
       function draw() {
@@ -73,9 +63,20 @@ function Drawer() {
         }
       }
       draw();
-    },
-    [pressed]
-  );
+    };
+    if (pressed) {
+      container?.addEventListener("touchmove", handleMouseMove, {
+        passive: true,
+      });
+      container?.addEventListener("mousemove", handleMouseMove, {
+        passive: true,
+      });
+    }
+    return () => {
+      container?.removeEventListener("touchmove", handleMouseMove);
+      container?.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [pressed, color, size, isWideScreen]);
 
   function handleClear() {
     // ctx.current.fillStyle = "rgb(0,0,0)";

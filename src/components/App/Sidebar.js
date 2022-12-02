@@ -1,8 +1,6 @@
 import { useLayoutEffect, useState, useRef } from "react";
 import cx from "classnames";
 import { Link, useLocation } from "react-router-dom";
-
-import getIsMobileView from "../../utils/getIsMobileView";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import useWindowResize from "../../utils/hooks/useWindowResize";
 import NAV_ITEMS from "./sidebar.constants";
@@ -14,16 +12,13 @@ export default function Sidebar() {
 
   const [screenWidth] = useWindowResize();
   const isWideScreen = !!(screenWidth >= 1024);
-  const { isMobileViewUtil } = getIsMobileView();
   const [showSidebar, setShowSidebar] = useState(false);
 
   useLayoutEffect(() => {
     setShowSidebar(isWideScreen);
   }, [isWideScreen]);
-  // console.log(isWideScreen);
 
   const handleSideBarClose = () => {
-    console.log("Lol");
     ref.current.classList.add(styles.animateSlideOut);
     setTimeout(() => {
       console.log("Making false");

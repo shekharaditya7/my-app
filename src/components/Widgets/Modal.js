@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import styles from "./Modal.module.scss";
 import cx from "classnames";
 
@@ -13,22 +13,23 @@ function Modal({
   shouldCloseOnEscape = true,
   crossButtonClassName,
 }) {
+  const handleCloseClick = useCallback(() => {
+    onRequestClose && onRequestClose();
+  }, [onRequestClose]);
+
   useEffect(() => {
     const handleKeyPress = (event) => {
       event.stopPropagation();
       if (event.keyCode === 27) {
-        handleCloseClick();
+        handleCloseClick && handleCloseClick();
       }
     };
     if (shouldCloseOnEscape) document.addEventListener("keyup", handleKeyPress);
     return () => {
       document.removeEventListener("keyup", handleKeyPress);
     };
-  }, []);
+  }, [shouldCloseOnEscape, handleCloseClick]);
 
-  const handleCloseClick = () => {
-    onRequestClose && onRequestClose();
-  };
   const _className = cx(styles.modal, className);
   const _overlayClassName = cx(styles.overlay, overlayClassName);
 

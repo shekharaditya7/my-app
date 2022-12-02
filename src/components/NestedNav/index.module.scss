@@ -31,7 +31,7 @@
   margin-bottom: 20px;
 }
 
-@include if-device(desktop-tablet) {
+@media only screen and (min-width: 1024px) {
   .wrapper {
     display: flex;
   }

@@ -33,7 +33,7 @@
   margin-bottom: 20px;
 }
 
-@include if-device(desktop-tablet) {
+@media only screen and (min-width: 1024px) {
   .wrapper {
     width: calc(100vw - 248px);
     height: calc(100vh - 200px);
