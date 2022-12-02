@@ -1,9 +1,12 @@
 import { useLocation } from "react-router-dom";
+import ProfileModal from "./ProfileModal";
 import NAV_ITEMS from "./sidebar.constants";
 import styles from "./Header.module.scss";
+import { useState } from "react";
 
 export default function Header({ onInfoIconClick }) {
   const { pathname } = useLocation();
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const getActivePathTitle = () => {
     let title = "Home";
     NAV_ITEMS.forEach(({ url, label }) => {
@@ -15,30 +18,32 @@ export default function Header({ onInfoIconClick }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.borderWrapper}>
-      <span onClick={onInfoIconClick}>
-        {getActivePathTitle()}
+        <span onClick={onInfoIconClick}>
+          {getActivePathTitle()}
+          <img
+            src="/images/InfoIcon-white.jpeg"
+            alt="info"
+            className={styles.info}
+          ></img>
+        </span>
+        <div className={styles.label} onClick={onInfoIconClick}>
+          {getActivePathTitle()}
+          <img
+            src="/images/InfoIcon-white.jpeg"
+            alt="info"
+            className={styles.info}
+          ></img>
+        </div>
         <img
-          src="/images/InfoIcon-white.jpeg"
-          alt="info"
-          className={styles.info}
-          
-        ></img>
-      </span>
-      <div className={styles.label} onClick={onInfoIconClick}>
-        {getActivePathTitle()}
-        <img
-          src="/images/InfoIcon-white.jpeg"
-          alt="info"
-          className={styles.info}
-          
+          className={styles.profileIcon}
+          src="/icon192.jpeg"
+          alt="profile"
+          onClick={() => setShowProfileModal(true)}
         ></img>
       </div>
-      <img
-        className={styles.profileIcon}
-        src="/icon192.jpeg"
-        alt="profile"
-      ></img>
-      </div>
+      {showProfileModal ? (
+        <ProfileModal onClose={() => setShowProfileModal(false)} />
+      ) : null}
     </div>
   );
 }
