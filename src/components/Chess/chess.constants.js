@@ -46,15 +46,16 @@ const PIECES = [
   {
     id: 4,
     color: COLORS.WHITE,
-    type: TYPES.KING,
-    logoSrc: "/images/chess/white-king.png",
+    type: TYPES.QUEEN,
+    logoSrc: "/images/chess/white-queen.png",
   },
   {
     id: 5,
     color: COLORS.WHITE,
-    type: TYPES.QUEEN,
-    logoSrc: "/images/chess/white-queen.png",
+    type: TYPES.KING,
+    logoSrc: "/images/chess/white-king.png",
   },
+
   {
     id: 6,
     color: COLORS.WHITE,
@@ -142,15 +143,16 @@ const PIECES = [
   {
     id: 20,
     color: COLORS.BLACK,
-    type: TYPES.KING,
-    logoSrc: "/images/chess/black-king.png",
+    type: TYPES.QUEEN,
+    logoSrc: "/images/chess/black-queen.png",
   },
   {
     id: 21,
     color: COLORS.BLACK,
-    type: TYPES.QUEEN,
-    logoSrc: "/images/chess/black-queen.png",
+    type: TYPES.KING,
+    logoSrc: "/images/chess/black-king.png",
   },
+
   {
     id: 22,
     color: COLORS.BLACK,
@@ -301,6 +303,17 @@ const BOARD = [
     { piece: PIECES[23], color: COLORS.BLACK, isActive: false },
   ],
 ];
+
+export const KNOCKED_OUT_BOARD = {
+  [COLORS.WHITE]: [
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+  ],
+  [COLORS.BLACK]: [
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+    [{}, {}, {}, {}, {}, {}, {}, {}],
+  ],
+};
 
 function isValidBox(row, col, board, color) {
   return (

@@ -11,7 +11,7 @@ const instructions = [
   {
     name: "GitHub",
     href: "https://github.com/shekharaditya7",
-    logoSrc: "images/social/Github.png",
+    logoSrc: "/images/social/Github.png",
   },
   {
     name: "Twitter",

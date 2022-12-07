@@ -7,6 +7,7 @@ import BOARD, {
   COLORS,
   LOCAL_CONFIG_KEY,
   REDO_KEY,
+  KNOCKED_OUT_BOARD,
 } from "./chess.constants";
 import playAudio from "../../utils/audio";
 import styles from "./index.module.scss";
@@ -22,30 +23,56 @@ export default function Chess() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
+  const knockedOutPieces = useRef(KNOCKED_OUT_BOARD);
   const turn = useRef(COLORS.WHITE);
   const isUndoAvailable = !!(
     JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY))?.length >= 1
   );
-  // const isRedoAvailable = !!(
-  //   JSON.parse(localStorage.getItem(REDO_KEY))?.length >= 1
-  // );
+  const isRedoAvailable = !!(
+    JSON.parse(localStorage.getItem(REDO_KEY))?.length >= 1
+  );
 
   useEffect(() => {
     const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+    console.log(configData);
     if (
       configData.length &&
       configData[configData.length - 1]?.currChessBoard
     ) {
       setChessboard(configData[configData.length - 1].currChessBoard);
       turn.current = configData[configData.length - 1].currentTurn;
+      knockedOutPieces.current =
+        configData[configData.length - 1].currKnockedOut;
     }
   }, []);
 
-  const saveToLocal = (currChessBoard, currentTurn) => {
+  function addKnockedOutPiece(piece) {
+    const pieceColor = piece.color;
+    let rowIndex, colIndex;
+    const knockedOutArray = knockedOutPieces.current[pieceColor];
+    for (let row = 0; row <= 1; row++) {
+      for (let col = 0; col <= 7; col++) {
+        if (!Object.keys(knockedOutArray[row][col]).length) {
+          rowIndex = row;
+          colIndex = col;
+          break;
+        }
+      }
+      if (rowIndex !== undefined) {
+        break;
+      }
+    }
+
+    knockedOutArray[rowIndex][colIndex] = piece;
+    knockedOutPieces.current[pieceColor] = [...knockedOutArray];
+  }
+
+  const saveToLocal = (currChessBoard, currentTurn, currKnockedOut) => {
     const prevData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
     const data = {
       currentTurn,
       currChessBoard,
+      currKnockedOut,
     };
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify([...prevData, data]));
   };
@@ -71,6 +98,10 @@ export default function Chess() {
       currChessBoard[pressedPiece.current.pressedRow][
         pressedPiece.current.pressedCol
       ].piece = null;
+      if (currChessBoard[row][col].piece) {
+        addKnockedOutPiece(piece);
+        // knockedOutPieces.current[piece.color].push(piece);
+      }
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
       pressedPiece.current = null;
       playAudio();
@@ -80,12 +111,11 @@ export default function Chess() {
         turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
       setChessboard([...currChessBoard]);
       resetActiveState(currChessBoard);
-      saveToLocal(currChessBoard, turn.current);
+      saveToLocal(currChessBoard, turn.current, knockedOutPieces.current);
       return;
     }
 
     if (turn.current !== piece?.color) {
-      console.log("h");
       //Turn wise moves
       if (piece && !pressedPiece?.current?.piece) setShowInstructions(true);
       return;
@@ -116,6 +146,7 @@ export default function Chess() {
     const baseBoard = JSON.parse(JSON.stringify(BOARD));
     setChessboard(baseBoard);
     turn.current = COLORS.WHITE;
+    knockedOutPieces.current = JSON.parse(JSON.stringify(KNOCKED_OUT_BOARD));
     setShowConfirmationModal(false);
   };
 
@@ -133,39 +164,65 @@ export default function Chess() {
     ) {
       setChessboard(configData[configData.length - 1].currChessBoard);
       turn.current = configData[configData.length - 1].currentTurn;
+      knockedOutPieces.current =
+        configData[configData.length - 1].currKnockedOut;
     } else {
       const baseBoard = JSON.parse(JSON.stringify(BOARD));
       setChessboard(baseBoard);
       turn.current = COLORS.WHITE;
+      knockedOutPieces.current = JSON.parse(JSON.stringify(KNOCKED_OUT_BOARD));
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     if (lastData)
       localStorage.setItem(REDO_KEY, JSON.stringify([...redoList, lastData]));
   };
 
-  // const handleRedo = () => {
-  //   let configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
-  //   let redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
-  //   let lastData;
+  const handleRedo = () => {
+    let configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
+    let redoList = JSON.parse(localStorage.getItem(REDO_KEY)) || [];
+    let lastData;
 
-  //   if (redoList.length) {
-  //     lastData = redoList.pop();
-  //   }
-  //   if (lastData) configData = [...configData, lastData];
+    if (redoList.length) {
+      lastData = redoList.pop();
+    }
+    if (lastData) configData = [...configData, lastData];
 
-  //   if (
-  //     configData.length &&
-  //     configData[configData.length - 1]?.currChessBoard
-  //   ) {
-  //     setChessboard(configData[configData.length - 1].currChessBoard);
-  //     turn.current = configData[configData.length - 1].currentTurn;
-  //   }
-  //   localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
-  //   localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
-  // };
+    if (
+      configData.length &&
+      configData[configData.length - 1]?.currChessBoard
+    ) {
+      setChessboard(configData[configData.length - 1].currChessBoard);
+      turn.current = configData[configData.length - 1].currentTurn;
+      knockedOutPieces.current =
+        configData[configData.length - 1].currKnockedOut;
+    }
+    localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
+    localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
+  };
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.whiteDeadWrapper}>
+        {knockedOutPieces.current?.[COLORS.WHITE].map((whitePiecesArr) => {
+          return (
+            <div className={styles.whiteCol}>
+              {whitePiecesArr.map((item) => {
+                return (
+                  <div className={styles.deadBox}>
+                    {item?.logoSrc ? (
+                      <img
+                        src={item.logoSrc}
+                        className={styles.whitePieceImg}
+                        alt="piece"
+                      ></img>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
       <div className={styles.board}>
         {chessBoard.map((rowItems, row) => {
           return (
@@ -186,8 +243,7 @@ export default function Chess() {
                         src={piece?.logoSrc}
                         alt="chess-piece"
                         className={cx(styles.pieceImg, {
-                          [styles.whitePieceImg]: piece?.color === "white",
-                          [styles.blackPieceImg]: piece?.color === "black",
+                          [styles.whitePieceImg]: piece?.color === COLORS.WHITE,
                         })}
                       ></img>
                     ) : null}
@@ -198,34 +254,58 @@ export default function Chess() {
           );
         })}
       </div>
-      <div className={styles.metaSection}>
-        <div
-          className={cx(styles.metaItem, {
-            [styles.diabledMetaItem]: !isUndoAvailable,
-          })}
-          onClick={isUndoAvailable ? handleUndo : null}
-        >
-          Undo
+      <div className={styles.boardRight}>
+        <div className={styles.metaSection}>
+          <div
+            className={cx(styles.metaItem, {
+              [styles.diabledMetaItem]: !isUndoAvailable,
+            })}
+            onClick={isUndoAvailable ? handleUndo : null}
+          >
+            Undo
+          </div>
+          <div
+            className={cx(styles.metaItem, {
+              [styles.diabledMetaItem]: !isUndoAvailable,
+            })}
+            onClick={
+              isUndoAvailable ? () => setShowConfirmationModal(true) : null
+            }
+          >
+            Reset
+          </div>
+          <div
+            className={cx(styles.metaItem, {
+              [styles.diabledMetaItem]: !isRedoAvailable,
+            })}
+            onClick={handleRedo}
+          >
+            Redo
+          </div>
         </div>
-        <div
-          className={cx(styles.metaItem, {
-            [styles.diabledMetaItem]: !isUndoAvailable,
+        <div className={styles.blackDeadWrapper}>
+          {knockedOutPieces.current?.[COLORS.BLACK].map((blackPiecesArr) => {
+            return (
+              <div className={styles.whiteCol}>
+                {blackPiecesArr.map((item) => {
+                  return (
+                    <div className={styles.deadBox}>
+                      {item?.logoSrc ? (
+                        <img
+                          src={item.logoSrc}
+                          className={styles.blackPieceImg}
+                          alt="piece"
+                        ></img>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            );
           })}
-          onClick={
-            isUndoAvailable ? () => setShowConfirmationModal(true) : null
-          }
-        >
-          Reset
         </div>
-        {/* <div
-          className={cx(styles.metaItem, {
-            [styles.diabledMetaItem]: !isRedoAvailable,
-          })}
-          onClick={handleRedo}
-        >
-          Redo
-        </div> */}
       </div>
+
       {showInstructions ? (
         <Instructions
           title={"Oops!"}
