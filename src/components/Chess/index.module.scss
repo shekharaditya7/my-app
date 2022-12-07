@@ -67,6 +67,7 @@
   border: 1px solid black;
 }
 .blackPieceImg {
+  background: white;
 }
 
 .active {
@@ -115,20 +116,62 @@
   }
 }
 
-@include if-device(desktop-tablet) {
-  .alert {
-    max-width: 260px;
+.whiteDeadWrapper,
+.blackDeadWrapper {
+  margin-right: 20px;
+  height: fit-content;
+  display: flex;
+  .whiteCol {
+    margin-right: 12px;
+    &:last-child {
+      margin: 0;
+    }
   }
+  .deadBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 52px;
+    height: 52px;
+    padding: 5px;
+    border: 0.1px solid gray;
+
+    &:hover {
+      transition: all 0.2s;
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+        rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+        rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+        rgba(0, 0, 0, 0.09) 0px 32px 16px;
+      .whitePieceImg {
+        border: none;
+      }
+      .blackPieceImg {
+        background-color: white;
+        border: 1px solid black;
+      }
+    }
+  }
+}
+
+.blackDeadWrapper {
+  margin-right: 0;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.boardRight {
+  display: flex;
+  flex-direction: column;
 }
 
 .metaSection {
   border: 0.1px solid gray;
-  height: 100%;
   border-radius: 8px;
   padding: 12px;
   background-color: black;
-  margin-right: 0;
-  margin-left: auto;
 }
 .metaItem {
   display: flex;
@@ -162,14 +205,21 @@
   }
 }
 
+@include if-device(desktop-tablet) {
+  .alert {
+    max-width: 260px;
+  }
+}
+
 @media only screen and (max-width: 680px) {
   .box {
     height: 40px;
     width: 40px;
   }
-}
-
-@media only screen and (max-width: 680px) {
+  .whiteDeadWrapper,
+  .blackDeadWrapper {
+    display: none;
+  }
   .board {
     margin: 0 auto;
   }
@@ -187,8 +237,9 @@
   }
   .metaItem {
     margin-bottom: 0;
-    &:first-child {
-      margin-right: 12px;
+    margin-right: 12px;
+    &:last-child {
+      margin-right: 0;
     }
   }
 }
