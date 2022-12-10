@@ -26,76 +26,50 @@
     min-width: unset;
     border-radius: 12px;
     background-color: red;
+    opacity: 0;
     color: black;
+    animation-name: fadeIn;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
   }
 
-  .slideInnerWrapper {
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0.2;
+    }
+    40% {
+      opacity: 0.4;
+    }
+    70% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 0.8;
+    }
   }
 
-  .fadeInRight {
-    animation-name: fadeInRight;
+  .fadeOut {
+    opacity: 0;
+    animation-name: fadeOut;
     animation-timing-function: linear;
     animation-duration: 0.5s;
     animation-delay: 0s;
     animation-fill-mode: forwards;
   }
-
-  @keyframes fadeInRight {
+  @keyframes fadeOut {
     0% {
-      transform: translate(-100%, 0);
+      opacity: 0.8;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    70% {
+      opacity: 0.4;
     }
     100% {
-      transform: translate(0, 0);
-    }
-  }
-
-  .fadeOutRight {
-    animation-name: fadeOutRight;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
-  }
-  @keyframes fadeOutRight {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(100%, 0);
-    }
-  }
-
-  .fadeInLeft {
-    animation-name: fadeInLeft;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
-  }
-  @keyframes fadeInLeft {
-    0% {
-      transform: translate(100%, 0);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-  .fadeOutLeft {
-    animation-name: fadeOutLeft;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
-  }
-  @keyframes fadeOutLeft {
-    0% {
-      transform: translate(0%, 0);
-    }
-    100% {
-      transform: translate(-100%, 0);
+      opacity: 0.2;
     }
   }
 }
@@ -108,7 +82,7 @@
   min-width: 100%;
   border-radius: 12px;
   background-color: red;
-  opacity: 0.8;
+  opacity: 0.5;
   align-items: center;
   justify-content: center;
 }
@@ -116,7 +90,7 @@
 .prev,
 .next {
   font-size: 40px;
-  opacity: 0.8;
+  opacity: 0.5;
   z-index: 2;
   user-select: none;
   cursor: pointer;
