@@ -10,10 +10,37 @@ $close-button-color: #b4b7bc;
   position: relative;
   box-shadow: 0 15px 15px 0 rgba(0, 0, 0, 0.12), 0 5px 15px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
+
   :global {
     .ReactModal__Body--open {
       overflow: hidden;
     }
+  }
+}
+
+.slideUp {
+  animation: slideUp 0.5s forwards;
+}
+
+.slideDown {
+  animation: slideDown 0.5s forwards;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0%, 500%);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translate(0, 500%);
+  }
+  100% {
+    transform: translate(0%, 0);
   }
 }
 

@@ -3,6 +3,8 @@ import { useCallback, useEffect } from "react";
 import styles from "./Modal.module.scss";
 import cx from "classnames";
 
+const modalId = "React_Modal_Custom";
+
 function Modal({
   children,
   className,
@@ -12,10 +14,18 @@ function Modal({
   shouldCloseOnOverlayClick = true,
   shouldCloseOnEscape = true,
   crossButtonClassName,
+  animate = true,
 }) {
   const handleCloseClick = useCallback(() => {
-    onRequestClose && onRequestClose();
-  }, [onRequestClose]);
+    if (animate)
+      document.getElementById(modalId)?.classList?.add(styles.slideDown);
+    setTimeout(
+      () => {
+        onRequestClose && onRequestClose();
+      },
+      animate ? 250 : 0
+    );
+  }, [onRequestClose, animate]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -30,11 +40,12 @@ function Modal({
     };
   }, [shouldCloseOnEscape, handleCloseClick]);
 
-  const _className = cx(styles.modal, className);
+  const _className = cx(styles.modal, className, { [styles.slideUp]: animate });
   const _overlayClassName = cx(styles.overlay, overlayClassName);
 
   return (
     <ReactModal
+      id={modalId}
       isOpen
       ariaHideApp={false}
       contentLabel="Modal"

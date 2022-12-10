@@ -21,7 +21,6 @@ export default function Sidebar() {
   const handleSideBarClose = () => {
     ref.current.classList.add(styles.animateSlideOut);
     setTimeout(() => {
-      console.log("Making false");
       setShowSidebar(false);
     }, 350);
   };
