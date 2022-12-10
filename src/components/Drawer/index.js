@@ -33,6 +33,7 @@ function Drawer() {
   useEffect(() => {
     const container = canRef?.current;
     const handleMouseMove = (e) => {
+      e.preventDefault();
       let curX =
         ((e.touches && e.touches[0].clientX) || e.clientX || e.pageX) +
         (document.documentElement.scrollLeft
@@ -65,12 +66,8 @@ function Drawer() {
       draw();
     };
     if (pressed) {
-      container?.addEventListener("touchmove", handleMouseMove, {
-        passive: true,
-      });
-      container?.addEventListener("mousemove", handleMouseMove, {
-        passive: true,
-      });
+      container?.addEventListener("touchmove", handleMouseMove);
+      container?.addEventListener("mousemove", handleMouseMove);
     }
     return () => {
       container?.removeEventListener("touchmove", handleMouseMove);
