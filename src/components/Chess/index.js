@@ -34,7 +34,6 @@ export default function Chess() {
 
   useEffect(() => {
     const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
-    console.log(configData);
     if (
       configData.length &&
       configData[configData.length - 1]?.currChessBoard
@@ -203,12 +202,12 @@ export default function Chess() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.whiteDeadWrapper}>
-        {knockedOutPieces.current?.[COLORS.WHITE].map((whitePiecesArr) => {
+        {knockedOutPieces.current?.[COLORS.WHITE].map((whitePiecesArr, row) => {
           return (
-            <div className={styles.whiteCol}>
-              {whitePiecesArr.map((item) => {
+            <div className={styles.whiteCol} key={row}>
+              {whitePiecesArr.map((item, col) => {
                 return (
-                  <div className={styles.deadBox}>
+                  <div className={styles.deadBox} key={`${row}-${col}`}>
                     {item?.logoSrc ? (
                       <img
                         src={item.logoSrc}
@@ -235,7 +234,7 @@ export default function Chess() {
                       [styles.pointer]: !!piece,
                       [styles.dark]: color === COLORS.BLACK,
                     })}
-                    key={col}
+                    key={`${row}-${col}`}
                     onClick={() => handleBoxClick(row, col)}
                   >
                     {piece?.logoSrc ? (
@@ -284,25 +283,27 @@ export default function Chess() {
           </div>
         </div>
         <div className={styles.blackDeadWrapper}>
-          {knockedOutPieces.current?.[COLORS.BLACK].map((blackPiecesArr) => {
-            return (
-              <div className={styles.whiteCol}>
-                {blackPiecesArr.map((item) => {
-                  return (
-                    <div className={styles.deadBox}>
-                      {item?.logoSrc ? (
-                        <img
-                          src={item.logoSrc}
-                          className={styles.blackPieceImg}
-                          alt="piece"
-                        ></img>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
+          {knockedOutPieces.current?.[COLORS.BLACK].map(
+            (blackPiecesArr, row) => {
+              return (
+                <div className={styles.whiteCol} key={row}>
+                  {blackPiecesArr.map((item, col) => {
+                    return (
+                      <div className={styles.deadBox} key={`${row}-${col}`}>
+                        {item?.logoSrc ? (
+                          <img
+                            src={item.logoSrc}
+                            className={styles.blackPieceImg}
+                            alt="piece"
+                          ></img>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
