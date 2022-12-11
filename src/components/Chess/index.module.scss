@@ -212,24 +212,46 @@
 }
 
 @media only screen and (max-width: 680px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 80px);
+  }
   .box {
     height: 40px;
     width: 40px;
   }
   .whiteDeadWrapper,
   .blackDeadWrapper {
-    display: none;
+    flex-direction: column;
+    .deadBox {
+      height: 40px;
+      width: 40px;
+    }
+    .whiteCol {
+      display: flex;
+      margin-right: 0;
+    }
   }
+  .whiteDeadWrapper {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+  .blackDeadWrapper {
+    margin-top: 20px;
+  }
+
   .board {
     margin: 0 auto;
   }
   .metaSection {
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     position: fixed;
     bottom: 0px;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: auto;
     padding: 12px 16px;
     border-radius: 0;
