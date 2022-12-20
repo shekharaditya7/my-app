@@ -23,7 +23,7 @@ export default function Chess() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [chessBoard, setChessboard] = useState(BOARD);
   const pressedPiece = useRef(null);
-  const knockedOutPieces = useRef(KNOCKED_OUT_BOARD);
+  const knockedOutPieces = useRef({ ...KNOCKED_OUT_BOARD });
   const turn = useRef(COLORS.WHITE);
   const isUndoAvailable = !!(
     JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY))?.length >= 1
@@ -99,7 +99,6 @@ export default function Chess() {
       ].piece = null;
       if (currChessBoard[row][col].piece) {
         addKnockedOutPiece(piece);
-        // knockedOutPieces.current[piece.color].push(piece);
       }
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
       pressedPiece.current = null;
