@@ -70,18 +70,19 @@
   }
 }
 .contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
   max-height: 0px;
 }
 
 .animateContact {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   border-top: 0.1px solid gray;
   align-items: center;
   color: #8b949e;
   max-height: 400px;
-  padding: 16px 20px 0 16px;
+  padding: 16px 20px 16px 20px;
   visibility: visible;
   transition: max-height 0.5s linear;
 }
@@ -89,9 +90,7 @@
 .email,
 .phone {
   display: flex;
-  margin-bottom: 16px;
   align-items: center;
-  flex: 1;
   img {
     height: 48px;
     width: 48px;
