@@ -42,6 +42,7 @@ export default function ProfileModal({ onClose, className } = {}) {
       className={cx(styles.modal, className)}
       shouldCloseOnEscape={false}
       crossButtonClassName={styles.crossButtonClassName}
+      hideCloseButton
       animate={false}
     >
       <div className={styles.title}> Let's connect on </div>
