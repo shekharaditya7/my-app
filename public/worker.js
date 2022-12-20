@@ -1,10 +1,7 @@
 /* eslint-disable no-restricted-globals */
 var CACHE_NAME = 'pwa-task-manager';
 var urlsToCache = [
-  '/',
-  '/static/js/main.4bb21e6f.chunk.js',
-  '/static/js/2.5a474bef.chunk.js',
-  '/static/css/main.209ce96d.chunk.css'
+  '/'
 ];
 
 // Install a service worker
