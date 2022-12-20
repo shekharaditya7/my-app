@@ -1,0 +1,86 @@
+.wrapper {
+  font-family: "Poppins", sans-serif;
+}
+.header {
+  margin-bottom: 32px;
+}
+.subHeader {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.separator {
+  width: 40px;
+  height: 5px;
+  background: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
+  border-radius: 3px;
+}
+
+.section {
+  color: #8b949e;
+  margin-bottom: 20px;
+}
+.actionItem {
+  display: flex;
+  position: relative;
+  padding: 16px 0;
+  z-index: 1;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: linear-gradient(
+    to left left,
+    hsl(0, 0%, 25%) 0%,
+    hsla(0, 0%, 25%, 0) 25%
+  );
+  box-shadow: 0 16px 30px hsla(0, 0%, 0%, 0.25);
+
+  img {
+    height: 80px;
+    width: 80px;
+    margin-right: 16px;
+    border-radius: 8px;
+    background: gray;
+  }
+  .meta {
+    flex: 1;
+    .position {
+      font-size: 1rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+    .duration {
+      font-size: 1rem;
+      color: #ceb15a;
+    }
+    .description {
+      font-size: 1rem;
+      color: #8b949e;
+    }
+  }
+}
+
+.leftBorder {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    left: 40px;
+    width: 1px;
+    height: 100%;
+    background-color: gray;
+    z-index: -1;
+  }
+}
+.projectList {
+  margin-top: 12px;
+  margin-left: 20px;
+  color: #8b949e;
+  .projectItem {
+    margin-bottom: 4px;
+  }
+  .subDescription {
+    font-size: 0.8rem;
+  }
+}
