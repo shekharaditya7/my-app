@@ -1,0 +1,147 @@
+@import "./../../styles/index.scss";
+
+.wrapper {
+  max-width: 768px;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  box-shadow: rgb(238 228 228 / 35%) 0px 0px 15px;
+  border-radius: 8px;
+  background: black;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.arrow {
+  display: flex;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0px 10px;
+  color: hsl(45, 100%, 72%);
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: 0.1px solid gray;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  &:hover {
+    p {
+      opacity: 0.7;
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  span {
+    position: relative;
+    top: -4px;
+  }
+}
+
+.header {
+  background: black;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .description {
+    p {
+      color: #8b949e;
+    }
+  }
+
+  .profile {
+    margin-right: 32px;
+    height: 120px;
+    width: 96px;
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.3);
+  }
+  .isLast {
+    margin-bottom: 16px;
+  }
+}
+.contact {
+  max-height: 0px;
+}
+
+.animateContact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-top: 0.1px solid gray;
+  align-items: center;
+  color: #8b949e;
+  max-height: 400px;
+  padding: 16px 20px 0 16px;
+  visibility: visible;
+  transition: max-height 0.5s linear;
+}
+
+.email,
+.phone {
+  display: flex;
+  margin-bottom: 16px;
+  align-items: center;
+  flex: 1;
+  img {
+    height: 48px;
+    width: 48px;
+    margin-right: 12px;
+    border-radius: 12px;
+  }
+  .cta {
+    color: white;
+    span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8b949e;
+    }
+  }
+}
+
+.email {
+  margin-right: 20px;
+}
+
+@include if-device(desktop-tablet) {
+  .header {
+    font-size: 1rem;
+    padding: 20px;
+    .profile {
+      margin-bottom: 0;
+      height: 130px;
+      width: 104px;
+    }
+  }
+
+  .profile {
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (min-width: 520px) {
+  .arrow {
+    padding: 12px;
+    font-size: 0.9rem;
+    p {
+      display: inline;
+    }
+    span {
+      display: none;
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .wrapper {
+    margin-bottom: 16px;
+  }
+}

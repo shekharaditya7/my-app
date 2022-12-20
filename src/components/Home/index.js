@@ -1,12 +1,12 @@
-import Intro from "./Intro";
-import Resume from "./Resume";
+import NewIntro from "./NewIntro";
+import NewResume from "./NewResume";
 
 import styles from "./Intro.module.scss";
 export default function Home() {
   return (
     <div className={styles.wrapper}>
-      <Intro />
-      <Resume />
+      <NewIntro />
+      <NewResume />
     </div>
   );
 }
