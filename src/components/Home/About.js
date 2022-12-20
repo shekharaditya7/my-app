@@ -55,8 +55,8 @@ export default function About() {
       </div>
       <div className={styles.subHeader}>What I do</div>
       <div className={styles.whatIdo}>
-        {ACTION_ITEMS.map(({ logoSrc, title, description }) => (
-          <div className={styles.actionItem}>
+        {ACTION_ITEMS.map(({ logoSrc, title, description }, index) => (
+          <div className={styles.actionItem} key={index}>
             <img src={logoSrc} alt={"logo"}></img>
             <div className={styles.meta}>
               <h3>{title}</h3>
@@ -75,6 +75,7 @@ export default function About() {
                 [styles.leftBorder]:
                   index !== ACTION_ITEMS_EDUCATION.length - 1,
               })}
+              key={index}
             >
               <img loading={"lazy"} src={logoSrc} alt={"logo"}></img>
               <div className={styles.meta}>

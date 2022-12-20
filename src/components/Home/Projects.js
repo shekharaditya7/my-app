@@ -33,6 +33,7 @@ export default function Projects() {
           className={cx(styles.actionItem, {
             [styles.leftBorder]: index !== ACTION_ITEMS.length - 1,
           })}
+          key={index}
         >
           <div className={styles.dotWrap}>
             {" "}

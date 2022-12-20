@@ -68,6 +68,7 @@ export default function Experience() {
             className={cx(styles.actionItem, {
               [styles.leftBorder]: index !== ACTION_ITEMS.length - 1,
             })}
+            key={index}
           >
             <img src={logoSrc} alt={"logo"}></img>
             <div className={styles.meta}>
@@ -78,7 +79,7 @@ export default function Experience() {
               {projectList?.length > 0 ? (
                 <ul className={styles.projectList}>
                   {projectList.map(({ subTitle, subDescription }) => (
-                    <li className={styles.projectItem}>
+                    <li className={styles.projectItem} key={subTitle}>
                       <h4 className={styles.subTitle}>
                         {subTitle}
                         {" - "}
