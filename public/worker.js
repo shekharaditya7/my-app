@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = "pwa-v2";
+const CACHE_NAME = "pwa-v3";
 
 const urlsToCache = [
   '/',
@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
 
 // Update a service worker
 self.addEventListener('activate', event => {
-  const cacheWhitelist = ["pwa-v2"]
+  const cacheWhitelist = ["pwa-v3"]
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
