@@ -68,7 +68,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
           navigator.serviceWorker
-            .register("worker.js")
+            .register("%PUBLIC_URL%/worker.js")
             .then(
               function (registration) {
                 console.log(
