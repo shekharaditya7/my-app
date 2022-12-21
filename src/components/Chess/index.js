@@ -168,7 +168,7 @@ export default function Chess() {
       const baseBoard = JSON.parse(JSON.stringify(BOARD));
       setChessboard(baseBoard);
       turn.current = COLORS.WHITE;
-      knockedOutPieces.current = JSON.parse(JSON.stringify(KNOCKED_OUT_BOARD));
+      knockedOutPieces.current = JSON.parse(JSON.stringify({...KNOCKED_OUT_BOARD}));
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     if (lastData)
