@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = "pwa-v3";
+const CACHE_NAME = "pwa-v4";
 
 const urlsToCache = [
   '/',
@@ -8,6 +8,7 @@ const urlsToCache = [
 // Install a service worker
 self.addEventListener('install', event => {
   // Perform install steps
+  self.skipWaiting()
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
@@ -34,7 +35,7 @@ self.addEventListener('fetch', event => {
 
 // Update a service worker
 self.addEventListener('activate', event => {
-  const cacheWhitelist = ["pwa-v3"]
+  const cacheWhitelist = ["pwa-v4"]
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
