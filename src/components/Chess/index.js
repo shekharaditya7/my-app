@@ -21,7 +21,7 @@ const resetActiveState = (currChessBoard) => {
 export default function Chess() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [chessBoard, setChessboard] = useState(BOARD);
+  const [chessBoard, setChessboard] = useState([...BOARD]);
   const pressedPiece = useRef(null);
   const knockedOutPieces = useRef({ ...KNOCKED_OUT_BOARD });
   const turn = useRef(COLORS.WHITE);
@@ -122,11 +122,11 @@ export default function Chess() {
     resetActiveState(currChessBoard);
 
     pressedPiece.current = { piece, pressedRow: row, pressedCol: col };
-    const moves = getMovesByType(piece.type, row, col, chessBoard);
 
     //Display possible Moves
     if (!currChessBoard[row][col].isActive) {
       currChessBoard[row][col].isActive = true;
+      const moves = getMovesByType(piece.type, row, col, chessBoard);
       if (moves.length) {
         moves.forEach((moveArray) => {
           moveArray.forEach(({ row, col }) => {
@@ -168,7 +168,9 @@ export default function Chess() {
       const baseBoard = JSON.parse(JSON.stringify(BOARD));
       setChessboard(baseBoard);
       turn.current = COLORS.WHITE;
-      knockedOutPieces.current = JSON.parse(JSON.stringify({...KNOCKED_OUT_BOARD}));
+      knockedOutPieces.current = JSON.parse(
+        JSON.stringify({ ...KNOCKED_OUT_BOARD })
+      );
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     if (lastData)
