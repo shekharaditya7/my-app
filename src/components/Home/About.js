@@ -27,14 +27,14 @@ const ACTION_ITEMS_EDUCATION = [
     logoSrc: "/images/intro/iit-dhn.png",
     title: "Indian Institute Of Technology (ISM), Dhanbad",
     duration:
-      "Bachelor of Technology, Computer Science and Engineering : 2016 — 2020",
+      "Bachelor of Technology, Computer Science and Engineering : 2016-20",
     description:
-      "Major Subjects : Data Structures, Algorithms, Object Oriented Programming, Operating Systems, Database Management and Systems, Distributed Systems, Discrete Mathematics, Calculus.",
+      "Major Subjects : Data Structures, Algorithms, Object Oriented Programming, Operating Systems, Database Management and Systems, Distributed Systems, Discrete Mathematics.",
   },
   {
     logoSrc: "/images/intro/dav.png",
     title: "DAV Public School, Koylanagar, Dhanbad",
-    duration: "Senior Secondary School (Science) : 2014 - 2016",
+    duration: "Senior Secondary School (Science) : 2014-16",
     description:
       "Subjects : Mathematics, Physics, Chemistry, Physical Education, English, Informatics Practices.",
   },
