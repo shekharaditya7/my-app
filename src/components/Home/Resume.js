@@ -6,7 +6,7 @@ import Skills from "./Skills";
 import useWindowResize from "../../utils/hooks/useWindowResize";
 import { TABS, ABOUT, EXPERIENCE, SKILLS } from "./resume.constants";
 
-import styles from "./NewResume.module.scss";
+import styles from "./Resume.module.scss";
 
 export default function Resume() {
   const [activeTab, setActiveTab] = useState(ABOUT);

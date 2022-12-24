@@ -1,6 +1,6 @@
 import { useState } from "react";
 import cx from "classnames";
-import styles from "./NewIntro.module.scss";
+import styles from "./Intro.module.scss";
 
 export default function Intro() {
   const [showContacts, setShowContacts] = useState(false);
