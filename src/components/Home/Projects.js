@@ -5,13 +5,14 @@ const ACTION_ITEMS = [
   {
     title: "Social Web-application",
     duration: "HTML, CSS, Javascript, Python, Django",
-    description: "Used django for creating a basic Social app.",
+    description:
+      "A social media web-application where you can connect with people, and share posts.",
   },
   {
     title: "Student Session Management",
     duration: "HTML, CSS, Javascript, React.js, Django REST",
     description:
-      "Used Reactjs and django REST to create a web-application for booking and managing slots for students.",
+      "A web-application for managing slots for students. Students can book to a session with tutors as per the availability.",
   },
 ];
 

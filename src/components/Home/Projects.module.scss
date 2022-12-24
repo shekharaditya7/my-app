@@ -7,7 +7,7 @@
 .subHeader {
   font-size: 1.5rem;
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .separator {
   width: 40px;
@@ -23,7 +23,7 @@
 .actionItem {
   display: flex;
   position: relative;
-  padding: 16px 0;
+  padding: 0 0 16px 0;
   z-index: 1;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -80,7 +80,7 @@
   &::before {
     content: "";
     position: absolute;
-    top: 44px;
+    top: 28px;
     left: 18px;
     width: 1px;
     height: 100%;
