@@ -3,12 +3,6 @@ import styles from "./Projects.module.scss";
 
 const ACTION_ITEMS = [
   {
-    title: "Data Visualization Tool (DashDesk)",
-    duration: "HTML, CSS, Javascript, Python, Django",
-    description:
-      "A tool used to create dashboards/reports, which connects to various databases, imports/exports data models (Excel), and provides custom visualizations (graphs, charts, grid)",
-  },
-  {
     title: "Social Web-application",
     duration: "HTML, CSS, Javascript, Python, Django",
     description: "Used django for creating a basic Social app.",

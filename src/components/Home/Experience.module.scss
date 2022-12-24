@@ -35,8 +35,8 @@
   box-shadow: 0 16px 30px hsla(0, 0%, 0%, 0.25);
 
   img {
-    height: 80px;
-    width: 80px;
+    height: 48px;
+    width: 48px;
     margin-right: 16px;
     border-radius: 8px;
     background: gray;
@@ -66,7 +66,7 @@
     content: "";
     position: absolute;
     top: 60px;
-    left: 40px;
+    left: 26px;
     width: 1px;
     height: 100%;
     background-color: gray;
@@ -75,10 +75,14 @@
 }
 .projectList {
   margin-top: 12px;
-  margin-left: 20px;
+  margin-left: 14px;
   color: #8b949e;
   .projectItem {
     margin-bottom: 4px;
+  }
+  .subHeader{
+    font-weight: 600;
+    font-size: 1rem;
   }
   .subDescription {
     font-size: 0.8rem;

@@ -8,8 +8,14 @@ const ACTION_ITEMS = [
     title: "BYJU'S",
     duration: "June 2022 - Present",
     description:
-      "Working as a Full Stack Developer handling the legacy website - built on php, Wordpress; and the new web app built on - Nextjs, GraphQL, Strapi (CMS).",
-    projectList: [],
+      "Working as a Full Stack Developer handling the legacy website - built on php, Wordpress; and the new web app built on - Next.js, React.js, GraphQL, Strapi (CMS).",
+    projectList: [
+      {
+        subTitle: "Page Performance",
+        subDescription:
+          "Worked on improving page speed and performance of Client Side Rendered pages of the Next.js application.",
+      },
+    ],
   },
   {
     position: "Software Engineer",
@@ -48,7 +54,13 @@ const ACTION_ITEMS = [
     duration: "May 2019 - July 2019",
     description:
       "Worked as a summer intern under the Data and Intelligence team to build a future proof data visualization tool for data analytics.",
-    projectList: [],
+    projectList: [
+      {
+        subTitle: "Data Visualization Tool",
+        subDescription:
+          "A tool used to create dashboards/reports, which connects to various databases, imports/exports data models (Excel), and provides custom visualizations (graphs, charts, grid)",
+      },
+    ],
   },
 ];
 
@@ -81,7 +93,7 @@ export default function Experience() {
                   {projectList.map(({ subTitle, subDescription }) => (
                     <li className={styles.projectItem} key={subTitle}>
                       <h4 className={styles.subTitle}>
-                        {subTitle}
+                        <span className={styles.subHeader}>{subTitle}</span>
                         {" - "}
                         <span className={styles.subDescription}>
                           {subDescription}
