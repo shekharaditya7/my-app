@@ -4,16 +4,75 @@
 .header {
   margin-bottom: 32px;
 }
-.subHeader {
+.subHeader,
+.projectHeader {
   font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 8px;
+}
+.projectHeader {
+  margin-bottom: 16px;
 }
 .separator {
   width: 40px;
   height: 5px;
   background: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
   border-radius: 3px;
+}
+
+.skillWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.skillItem {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  padding: 16px;
+  z-index: 1;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: linear-gradient(
+    to bottom right,
+    hsl(0deg, 0%, 25%) 0%,
+    hsla(0deg, 0%, 25%, 0) 50%
+  );
+  box-shadow: 0 16px 30px hsl(0deg 0% 0% / 25%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: linear-gradient(
+        to bottom right,
+        hsla(240deg, 1%, 18%, 0.251) 0%,
+        hsla(240deg, 2%, 11%, 0) 100%
+      ),
+      hsl(240deg, 2%, 13%);
+    border-radius: inherit;
+    z-index: -1;
+  }
+}
+
+.skillImg {
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: hsla(0, 0%, 50.2%, 0.2);
+}
+.techTitle {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.skillDescription {
+  color: #8b949e;
 }
 
 .section {
@@ -62,7 +121,7 @@
       margin-bottom: 8px;
     }
     .duration {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #ceb15a;
       span {
         color: white;

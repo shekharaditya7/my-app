@@ -13,7 +13,7 @@ const ACTION_ITEMS = [
       {
         subTitle: "Page Performance",
         subDescription:
-          "Worked on improving page speed and performance of Client Side Rendered pages of the Next.js application.",
+          "Worked on improving page speed and performance of the Next.js application.",
       },
     ],
   },
@@ -39,6 +39,10 @@ const ACTION_ITEMS = [
         subTitle: "Page Performance/Speed",
         subDescription:
           "Worked on improving page speed and performance of question pages (server side rendered) on Toppr Ask. Improved SEO ranking.",
+        link: {
+          url: "https://blog.toppr.com/how-toppr-answr-website-speed-propelled-by-8x-c4b324d0976c",
+          label: "Blog Link",
+        },
       },
       {
         subTitle: "Live-Tests",
@@ -58,7 +62,7 @@ const ACTION_ITEMS = [
       {
         subTitle: "Data Visualization Tool",
         subDescription:
-          "A tool used to create dashboards/reports, which connects to various databases, imports/exports data models (Excel), and provides custom visualizations (graphs, charts, grid)",
+          "A tool used to create dashboards/reports, which connects to various databases, imports/exports data models (Excel), and provides custom visualizations (graphs, charts)",
       },
     ],
   },
@@ -90,13 +94,22 @@ export default function Experience() {
               <p className={styles.description}>{description}</p>
               {projectList?.length > 0 ? (
                 <ul className={styles.projectList}>
-                  {projectList.map(({ subTitle, subDescription }) => (
+                  {projectList.map(({ subTitle, subDescription, link }) => (
                     <li className={styles.projectItem} key={subTitle}>
                       <h4 className={styles.subTitle}>
                         <span className={styles.subHeader}>{subTitle}</span>
                         {" - "}
                         <span className={styles.subDescription}>
-                          {subDescription}
+                          {subDescription}{" "}
+                          {link?.url ? (
+                            <a
+                              href={link.url}
+                              rel="noreferrer"
+                              target={"_blank"}
+                            >
+                              {link.label ?? "Resource Link"}
+                            </a>
+                          ) : null}
                         </span>
                       </h4>
                     </li>
