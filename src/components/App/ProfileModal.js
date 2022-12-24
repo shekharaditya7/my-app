@@ -6,12 +6,12 @@ const instructions = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/adi-shekhar/",
-    logoSrc: "/images/social/LinkedIn.png",
+    logoSrc: "/images/social/LinkedIn.webp",
   },
   {
     name: "GitHub",
     href: "https://github.com/shekharaditya7",
-    logoSrc: "/images/social/Github.png",
+    logoSrc: "/images/social/Github.webp",
   },
   {
     name: "Twitter",
@@ -21,12 +21,12 @@ const instructions = [
   {
     name: "Instagram",
     href: "https://www.instagram.com/adishekhar7/",
-    logoSrc: "/images/social/Instagram.png",
+    logoSrc: "/images/social/Instagram.webp",
   },
   {
     name: "Facebook",
     href: "https://www.facebook.com/aditya.shekhar.900/",
-    logoSrc: "/images/social/Facebook.png",
+    logoSrc: "/images/social/Facebook.webp",
   },
   {
     name: "YouTube",

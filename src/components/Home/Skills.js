@@ -4,7 +4,7 @@ import styles from "./Skills.module.scss";
 const SKILL_ITEMS = [
   {
     title: "I'm Good At",
-    logoSrc: "/images/intro/web-dev.png",
+    logoSrc: "/images/intro/web-dev.webp",
     techList: [
       "JavaScript",
       "C++",
@@ -18,7 +18,7 @@ const SKILL_ITEMS = [
   },
   {
     title: "I've Worked On",
-    logoSrc: "/images/intro/web-dev.png",
+    logoSrc: "/images/intro/web-dev.webp",
     techList: [
       "Python",
       "PHP",

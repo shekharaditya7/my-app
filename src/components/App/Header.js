@@ -21,7 +21,7 @@ export default function Header({ onInfoIconClick }) {
         <span onClick={onInfoIconClick}>
           {getActivePathTitle()}
           <img
-            src="/images/InfoIcon-white.jpeg"
+            src="/images/InfoIcon-white.webp"
             alt="info"
             className={styles.info}
           ></img>
@@ -29,14 +29,14 @@ export default function Header({ onInfoIconClick }) {
         <div className={styles.label} onClick={onInfoIconClick}>
           {getActivePathTitle()}
           <img
-            src="/images/InfoIcon-white.jpeg"
+            src="/images/InfoIcon-white.webp"
             alt="info"
             className={styles.info}
           ></img>
         </div>
         <img
           className={styles.profileIcon}
-          src="/icon192.jpeg"
+          src="/images/intro/header.webp"
           alt="profile"
           onClick={() => setShowProfileModal(true)}
         ></img>

@@ -4,7 +4,7 @@ import styles from "./Experience.module.scss";
 const ACTION_ITEMS = [
   {
     position: "Senior Software Engineer",
-    logoSrc: "/images/intro/byjus.png",
+    logoSrc: "/images/intro/byjus.webp",
     title: "BYJU'S",
     duration: "June 2022 - Present",
     description:
@@ -19,7 +19,7 @@ const ACTION_ITEMS = [
   },
   {
     position: "Software Engineer",
-    logoSrc: "/images/intro/toppr.png",
+    logoSrc: "/images/intro/toppr.webp",
     title: "Toppr",
     duration: "July 2020 - June 2022",
     description:
@@ -53,7 +53,7 @@ const ACTION_ITEMS = [
   },
   {
     position: "Software Development Intern",
-    logoSrc: "/images/intro/amdocs.jpeg",
+    logoSrc: "/images/intro/amdocs.webp",
     title: "Amdocs",
     duration: "May 2019 - July 2019",
     description:

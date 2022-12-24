@@ -57,7 +57,7 @@ export default function UserDeeplink() {
               {window.location.origin}/deeplink/{videoId}
             </span>
             <img
-              src={"/images/CopyIcon.jpeg"}
+              src={"/images/CopyIcon.webp"}
               alt={"copy"}
               onClick={handleCopyClick}
             ></img>

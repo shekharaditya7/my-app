@@ -46,7 +46,7 @@ export default function Sidebar() {
             className={styles.crossIcon}
             onClick={handleSideBarClose}
             alt={"cross"}
-            src={"/images/sidebar/CrossIcon.png"}
+            src={"/images/sidebar/CrossIcon.webp"}
           ></img>
           {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
             <Link
@@ -66,7 +66,7 @@ export default function Sidebar() {
         <div className={styles.menuIconWrapper}>
           <img
             className={styles.menuIcon}
-            src="/images/MenuIcon.png"
+            src="/images/MenuIcon.webp"
             alt="menu"
             onClick={(event) => {
               event.stopPropagation();

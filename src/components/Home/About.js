@@ -3,19 +3,19 @@ import styles from "./About.module.scss";
 
 const ACTION_ITEMS = [
   {
-    logoSrc: "/images/intro/web-dev.png",
+    logoSrc: "/images/intro/web-dev.webp",
     title: "Web Development",
     description:
       "Interested in web engineering, SEO - working heavily on server side rendered pages, and their performance & optimizations.",
   },
   {
-    logoSrc: "/images/intro/open-source.png",
+    logoSrc: "/images/intro/open-source.webp",
     title: "Open Source Projects",
     description:
       "An active open-source contributor, contributing to projects around Javascript tools and libraries.",
   },
   {
-    logoSrc: "/icon192.jpeg",
+    logoSrc: "/images/intro/header.webp",
     title: "Others",
     description:
       "I'm a singer, and I also play the guitar, the ukelele and the piano. I like trekking, travelling and cooking. Leisurely, I play badminton.",
@@ -24,7 +24,7 @@ const ACTION_ITEMS = [
 
 const ACTION_ITEMS_EDUCATION = [
   {
-    logoSrc: "/images/intro/iit-dhn.png",
+    logoSrc: "/images/intro/iit-dhn.webp",
     title: "Indian Institute Of Technology (ISM), Dhanbad",
     duration:
       "Bachelor of Technology, Computer Science and Engineering : 2016-20",
@@ -32,7 +32,7 @@ const ACTION_ITEMS_EDUCATION = [
       "Major Subjects : Data Structures, Algorithms, Object Oriented Programming, Operating Systems, Database Management and Systems, Distributed Systems, Discrete Mathematics.",
   },
   {
-    logoSrc: "/images/intro/dav.png",
+    logoSrc: "/images/intro/dav.webp",
     title: "DAV Public School, Koylanagar, Dhanbad",
     duration: "Senior Secondary School (Science) : 2014-16",
     description:

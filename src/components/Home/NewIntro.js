@@ -8,7 +8,7 @@ export default function Intro() {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <img
-          src="/images/intro/profile.PNG"
+          src="/images/intro/profile.webp"
           alt="profile"
           height={120}
           width={96}
@@ -32,7 +32,7 @@ export default function Intro() {
         })}
       >
         <div className={styles.email}>
-          <img src={"/images/intro/mail.png"} alt="email"></img>
+          <img src={"/images/intro/mail.webp"} alt="email"></img>
           <span className={styles.cta}>
             <span>EMAIL</span> <br />
             <a href="mailto:shekharaditya7@gmail.com">
@@ -41,7 +41,7 @@ export default function Intro() {
           </span>
         </div>
         <div className={styles.phone}>
-          <img src={"/images/intro/phone.png"} alt="phone"></img>
+          <img src={"/images/intro/phone.webp"} alt="phone"></img>
           <span className={styles.cta}>
             <span>PHONE</span> <br /> 7979972041
           </span>

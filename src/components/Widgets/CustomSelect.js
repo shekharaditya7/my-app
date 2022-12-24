@@ -39,7 +39,7 @@ export default function CustomSelect({ options, placeholder = "", onChange }) {
                   {option.label}
                   {isActive ? (
                     <img
-                      src={"/images/Tick.jpeg"}
+                      src={"/images/Tick.webp"}
                       alt={"tick"}
                       className={styles.tick}
                     />

@@ -59,7 +59,7 @@ function Modal({
           className={cx(styles.closeButton, crossButtonClassName)}
           onClick={handleCloseClick}
         >
-          <img alt="cross" src={"/images/sidebar/CrossIcon.png"}></img>
+          <img alt="cross" src={"/images/sidebar/CrossIcon.webp"}></img>
         </div>
       )}
       {children}
