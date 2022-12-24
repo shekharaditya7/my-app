@@ -35,6 +35,8 @@ function App() {
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
           <Route path={pages.ANIMATIONS} element={<Animations />} />
           <Route path={pages.CHESS} element={<Chess />} />
+          {/* Fallback for LinkedIn post */}
+          <Route path={'/deeplink/'} element={<YTDeepLink />}></Route> 
         </Routes>
       </Layout>
     </BrowserRouter>
