@@ -24,12 +24,12 @@ const NAV_ITEMS = [
     logoSrc: "/images/sidebar/YoutubeIcon.webp",
     alt: "deeplink",
   },
-  {
-    label: "Media",
-    url: pages.MEDIA,
-    logoSrc: "/images/sidebar/ImageIcon.webp",
-    alt: "media",
-  },
+  // {
+  //   label: "Media",
+  //   url: pages.MEDIA,
+  //   logoSrc: "/images/sidebar/ImageIcon.webp",
+  //   alt: "media",
+  // },
   {
     label: "Animations",
     url: pages.ANIMATIONS,

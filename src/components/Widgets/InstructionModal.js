@@ -17,9 +17,9 @@ export default function InstructionModal({
       <div className={styles.title}> {title ?? "WIP"} </div>
       <ul>
         {instructions.map((step, index) => (
-          <div key={index} className={styles.step}>
+          <li key={index} className={styles.step}>
             {step}
-          </div>
+          </li>
         ))}
       </ul>
     </Modal>

@@ -18,6 +18,7 @@
 .step {
   font-size: 14px;
   margin-bottom: 12px;
+  display: block;
 }
 
 @include if-device(desktop-tablet) {
