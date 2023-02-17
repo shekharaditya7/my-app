@@ -6,6 +6,7 @@ const MEDIA = "/media/";
 const USER_DEEPLINK = "/user-deeplink/";
 const ANIMATIONS = "/animations/";
 const CHESS = "/chess/";
+const CHAT = "/chat/";
 
 const pages = {
   HOME,
@@ -16,6 +17,7 @@ const pages = {
   USER_DEEPLINK,
   ANIMATIONS,
   CHESS,
+  CHAT,
 };
 
 export default pages;

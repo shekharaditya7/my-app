@@ -42,6 +42,12 @@ const NAV_ITEMS = [
     logoSrc: "/images/sidebar/ChessIcon.webp",
     alt: "chess",
   },
+  {
+    label: "Chat",
+    url: pages.CHAT,
+    logoSrc: "/images/sidebar/AnimateIcon.webp",
+    alt: "chat",
+  },
 ];
 
 export default NAV_ITEMS;

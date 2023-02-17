@@ -12,6 +12,7 @@ import NestedNav from "./components/NestedNav";
 import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
 import Animations from "./components/Animations";
 import Chess from "./components/Chess";
+import Chat from "./components/Chat";
 
 // const Home = React.lazy(()=> import("./components/Home"));
 // const Drawer = React.lazy(()=> import("./components/Drawer"));
@@ -35,8 +36,9 @@ function App() {
           <Route path={pages.NESTED_NAV} element={<NestedNav />} />
           <Route path={pages.ANIMATIONS} element={<Animations />} />
           <Route path={pages.CHESS} element={<Chess />} />
+          <Route path={pages.CHAT} element={<Chat />} />
           {/* Fallback for LinkedIn post */}
-          <Route path={'/deeplink/'} element={<YTDeepLink />}></Route> 
+          <Route path={"/deeplink/"} element={<YTDeepLink />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
