@@ -45,7 +45,7 @@ const NAV_ITEMS = [
   {
     label: "Chat",
     url: pages.CHAT,
-    logoSrc: "/images/sidebar/AnimateIcon.webp",
+    logoSrc: "/images/sidebar/ImageIcon.webp",
     alt: "chat",
   },
 ];
