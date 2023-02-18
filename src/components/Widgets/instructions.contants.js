@@ -50,6 +50,13 @@ const INSTRUCTIONS = {
       "The classic chess implementation! Play with a friend of yours.",
     ],
   },
+  [pages.CHAT]: {
+    title: "Chat",
+    instructions: [
+      "Basic Text Messaging Application",
+      "Click on Generate Link and share that link with your friends to chat!",
+    ],
+  },
 };
 
 export default INSTRUCTIONS;
