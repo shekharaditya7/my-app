@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
+import cx from "classnames";
 
 import ChatInput from "./ChatInput";
 import Instructions from "../Widgets/InstructionModal";
@@ -26,9 +27,9 @@ export default function Chat() {
         const module = await import("socket.io-client");
         const io = module.default;
         socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
-        socket.current.on("messageFromServer", (msg = []) => {
+        socket.current.on("messageFromServer", (msg = {}) => {
           setMessages((prevMessages) => {
-            return [...prevMessages, msg];
+            return [...prevMessages, JSON.parse(msg)];
           });
         });
       };
@@ -36,8 +37,20 @@ export default function Chat() {
     }
   }, [roomId]);
 
-  const sendMessage = (message) => {
-    if (message) socket.current.emit("messageFromClient", message);
+  const sendMessage = async (message) => {
+    if (message) {
+      await socket.current.emit("messageFromClient", message);
+      setMessages((prevMessages) => {
+        return [
+          ...prevMessages,
+          {
+            text: message,
+            socketId: socket.current.id,
+            type: "user",
+          },
+        ];
+      });
+    }
   };
 
   const createRoom = async () => {
@@ -45,7 +58,11 @@ export default function Chat() {
     const io = module.default;
     const roomId = v4();
     socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
-
+    socket.current.on("messageFromServer", (msg = {}) => {
+      setMessages((prevMessages) => {
+        return [...prevMessages, JSON.parse(msg)];
+      });
+    });
     navigate({
       search: `?r=${roomId}`,
     });
@@ -59,8 +76,16 @@ export default function Chat() {
       {roomId ? (
         <>
           <div className={styles.messageList}>
-            {messages.map((msg) => (
-              <li>{msg}</li>
+            {messages.map(({ socketId, text, type } = {}, index) => (
+              <div
+                key={index}
+                className={cx(styles.message, {
+                  [styles.sentByOther]: socketId !== socket?.current.id,
+                  [styles.sentByServer]: type === "server",
+                })}
+              >
+                {text}
+              </div>
             ))}
           </div>
           <ChatInput

@@ -4,10 +4,13 @@
   justify-content: center;
   position: relative;
   height: 100%;
+  max-width: 768px;
+  margin: 0 auto;
 }
 .generateLink {
   height: fit-content;
   margin: auto auto;
+  padding: 12px;
 }
 .messageList {
   height: calc(100% - 54px);
@@ -15,6 +18,32 @@
   overflow: auto;
   border: 0.1px solid rgba(128, 128, 128, 0.3);
   border-radius: 4px;
+}
+
+.message {
+  font-family: sans-serif;
+  border-radius: 4px;
+  background-color: dodgerblue;
+  padding: 6px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  width: fit-content;
+  max-width: 70%;
+  font-size: 12px;
+  margin-right: 4px;
+  margin-left: auto;
+}
+.sentByOther {
+  background-color: green;
+  margin-right: auto;
+  margin-left: 4px;
+}
+
+.sentByServer {
+  background-color: gray;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 10px;
 }
 
 .chatInput {
@@ -26,5 +55,11 @@
 @include if-device(desktop-tablet) {
   .alert {
     max-width: 260px;
+  }
+  .message {
+    font-size: 14px;
+  }
+  .sentByServer {
+    font-size: 12px;
   }
 }
