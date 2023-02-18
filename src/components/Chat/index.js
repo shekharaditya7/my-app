@@ -9,7 +9,9 @@ import Instructions from "../Widgets/InstructionModal";
 import styles from "./index.module.scss";
 
 const SOCKET_SERVER =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:8080/";
+  process.env.NODE_ENV === "production"
+    ? "https://websocket-ko96.onrender.com"
+    : "http://localhost:8080/";
 
 export default function Chat() {
   const navigate = useNavigate();
