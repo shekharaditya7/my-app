@@ -1,8 +1,13 @@
+@import "./../../styles/index.scss";
 .wrapper {
   display: flex;
   justify-content: center;
   position: relative;
   height: 100%;
+}
+.generateLink {
+  height: fit-content;
+  margin: auto auto;
 }
 .messageList {
   height: calc(100% - 54px);
@@ -16,4 +21,10 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+@include if-device(desktop-tablet) {
+  .alert {
+    max-width: 260px;
+  }
 }

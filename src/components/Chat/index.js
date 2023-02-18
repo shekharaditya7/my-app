@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./index.module.scss";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
 
 import ChatInput from "./ChatInput";
+import Instructions from "../Widgets/InstructionModal";
+
+import styles from "./index.module.scss";
 
 const SOCKET_SERVER =
   process.env.NODE_ENV === "production" ? "" : "http://localhost:8080/";
@@ -15,6 +17,8 @@ export default function Chat() {
 
   const socket = useRef(null);
   const [messages, setMessages] = useState([]);
+
+  const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
     if (roomId && !socket.current) {
@@ -47,7 +51,7 @@ export default function Chat() {
     });
     navigator.clipboard
       .writeText(`${window.location.origin}/chat/?r=${roomId}`)
-      .then(() => alert("Copied to clipboard"));
+      .then(() => setShowInstructions(true));
   };
 
   return (
@@ -65,8 +69,20 @@ export default function Chat() {
           />
         </>
       ) : (
-        <button onClick={createRoom}> Generate Chat Link </button>
+        <button className={styles.generateLink} onClick={createRoom}>
+          Generate Chat Link
+        </button>
       )}
+      {showInstructions ? (
+        <Instructions
+          title={"All set!"}
+          instructions={[
+            "Link copied to clipboard. Share it with your friends to invite them to Chat",
+          ]}
+          className={styles.alert}
+          onClose={() => setShowInstructions(false)}
+        />
+      ) : null}
     </div>
   );
 }
