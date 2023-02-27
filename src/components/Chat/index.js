@@ -17,6 +17,7 @@ export default function Chat() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("r") || "";
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   const socket = useRef(null);
   const [messages, setMessages] = useState([]);
@@ -24,7 +25,18 @@ export default function Chat() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
-    if (roomId && !socket.current) {
+    if (!roomId && !user?.email) {
+      sessionStorage.setItem("redirectUrl", "/chat/");
+      navigate({
+        pathname: "/auth/login/",
+      });
+    }
+    if (roomId && !user?.email) {
+      sessionStorage.setItem("redirectUrl", `/chat/?r=${roomId}`);
+      navigate({
+        pathname: "/auth/login/",
+      });
+    } else if (roomId && !socket.current && user?.email) {
       const handleJoinRoom = async () => {
         const module = await import("socket.io-client");
         const io = module.default;
@@ -37,7 +49,7 @@ export default function Chat() {
       };
       handleJoinRoom();
     }
-  }, [roomId]);
+  }, [roomId, user?.email, navigate]);
 
   const sendMessage = async (message) => {
     if (message) {
