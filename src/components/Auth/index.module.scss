@@ -1,8 +1,18 @@
 .wrapper {
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 60%;
   max-width: 540px;
   margin: 0 auto;
+}
+
+.error {
+  font-size: 12px;
+  position: absolute;
+  top: 40px;
+  color: red;
+  font-family: sans-serif;
 }

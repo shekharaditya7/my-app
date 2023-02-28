@@ -6,7 +6,7 @@ import styles from "./Login.module.scss";
 export default function Login({ handleLoginClick }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const handleLoginButtonClick = () => {
     const errors = validateFormData({ email, password });
@@ -15,16 +15,68 @@ export default function Login({ handleLoginClick }) {
     } else setErrors({ ...errors });
   };
 
+  const handleResetError = (fieldName) => {
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors, [fieldName]: "" };
+      return newErrors;
+    });
+  };
+
+  const handleOnChange = (fieldName, value) => {
+    switch (fieldName) {
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+
+    const errors = validateFormData({ [fieldName]: value });
+    setErrors((prevErrors) => {
+      return {
+        ...prevErrors,
+        [fieldName]: errors[fieldName],
+      };
+    });
+  };
+
+  const handleBlur = (fieldName) => {
+    let value;
+    switch (fieldName) {
+      case "email":
+        value = email;
+        break;
+      case "password":
+        value = password;
+        break;
+      default:
+        break;
+    }
+
+    const errors = validateFormData({ [fieldName]: value });
+    setErrors((prevErrors) => {
+      return {
+        ...prevErrors,
+        [fieldName]: errors[fieldName],
+      };
+    });
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={styles.fieldWrapper}>
           <input
             type="email"
-            onChange={(event) => setEmail(event.target.value)}
             value={email}
             className={styles.urlInput}
-            placeholder="Email"
+            placeholder="Email*"
+            onChange={(event) => handleOnChange("email", event.target.value)}
+            onFocus={() => handleResetError("email")}
+            onBlur={() => handleBlur("email")}
           ></input>
           {errors?.email ? (
             <p className={styles.error}>{errors.email}</p>
@@ -33,10 +85,12 @@ export default function Login({ handleLoginClick }) {
         <div className={styles.fieldWrapper}>
           <input
             type="password"
-            onChange={(event) => setPassword(event.target.value)}
             value={password}
             className={styles.urlInput}
-            placeholder="Password"
+            placeholder="Password*"
+            onChange={(event) => handleOnChange("password", event.target.value)}
+            onFocus={() => handleResetError("password")}
+            onBlur={() => handleBlur("password")}
           ></input>
           {errors?.password ? (
             <p className={styles.error}>{errors.password}</p>
