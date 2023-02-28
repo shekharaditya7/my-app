@@ -15,22 +15,12 @@ import Animations from "./components/Animations";
 import Chess from "./components/Chess";
 import Chat from "./components/Chat";
 import Auth from "./components/Auth";
-// import useFetch from "./utils/useFetch";
-
-// const Home = React.lazy(()=> import("./components/Home"));
-// const Drawer = React.lazy(()=> import("./components/Drawer"));
-// const YTDeepLink = React.lazy(()=> import("./components/YTDeeplink"));
-// const Media = React.lazy(()=> import("./components/Media"));
-// const NestedNav = React.lazy(()=> import("./components/NestedNav"));
-// const UserDeeplink = React.lazy(()=> import("./components/YTDeeplink/UserDeeplink"));
-// const Animations = React.lazy(()=> import("./components/Animations"));
-// const Chess = React.lazy(()=> import("./components/Chess"));
 
 function App() {
-  const [, setUser] = useState(null);
+  const [authData, setAuthData] = useState({});
 
   /*
-  We will use login Status API once the set-cookie option is resolved
+  We will use login Status API once the set-cookie issue is resolved
   */
   // const { data, error, loading } = useFetch(
   //   "http://localhost:5000/api/auth/login-status"
@@ -38,6 +28,7 @@ function App() {
 
   const handleLoginClick = async ({ email, password }) => {
     if (!email || !password) return;
+    setAuthData({});
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -47,13 +38,20 @@ function App() {
     });
     const data = await res.json();
 
-    if (data && data.user) {
-      setUser(data?.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
-    }
+    if (data) {
+      setAuthData(data);
+      setTimeout(() => {
+        setAuthData((prevData) => {
+          return { ...prevData, message: "" };
+        });
+      }, 2000);
+      if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
+    } else setAuthData({});
   };
 
   const handleSignupClick = async ({ name, email, password }) => {
+    if (!email || !name || !password) return;
+    setAuthData({});
     const res = await fetch("http://localhost:5000/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ email, password, name }),
@@ -63,10 +61,15 @@ function App() {
     });
     const data = await res.json();
 
-    if (data && data.user) {
-      setUser(data?.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
-    }
+    if (data) {
+      setAuthData(data);
+      setTimeout(() => {
+        setAuthData((prevData) => {
+          return { ...prevData, message: "" };
+        });
+      }, 2000);
+      if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
+    } else setAuthData({});
   };
 
   return (
@@ -88,6 +91,7 @@ function App() {
               <Auth
                 handleLoginClick={handleLoginClick}
                 handleSignupClick={handleSignupClick}
+                authApiError={authData?.message}
               />
             }
           />

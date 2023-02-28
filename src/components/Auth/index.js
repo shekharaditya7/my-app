@@ -6,7 +6,11 @@ import Signup from "./Signup";
 import { STEPS } from "./auth.constants";
 import styles from "./index.module.scss";
 
-export default function Auth({ handleLoginClick, handleSignupClick }) {
+export default function Auth({
+  handleLoginClick,
+  handleSignupClick,
+  authApiError,
+}) {
   const { step } = useParams();
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("user") || "{}");
@@ -24,6 +28,7 @@ export default function Auth({ handleLoginClick, handleSignupClick }) {
 
   return (
     <div className={styles.wrapper}>
+      {authApiError ? <p className={styles.error}>{authApiError}</p> : null}
       {step === STEPS.SIGNUP ? (
         <Signup handleSignupClick={handleSignupClick} />
       ) : step === STEPS.LOGIN ? (
