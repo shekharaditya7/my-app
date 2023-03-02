@@ -9,7 +9,7 @@ import { STEPS } from "./auth.constants";
 
 import styles from "./index.module.scss";
 
-export default function Auth({ authApiError }) {
+export default function Auth() {
   const [authData, setAuthData] = useState({});
   const { step } = useParams();
   const navigate = useNavigate();
@@ -28,17 +28,19 @@ export default function Auth({ authApiError }) {
 
   const handleLoginClick = async ({ email, password }) => {
     if (!email || !password) return;
+
+    setAuthData({ isLoading: true });
     const data = await loginApi({ email, password });
 
     if (data) {
-      setAuthData(data);
-      setTimeout(() => {
-        setAuthData((prevData) => {
-          return { ...prevData, message: "" };
-        });
-      }, 2000);
+      setAuthData({ ...data, isLoading: false });
       if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
-    } else setAuthData({});
+    } else setAuthData({ isLoading: false, message: "Something went wrong" });
+    setTimeout(() => {
+      setAuthData((prevData) => {
+        return { ...prevData, message: "" };
+      });
+    }, 2000);
   };
 
   const handleSignupClick = async ({ name, email, password }) => {
@@ -51,20 +53,26 @@ export default function Auth({ authApiError }) {
         setAuthData((prevData) => {
           return { ...prevData, message: "" };
         });
-      }, 2000);
+      }, 3000);
       if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
     } else setAuthData({});
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.authWrapper}>
       {authData?.message ? (
-        <p className={styles.error}>{authApiError}</p>
+        <p className={styles.apiError}>{authData.message}</p>
       ) : null}
       {step === STEPS.SIGNUP ? (
-        <Signup handleSignupClick={handleSignupClick} />
+        <Signup
+          handleSignupClick={handleSignupClick}
+          isLoading={authData?.isLoading}
+        />
       ) : step === STEPS.LOGIN ? (
-        <Login handleLoginClick={handleLoginClick}></Login>
+        <Login
+          handleLoginClick={handleLoginClick}
+          isLoading={authData?.isLoading}
+        />
       ) : null}
     </div>
   );

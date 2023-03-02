@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../Widgets/Button";
 import validateFormData from "./../../utils/validateFormData";
-import styles from "./Login.module.scss";
+import styles from "./index.module.scss";
 
-export default function Login({ handleLoginClick }) {
+export default function Login({ handleLoginClick, isLoading }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -98,9 +99,11 @@ export default function Login({ handleLoginClick }) {
         </div>
 
         <div className={styles.footer}>
-          <button onClick={() => handleLoginButtonClick({ email, password })}>
-            Login
-          </button>
+          <Button
+            onClick={() => handleLoginButtonClick({ email, password })}
+            label="Login"
+            isLoading={isLoading}
+          />
           <Link to="/auth/signup/"> Sign up</Link>
         </div>
       </div>

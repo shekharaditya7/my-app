@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
+import Button from "../Widgets/Button";
 import cx from "classnames";
 
 import ChatInput from "./ChatInput";
@@ -108,9 +109,11 @@ export default function Chat() {
           />
         </>
       ) : (
-        <button className={styles.generateLink} onClick={createRoom}>
-          Generate Chat Link
-        </button>
+        <Button
+          className={styles.generateLink}
+          onClick={createRoom}
+          label={"Generate Chat Link"}
+        />
       )}
       {showInstructions ? (
         <Instructions

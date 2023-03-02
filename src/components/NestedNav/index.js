@@ -4,6 +4,7 @@ import validateNavObject from "./validateNavObject";
 import styles from "./index.module.scss";
 
 import { defaultNavObject } from "./nestedNav.constants";
+import Button from "../Widgets/Button";
 
 export default function NestedNav() {
   const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 2));
@@ -25,7 +26,7 @@ export default function NestedNav() {
           onChange={handleTextChange}
           className={styles.textArea}
         ></textarea>
-        <button onClick={handleTextSubmit}>Submit</button>
+        <Button onClick={handleTextSubmit} label={"Submit"} />
       </div>
       <div className={styles.verticalLine}></div>
       <div className={styles.rhs}>

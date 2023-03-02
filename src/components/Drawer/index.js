@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useWindowResize from "../../utils/hooks/useWindowResize";
+import Button from "../Widgets/Button";
 import styles from "./index.module.scss";
 
 function degToRad(degrees) {
@@ -110,7 +111,7 @@ function Drawer() {
             onInput={(event) => setSize(event.target.value)}
           ></input>
         </div>
-        <button onClick={handleClear}>Clear canvas</button>
+        <Button onClick={handleClear} label={"Clear canvas"} />
       </div>
     </div>
   );
