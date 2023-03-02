@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 // import Cookies from "js-cookie";
 import Layout from "./components/App/Layout";
@@ -17,60 +17,12 @@ import Chat from "./components/Chat";
 import Auth from "./components/Auth";
 
 function App() {
-  const [authData, setAuthData] = useState({});
-
   /*
   We will use login Status API once the set-cookie issue is resolved
   */
   // const { data, error, loading } = useFetch(
   //   "http://localhost:5000/api/auth/login-status"
   // );
-
-  const handleLoginClick = async ({ email, password }) => {
-    if (!email || !password) return;
-    setAuthData({});
-    const res = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    if (data) {
-      setAuthData(data);
-      setTimeout(() => {
-        setAuthData((prevData) => {
-          return { ...prevData, message: "" };
-        });
-      }, 2000);
-      if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
-    } else setAuthData({});
-  };
-
-  const handleSignupClick = async ({ name, email, password }) => {
-    if (!email || !name || !password) return;
-    setAuthData({});
-    const res = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password, name }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    if (data) {
-      setAuthData(data);
-      setTimeout(() => {
-        setAuthData((prevData) => {
-          return { ...prevData, message: "" };
-        });
-      }, 2000);
-      if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
-    } else setAuthData({});
-  };
 
   return (
     <BrowserRouter>
@@ -85,16 +37,7 @@ function App() {
           <Route path={pages.ANIMATIONS} element={<Animations />} />
           <Route path={pages.CHESS} element={<Chess />} />
           <Route path={pages.CHAT} element={<Chat />} />
-          <Route
-            path={pages.AUTH}
-            element={
-              <Auth
-                handleLoginClick={handleLoginClick}
-                handleSignupClick={handleSignupClick}
-                authApiError={authData?.message}
-              />
-            }
-          />
+          <Route path={pages.AUTH} element={<Auth />} />
           {/* Fallback for LinkedIn post */}
           <Route path={"/deeplink/"} element={<YTDeepLink />}></Route>
           <Route path={"*"} element={<Navigate to="/" />}></Route>
