@@ -7,6 +7,7 @@ import { defaultNavObject } from "./nestedNav.constants";
 import Button from "../Widgets/Button";
 
 export default function NestedNav() {
+  const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 2));
   const [navObject, setNavObject] = useState(defaultNavObject);
   const handleTextChange = (event) => {
@@ -14,7 +15,11 @@ export default function NestedNav() {
   };
 
   const handleTextSubmit = () => {
+    setIsLoading(true);
     setNavObject(validateNavObject(text));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -26,7 +31,11 @@ export default function NestedNav() {
           onChange={handleTextChange}
           className={styles.textArea}
         ></textarea>
-        <Button onClick={handleTextSubmit} label={"Submit"} />
+        <Button
+          onClick={handleTextSubmit}
+          label={"Submit"}
+          isLoading={isLoading}
+        />
       </div>
       <div className={styles.verticalLine}></div>
       <div className={styles.rhs}>
