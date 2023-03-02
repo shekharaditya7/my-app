@@ -27,24 +27,26 @@ export default function Chat() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
-    if (!roomId && !user?.email) {
+    if (!roomId && !user?.name) {
       sessionStorage.setItem("redirectUrl", "/chat/");
       navigate({
         pathname: "/auth/login/",
       });
     }
-    if (roomId && !user?.email) {
+    if (roomId && !user?.name) {
       sessionStorage.setItem("redirectUrl", `/chat/?r=${roomId}`);
       navigate({
         pathname: "/auth/login/",
       });
-    } else if (roomId && !socket.current && user?.email) {
+    } else if (roomId && !socket.current && user?.name) {
       const handleJoinRoom = async () => {
         setIsConnecting(true);
         try {
           const module = await import("socket.io-client");
           const io = module.default;
-          socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
+          socket.current = io(SOCKET_SERVER, {
+            query: { roomId: roomId, name: user.name },
+          });
           socket.current.on("messageFromServer", (msg = {}) => {
             setMessages((prevMessages) => {
               return [...prevMessages, JSON.parse(msg)];
@@ -59,13 +61,14 @@ export default function Chat() {
       };
       handleJoinRoom();
     }
-  }, [roomId, user?.email, navigate]);
-
-  console.log(socket.current);
+  }, [roomId, user?.name, navigate]);
 
   const sendMessage = async (message) => {
-    if (message) {
-      await socket.current.emit("messageFromClient", message);
+    if (message && user?.name) {
+      await socket.current.emit("messageFromClient", {
+        text: message,
+        name: user.name,
+      });
       setMessages((prevMessages) => {
         return [
           ...prevMessages,
@@ -73,6 +76,7 @@ export default function Chat() {
             text: message,
             socketId: socket.current.id,
             type: "user",
+            name: user.name,
           },
         ];
       });
@@ -87,6 +91,7 @@ export default function Chat() {
       const roomId = v4();
       socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
       socket.current.on("messageFromServer", (msg = {}) => {
+        console.log(msg);
         setMessages((prevMessages) => {
           return [...prevMessages, JSON.parse(msg)];
         });
@@ -111,7 +116,7 @@ export default function Chat() {
       {roomId && socket?.current?.connected ? (
         <>
           <div className={styles.messageList}>
-            {messages.map(({ socketId, text, type } = {}, index) => (
+            {messages.map(({ socketId, text, type, name } = {}, index) => (
               <div
                 key={index}
                 className={cx(styles.message, {
@@ -119,7 +124,10 @@ export default function Chat() {
                   [styles.sentByServer]: type === "server",
                 })}
               >
-                {text}
+                {socketId !== socket?.current.id && type !== "server" ? (
+                  <p className={styles.name}>{name}</p>
+                ) : null}
+                <p className={styles.text}>{text}</p>
               </div>
             ))}
           </div>
