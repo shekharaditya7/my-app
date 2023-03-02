@@ -1,5 +1,6 @@
 import { useState } from "react";
 import cx from "classnames";
+import Button from "../Widgets/Button";
 import useKeyPress from "../../utils/hooks/useKeyPress";
 import styles from "./ChatInput.module.scss";
 
@@ -19,7 +20,7 @@ export default function ChatInput({ handleSendMessage, className }) {
           value={textMessage}
           className={styles.urlInput}
         ></input>
-        <button onClick={sendButtonClick}>Send</button>
+        <Button onClick={sendButtonClick} label={"Send"} />
       </div>
     </div>
   );

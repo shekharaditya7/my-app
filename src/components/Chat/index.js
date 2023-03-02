@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
+import Button from "../Widgets/Button";
 import cx from "classnames";
 
 import ChatInput from "./ChatInput";
@@ -15,8 +16,10 @@ const SOCKET_SERVER =
 
 export default function Chat() {
   const navigate = useNavigate();
+  const [isConnecting, setIsConnecting] = useState(false);
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("r") || "";
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   const socket = useRef(null);
   const [messages, setMessages] = useState([]);
@@ -24,24 +27,48 @@ export default function Chat() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
-    if (roomId && !socket.current) {
+    if (!roomId && !user?.name) {
+      sessionStorage.setItem("redirectUrl", "/chat/");
+      navigate({
+        pathname: "/auth/login/",
+      });
+    }
+    if (roomId && !user?.name) {
+      sessionStorage.setItem("redirectUrl", `/chat/?r=${roomId}`);
+      navigate({
+        pathname: "/auth/login/",
+      });
+    } else if (roomId && !socket.current && user?.name) {
       const handleJoinRoom = async () => {
-        const module = await import("socket.io-client");
-        const io = module.default;
-        socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
-        socket.current.on("messageFromServer", (msg = {}) => {
-          setMessages((prevMessages) => {
-            return [...prevMessages, JSON.parse(msg)];
+        setIsConnecting(true);
+        try {
+          const module = await import("socket.io-client");
+          const io = module.default;
+          socket.current = io(SOCKET_SERVER, {
+            query: { roomId: roomId, name: user.name },
           });
-        });
+          socket.current.on("messageFromServer", (msg = {}) => {
+            setMessages((prevMessages) => {
+              return [...prevMessages, JSON.parse(msg)];
+            });
+          });
+          socket.current.on("connect", () => {
+            setIsConnecting(false);
+          });
+        } catch (e) {
+          setIsConnecting(false);
+        }
       };
       handleJoinRoom();
     }
-  }, [roomId]);
+  }, [roomId, user?.name, navigate]);
 
   const sendMessage = async (message) => {
-    if (message) {
-      await socket.current.emit("messageFromClient", message);
+    if (message && user?.name) {
+      await socket.current.emit("messageFromClient", {
+        text: message,
+        name: user.name,
+      });
       setMessages((prevMessages) => {
         return [
           ...prevMessages,
@@ -49,6 +76,7 @@ export default function Chat() {
             text: message,
             socketId: socket.current.id,
             type: "user",
+            name: user.name,
           },
         ];
       });
@@ -56,29 +84,39 @@ export default function Chat() {
   };
 
   const createRoom = async () => {
-    const module = await import("socket.io-client");
-    const io = module.default;
-    const roomId = v4();
-    socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
-    socket.current.on("messageFromServer", (msg = {}) => {
-      setMessages((prevMessages) => {
-        return [...prevMessages, JSON.parse(msg)];
+    setIsConnecting(true);
+    try {
+      const module = await import("socket.io-client");
+      const io = module.default;
+      const roomId = v4();
+      socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
+      socket.current.on("messageFromServer", (msg = {}) => {
+        console.log(msg);
+        setMessages((prevMessages) => {
+          return [...prevMessages, JSON.parse(msg)];
+        });
       });
-    });
-    navigate({
-      search: `?r=${roomId}`,
-    });
-    navigator.clipboard
-      .writeText(`${window.location.origin}/chat/?r=${roomId}`)
-      .then(() => setShowInstructions(true));
+      socket.current.on("connect", () => {
+        setIsConnecting(false);
+      });
+      navigate({
+        search: `?r=${roomId}`,
+      });
+      navigator.clipboard
+        .writeText(`${window.location.origin}/chat/?r=${roomId}`)
+        .then(() => setShowInstructions(true));
+    } catch (e) {
+      alert(e);
+      setIsConnecting(false);
+    }
   };
 
   return (
     <div className={styles.wrapper}>
-      {roomId ? (
+      {roomId && socket?.current?.connected ? (
         <>
           <div className={styles.messageList}>
-            {messages.map(({ socketId, text, type } = {}, index) => (
+            {messages.map(({ socketId, text, type, name } = {}, index) => (
               <div
                 key={index}
                 className={cx(styles.message, {
@@ -86,7 +124,10 @@ export default function Chat() {
                   [styles.sentByServer]: type === "server",
                 })}
               >
-                {text}
+                {socketId !== socket?.current.id && type !== "server" ? (
+                  <p className={styles.name}>{name}</p>
+                ) : null}
+                <p className={styles.text}>{text}</p>
               </div>
             ))}
           </div>
@@ -96,9 +137,12 @@ export default function Chat() {
           />
         </>
       ) : (
-        <button className={styles.generateLink} onClick={createRoom}>
-          Generate Chat Link
-        </button>
+        <Button
+          className={styles.generateLink}
+          onClick={createRoom}
+          label={"Generate Chat Link"}
+          isLoading={isConnecting}
+        />
       )}
       {showInstructions ? (
         <Instructions

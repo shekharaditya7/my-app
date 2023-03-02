@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+// import Cookies from "js-cookie";
 import Layout from "./components/App/Layout";
 
 import pages from "./pages";
@@ -13,17 +14,16 @@ import UserDeeplink from "./components/YTDeeplink/UserDeeplink";
 import Animations from "./components/Animations";
 import Chess from "./components/Chess";
 import Chat from "./components/Chat";
-
-// const Home = React.lazy(()=> import("./components/Home"));
-// const Drawer = React.lazy(()=> import("./components/Drawer"));
-// const YTDeepLink = React.lazy(()=> import("./components/YTDeeplink"));
-// const Media = React.lazy(()=> import("./components/Media"));
-// const NestedNav = React.lazy(()=> import("./components/NestedNav"));
-// const UserDeeplink = React.lazy(()=> import("./components/YTDeeplink/UserDeeplink"));
-// const Animations = React.lazy(()=> import("./components/Animations"));
-// const Chess = React.lazy(()=> import("./components/Chess"));
+import Auth from "./components/Auth";
 
 function App() {
+  /*
+  We will use login Status API once the set-cookie issue is resolved
+  */
+  // const { data, error, loading } = useFetch(
+  //   "http://localhost:5000/api/auth/login-status"
+  // );
+
   return (
     <BrowserRouter>
       <Layout>
@@ -37,8 +37,10 @@ function App() {
           <Route path={pages.ANIMATIONS} element={<Animations />} />
           <Route path={pages.CHESS} element={<Chess />} />
           <Route path={pages.CHAT} element={<Chat />} />
+          <Route path={pages.AUTH} element={<Auth />} />
           {/* Fallback for LinkedIn post */}
           <Route path={"/deeplink/"} element={<YTDeepLink />}></Route>
+          <Route path={"*"} element={<Navigate to="/" />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

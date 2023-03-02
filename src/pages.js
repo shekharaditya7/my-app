@@ -7,6 +7,7 @@ const USER_DEEPLINK = "/user-deeplink/";
 const ANIMATIONS = "/animations/";
 const CHESS = "/chess/";
 const CHAT = "/chat/";
+const AUTH = "/auth/:step/";
 
 const pages = {
   HOME,
@@ -18,6 +19,7 @@ const pages = {
   ANIMATIONS,
   CHESS,
   CHAT,
+  AUTH,
 };
 
 export default pages;

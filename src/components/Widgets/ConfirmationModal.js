@@ -1,5 +1,6 @@
 import Modal from "./Modal";
 import styles from "./ConfirmationModal.module.scss";
+import Button from "./Button";
 
 export default function ConfirmationModal({
   onClose,
@@ -23,12 +24,12 @@ export default function ConfirmationModal({
         ))}
       </ul>
       <div className={styles.buttons}>
-        <button onClick={onYesClick} className={styles.yes}>
-          Yes
-        </button>
-        <button onClick={onCancelClick} className={styles.cancel}>
-          Cancel
-        </button>
+        <Button onClick={onYesClick} className={styles.yes} label={"Yes"} />
+        <Button
+          onClick={onCancelClick}
+          className={styles.cancel}
+          label={"Cancel"}
+        />
       </div>
     </Modal>
   );

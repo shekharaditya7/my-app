@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../Widgets/Button";
 import styles from "./UserDeeplink.module.scss";
 
 function matchYoutubeUrl(url) {
@@ -44,9 +45,10 @@ export default function UserDeeplink() {
           className={styles.urlInput}
           height={28}
         ></input>
-        <button onClick={() => setVideoId(matchYoutubeUrl(ytUrl))}>
-          Submit
-        </button>
+        <Button
+          onClick={() => setVideoId(matchYoutubeUrl(ytUrl))}
+          label={"Submit"}
+        />
       </div>
 
       {videoId ? (
