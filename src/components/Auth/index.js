@@ -9,9 +9,11 @@ import { loginApi, signupApi } from "./../../api";
 import { STEPS } from "./auth.constants";
 
 import styles from "./index.module.scss";
+import CircularLoader from "../Widgets/CircularLoader";
 
 export default function Auth() {
   const [authData, setAuthData] = useState({});
+  const [isOauthInProgress, setIsOauthInProgress] = useState(false);
   const { step } = useParams();
   const navigate = useNavigate();
   const user = JSON.parse(sessionStorage.getItem("user") || "{}");
@@ -64,26 +66,33 @@ export default function Auth() {
   const handleGoogleLoginClick = async () => {
     const module = await import("./Google-Sign-In");
     const popupSignIn = module.default;
-    popupSignIn();
+    popupSignIn(setIsOauthInProgress);
+    setIsOauthInProgress(true);
   };
 
   return (
     <div className={styles.authWrapper}>
-      {authData?.message ? (
-        <p className={styles.apiError}>{authData.message}</p>
-      ) : null}
-      {step === STEPS.SIGNUP ? (
-        <Signup
-          handleSignupClick={handleSignupClick}
-          isLoading={authData?.isLoading}
-        />
-      ) : step === STEPS.LOGIN ? (
-        <Login
-          handleLoginClick={handleLoginClick}
-          isLoading={authData?.isLoading}
-        />
-      ) : null}
-      <GoogleLogin handleGoogleLoginClick={handleGoogleLoginClick} />
+      {isOauthInProgress ? (
+        <CircularLoader size={40} />
+      ) : (
+        <>
+          {authData?.message ? (
+            <p className={styles.apiError}>{authData.message}</p>
+          ) : null}
+          {step === STEPS.SIGNUP ? (
+            <Signup
+              handleSignupClick={handleSignupClick}
+              isLoading={authData?.isLoading}
+            />
+          ) : step === STEPS.LOGIN ? (
+            <Login
+              handleLoginClick={handleLoginClick}
+              isLoading={authData?.isLoading}
+            />
+          ) : null}
+          <GoogleLogin handleGoogleLoginClick={handleGoogleLoginClick} />
+        </>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
-export default function popupSignIn() {
+export default function popupSignIn(callback) {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -16,8 +16,10 @@ export default function popupSignIn() {
         window.location.origin + (sessionStorage.getItem("redirectUrl") || "/");
       sessionStorage.removeItem("redirectUrl");
       window.location = urlToRedirect;
+      callback(false);
     })
     .catch((error) => {
       alert(error);
+      callback(false);
     });
 }
