@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
+import GoogleLogin from "./GoogleLogin";
+import redirectSignIn from "./Google-Sign-In";
 
 import { loginApi, signupApi } from "./../../api";
+import { auth } from "./Google-Sign-In/firebaseConfig";
 
 import { STEPS } from "./auth.constants";
 
@@ -45,17 +48,23 @@ export default function Auth() {
 
   const handleSignupClick = async ({ name, email, password }) => {
     if (!email || !name || !password) return;
+
+    setAuthData({ isLoading: true });
     const data = await signupApi({ name, email, password });
 
     if (data) {
-      setAuthData(data);
-      setTimeout(() => {
-        setAuthData((prevData) => {
-          return { ...prevData, message: "" };
-        });
-      }, 3000);
+      setAuthData({ ...data, isLoading: false });
       if (data.user) sessionStorage.setItem("user", JSON.stringify(data.user));
-    } else setAuthData({});
+    } else setAuthData({ isLoading: false, message: "Something went wrong" });
+    setTimeout(() => {
+      setAuthData((prevData) => {
+        return { ...prevData, message: "" };
+      });
+    }, 2000);
+  };
+
+  const handleGoogleLoginClick = () => {
+    redirectSignIn();
   };
 
   return (
@@ -74,6 +83,7 @@ export default function Auth() {
           isLoading={authData?.isLoading}
         />
       ) : null}
+      <GoogleLogin handleGoogleLoginClick={handleGoogleLoginClick} />
     </div>
   );
 }
