@@ -3,13 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
 import GoogleLogin from "./GoogleLogin";
+import CircularLoader from "../Widgets/CircularLoader";
 
 import { loginApi, signupApi } from "./../../api";
 
 import { STEPS } from "./auth.constants";
 
 import styles from "./index.module.scss";
-import CircularLoader from "../Widgets/CircularLoader";
 
 export default function Auth() {
   const [authData, setAuthData] = useState({});
