@@ -9,13 +9,11 @@ import Instructions from "../Widgets/InstructionModal";
 
 import styles from "./index.module.scss";
 
-const SOCKET_SERVER =
-  process.env.NODE_ENV === "production"
-    ? "https://websocket-ko96.onrender.com"
-    : "http://localhost:8080/";
+const { REACT_APP_WS_HOST } = process.env;
 
 export default function Chat() {
   const navigate = useNavigate();
+  const messageListRef = useRef();
   const [isConnecting, setIsConnecting] = useState(false);
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("r") || "";
@@ -44,7 +42,7 @@ export default function Chat() {
         try {
           const module = await import("socket.io-client");
           const io = module.default;
-          socket.current = io(SOCKET_SERVER, {
+          socket.current = io(REACT_APP_WS_HOST, {
             query: { roomId: roomId, name: user.name },
           });
           socket.current.on("messageFromServer", (msg = {}) => {
@@ -62,6 +60,15 @@ export default function Chat() {
       handleJoinRoom();
     }
   }, [roomId, user?.name, navigate]);
+
+  useEffect(() => {
+    if (messageListRef?.current) {
+      messageListRef.current.scrollTo({
+        top: messageListRef.current.scrollHeight,
+        behaviour: "smooth",
+      });
+    }
+  }, [messages]);
 
   const sendMessage = async (message) => {
     if (message && user?.name) {
@@ -89,12 +96,14 @@ export default function Chat() {
       const module = await import("socket.io-client");
       const io = module.default;
       const roomId = v4();
-      socket.current = io(SOCKET_SERVER, { query: { roomId: roomId } });
+      socket.current = io(REACT_APP_WS_HOST, { query: { roomId: roomId } });
       socket.current.on("messageFromServer", (msg = {}) => {
-        console.log(msg);
         setMessages((prevMessages) => {
           return [...prevMessages, JSON.parse(msg)];
         });
+        // setTimeout(() => {
+        //   messageListRef?.current.scrollIntoView({ behaviour: "smooth" });
+        // });
       });
       socket.current.on("connect", () => {
         setIsConnecting(false);
@@ -115,12 +124,15 @@ export default function Chat() {
     <div className={styles.wrapper}>
       {roomId && socket?.current?.connected ? (
         <>
-          <div className={styles.messageList}>
+          <div className={styles.messageList} ref={messageListRef}>
             {messages.map(({ socketId, text, type, name } = {}, index) => (
               <div
                 key={index}
                 className={cx(styles.message, {
-                  [styles.sentByOther]: socketId !== socket?.current.id,
+                  [styles.sentByMe]:
+                    socketId === socket?.current.id && type !== "server",
+                  [styles.sentByOther]:
+                    socketId !== socket?.current.id && type !== "server",
                   [styles.sentByServer]: type === "server",
                 })}
               >
