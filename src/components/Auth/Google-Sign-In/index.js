@@ -1,7 +1,7 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
-export default function redirectSignIn() {
+export default function popupSignIn() {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {

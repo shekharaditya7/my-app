@@ -3,10 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
 import GoogleLogin from "./GoogleLogin";
-import redirectSignIn from "./Google-Sign-In";
 
 import { loginApi, signupApi } from "./../../api";
-import { auth } from "./Google-Sign-In/firebaseConfig";
 
 import { STEPS } from "./auth.constants";
 
@@ -63,8 +61,10 @@ export default function Auth() {
     }, 2000);
   };
 
-  const handleGoogleLoginClick = () => {
-    redirectSignIn();
+  const handleGoogleLoginClick = async () => {
+    const module = await import("./Google-Sign-In");
+    const popupSignIn = module.default;
+    popupSignIn();
   };
 
   return (
