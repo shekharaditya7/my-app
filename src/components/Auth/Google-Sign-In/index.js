@@ -14,7 +14,6 @@ export default function popupSignIn(callback) {
       sessionStorage.setItem("user", JSON.stringify(next_service_user));
       const urlToRedirect =
         window.location.origin + (sessionStorage.getItem("redirectUrl") || "/");
-      sessionStorage.removeItem("redirectUrl");
       window.location = urlToRedirect;
       callback(false);
     })
