@@ -90,30 +90,28 @@ export default function Chat() {
     }
   };
 
-  const createRoom = async () => {
+  const createRoom = async (roomId) => {
+    await navigator.clipboard.writeText(
+      `${window.location.origin}/chat/?r=${roomId}`
+    );
     setIsConnecting(true);
     try {
       const module = await import("socket.io-client");
       const io = module.default;
-      const roomId = v4();
+
       socket.current = io(REACT_APP_WS_HOST, { query: { roomId: roomId } });
       socket.current.on("messageFromServer", (msg = {}) => {
         setMessages((prevMessages) => {
           return [...prevMessages, JSON.parse(msg)];
         });
-        // setTimeout(() => {
-        //   messageListRef?.current.scrollIntoView({ behaviour: "smooth" });
-        // });
       });
       socket.current.on("connect", () => {
         setIsConnecting(false);
+        setShowInstructions(true);
       });
       navigate({
         search: `?r=${roomId}`,
       });
-      navigator.clipboard
-        .writeText(`${window.location.origin}/chat/?r=${roomId}`)
-        .then(() => setShowInstructions(true));
     } catch (e) {
       alert(e);
       setIsConnecting(false);
@@ -151,7 +149,7 @@ export default function Chat() {
       ) : (
         <Button
           className={styles.generateLink}
-          onClick={createRoom}
+          onClick={() => createRoom(v4())}
           label={"Generate Chat Link"}
           isLoading={isConnecting}
         />
