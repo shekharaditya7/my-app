@@ -17,6 +17,7 @@
   height: calc(100% - 54px);
   width: 100%;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   overflow: auto;
   border: 0.1px solid hsla(0, 0%, 50.2%, 0.3);
