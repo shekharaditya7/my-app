@@ -7,14 +7,16 @@ export default function InstructionModal({
   title,
   instructions = [],
   className,
+  overlayClassName,
 } = {}) {
   return (
     <Modal
       onRequestClose={onClose}
       className={cx(styles.modal, className)}
       shouldCloseOnEscape={false}
+      overlayClassName={overlayClassName}
     >
-      <div className={styles.title}> {title ?? "WIP"} </div>
+      {title ? <div className={styles.title}> {title}</div> : null}
       <ul>
         {instructions.map((step, index) => (
           <li key={index} className={styles.step}>

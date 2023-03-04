@@ -114,8 +114,13 @@ export default function Chess() {
     }
 
     if (turn.current !== piece?.color) {
-      //Turn wise moves
-      if (piece && !pressedPiece?.current?.piece) setShowInstructions(true);
+      //Turn wise moves only
+      if (piece && !pressedPiece?.current?.piece) {
+        setShowInstructions(true);
+        setTimeout(() => {
+          setShowInstructions(false);
+        }, 1500);
+      }
       return;
     }
 
@@ -310,10 +315,10 @@ export default function Chess() {
 
       {showInstructions ? (
         <Instructions
-          title={"Oops!"}
           instructions={[`It's ${turn.current} color's turn!`]}
           className={styles.alert}
           onClose={() => setShowInstructions(false)}
+          overlayClassName={styles.alertOverlay}
         />
       ) : null}
       {showConfirmationModal ? (

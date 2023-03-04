@@ -19,6 +19,9 @@
   font-size: 14px;
   margin-bottom: 12px;
   display: block;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 @include if-device(desktop-tablet) {
