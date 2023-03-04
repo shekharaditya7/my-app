@@ -115,6 +115,10 @@
   }
 }
 
+.checkedKing {
+  background: red;
+}
+
 .whiteDeadWrapper,
 .blackDeadWrapper {
   margin-right: 20px;
@@ -208,14 +212,22 @@
   z-index: 1;
 }
 .alert {
+  background-color: dodgerblue;
+  color: white;
   margin: 0 auto;
   position: fixed;
   bottom: 20px;
   left: 20px;
   z-index: 9;
   max-width: 260px;
+  font-family: sans-serif;
 }
-
+.alert > div:first-child {
+  background-color: white;
+  img {
+    opacity: 0.6;
+  }
+}
 @media only screen and (max-width: 680px) {
   .wrapper {
     flex-direction: column;
