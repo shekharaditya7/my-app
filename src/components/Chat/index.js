@@ -160,7 +160,8 @@ export default function Chat() {
         <Instructions
           title={"All set!"}
           instructions={[
-            "Link copied to clipboard. Share it with your friends to invite them to Chat",
+            "Link copied to clipboard.",
+            "Share it with people to invite them to chat.",
           ]}
           className={styles.alert}
           onClose={() => setShowInstructions(false)}

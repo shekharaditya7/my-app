@@ -10,10 +10,7 @@ const INSTRUCTIONS = {
   },
   [pages.DRAWER]: {
     title: "Just Paint",
-    instructions: [
-      "Choose you color, and start painting!",
-      "You can also adjust the size.",
-    ],
+    instructions: ["Choose you color, and start painting!"],
   },
   [pages.NESTED_NAV]: {
     title: "Nested Navigation",
@@ -49,19 +46,31 @@ const INSTRUCTIONS = {
     instructions: [
       "The classic chess implementation! Play with a friend of yours.",
     ],
+    notes: ["The full implementation is currently in progress."],
   },
   [pages.CHAT]: {
     title: "Chat",
     instructions: [
       "Text Messaging Feature.",
-      "Log in and then click on Generate Link to share that link with your friends to chat!",
+      "Log in and then Generate Link to share that link with your friends to chat!",
+    ],
+    notes: [
+      "The chat messages are volatile and we do not persist them during navigations or page reloads.",
+      "We log-in only for a single session. A new session will be created if you open a new tab or window.",
+      "The session will be terminated once you close the tab.",
+      "In order to use Google log-in, make sure pop-ups are enabled.",
     ],
   },
   [pages.LOGIN]: {
     title: "Login",
     instructions: [
       "Log in to enable chat feature.",
-      "You can also log-in using your Google account. In order to use Google log-in, make sure pop-ups are enabled.",
+      "You can also log-in using your Google account.",
+    ],
+    notes: [
+      "We log-in only for a single session. A new session will be created if you open a new tab or window.",
+      "The session will be terminated once you close the tab.",
+      "In order to use Google log-in, make sure pop-ups are enabled.",
     ],
   },
   [pages.SIGNUP]: {
@@ -69,6 +78,11 @@ const INSTRUCTIONS = {
     instructions: [
       "Sign up to enable chat feature.",
       "You can also log-in using your Google account. In order to use Google log-in, make sure pop-ups are enabled.",
+    ],
+    notes: [
+      "We log-in only for a single session. A new session will be created if you open a new tab or window.",
+      "The session will be terminated once you close the tab.",
+      "In order to use Google log-in, make sure pop-ups are enabled.",
     ],
   },
 };
