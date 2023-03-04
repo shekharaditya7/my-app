@@ -8,6 +8,8 @@ const ANIMATIONS = "/animations/";
 const CHESS = "/chess/";
 const CHAT = "/chat/";
 const AUTH = "/auth/:step/";
+const LOGIN = "/auth/login/";
+const SIGNUP = "/auth/signup/";
 
 const pages = {
   HOME,
@@ -20,6 +22,8 @@ const pages = {
   CHESS,
   CHAT,
   AUTH,
+  LOGIN,
+  SIGNUP,
 };
 
 export default pages;

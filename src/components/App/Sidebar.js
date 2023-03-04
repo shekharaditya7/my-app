@@ -48,19 +48,21 @@ export default function Sidebar() {
             alt={"cross"}
             src={"/images/sidebar/CrossIcon.webp"}
           ></img>
-          {NAV_ITEMS.map(({ url, logoSrc, alt, label }) => (
-            <Link
-              to={url}
-              className={cx(styles.sidebarItem, {
-                [styles.active]: url === pathname,
-              })}
-              key={url}
-              onClick={!isWideScreen ? handleSideBarClose : null}
-            >
-              <img alt={alt} src={logoSrc}></img>
-              <div className={styles.label}> {label}</div>
-            </Link>
-          ))}
+          {NAV_ITEMS.map(({ url, logoSrc, alt, label }) =>
+            logoSrc ? (
+              <Link
+                to={url}
+                className={cx(styles.sidebarItem, {
+                  [styles.active]: url === pathname,
+                })}
+                key={url}
+                onClick={!isWideScreen ? handleSideBarClose : null}
+              >
+                <img alt={alt} src={logoSrc}></img>
+                <div className={styles.label}> {label}</div>
+              </Link>
+            ) : null
+          )}
         </div>
       ) : (
         <div className={styles.menuIconWrapper}>

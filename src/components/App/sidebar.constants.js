@@ -48,6 +48,14 @@ const NAV_ITEMS = [
     logoSrc: "/images/sidebar/ImageIcon.webp",
     alt: "chat",
   },
+  {
+    label: "Login",
+    url: pages.LOGIN,
+  },
+  {
+    label: "Sign up",
+    url: pages.SIGNUP,
+  },
 ];
 
 export default NAV_ITEMS;

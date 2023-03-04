@@ -152,7 +152,9 @@ export default function Chat() {
           onClick={() => createRoom(v4())}
           label={"Generate Chat Link"}
           isLoading={isConnecting}
-        />
+        >
+          {isConnecting ? "Connecting..." : ""}
+        </Button>
       )}
       {showInstructions ? (
         <Instructions

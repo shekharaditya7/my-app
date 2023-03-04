@@ -53,8 +53,22 @@ const INSTRUCTIONS = {
   [pages.CHAT]: {
     title: "Chat",
     instructions: [
-      "Basic Text Messaging Application",
-      "Click on Generate Link and share that link with your friends to chat!",
+      "Text Messaging Feature.",
+      "Log in and then click on Generate Link to share that link with your friends to chat!",
+    ],
+  },
+  [pages.LOGIN]: {
+    title: "Login",
+    instructions: [
+      "Log in to enable chat feature.",
+      "You can also log-in using your Google account. In order to use Google log-in, make sure pop-ups are enabled.",
+    ],
+  },
+  [pages.SIGNUP]: {
+    title: "Sign up",
+    instructions: [
+      "Sign up to enable chat feature.",
+      "You can also log-in using your Google account. In order to use Google log-in, make sure pop-ups are enabled.",
     ],
   },
 };
