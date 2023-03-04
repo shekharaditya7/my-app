@@ -3,28 +3,29 @@ import cx from "classnames";
 import Instructions from "../Widgets/InstructionModal";
 import ConfirmationModal from "../Widgets/ConfirmationModal";
 import BOARD, {
-  getMovesByType,
   COLORS,
   LOCAL_CONFIG_KEY,
   REDO_KEY,
   KNOCKED_OUT_BOARD,
 } from "./chess.constants";
+import {
+  resetActiveState,
+  willKingBeCheckedAfterMoveByColor,
+  isKingCheckedAfterMoveComplete,
+  getMovesByType,
+} from "./chess.utils";
 import playAudio from "../../utils/audio";
 import styles from "./index.module.scss";
 
-const resetActiveState = (currChessBoard) => {
-  for (let i = 0; i <= 7; i++) {
-    for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
-  }
-};
-
 export default function Chess() {
-  const [showInstructions, setShowInstructions] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [chessBoard, setChessboard] = useState([...BOARD]);
   const pressedPiece = useRef(null);
   const knockedOutPieces = useRef({ ...KNOCKED_OUT_BOARD });
   const turn = useRef(COLORS.WHITE);
+  const checkedKingPos = useRef({});
+
   const isUndoAvailable = !!(
     JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY))?.length >= 1
   );
@@ -33,6 +34,9 @@ export default function Chess() {
   );
 
   useEffect(() => {
+    /*
+      Load the previous Saved data from localStorage
+    */
     const configData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
     if (
       configData.length &&
@@ -42,6 +46,8 @@ export default function Chess() {
       turn.current = configData[configData.length - 1].currentTurn;
       knockedOutPieces.current =
         configData[configData.length - 1].currKnockedOut;
+      checkedKingPos.current =
+        configData[configData.length - 1].currCheckedKingPos;
     }
   }, []);
 
@@ -66,12 +72,18 @@ export default function Chess() {
     knockedOutPieces.current[pieceColor] = [...knockedOutArray];
   }
 
-  const saveToLocal = (currChessBoard, currentTurn, currKnockedOut) => {
+  const saveToLocal = (
+    currChessBoard,
+    currentTurn,
+    currKnockedOut,
+    currCheckedKingPos
+  ) => {
     const prevData = JSON.parse(localStorage.getItem(LOCAL_CONFIG_KEY)) || [];
     const data = {
       currentTurn,
       currChessBoard,
       currKnockedOut,
+      currCheckedKingPos,
     };
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify([...prevData, data]));
   };
@@ -102,23 +114,60 @@ export default function Chess() {
       }
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
       pressedPiece.current = null;
-      playAudio();
 
       //CHANGE TURN
       turn.current =
         turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
       setChessboard([...currChessBoard]);
       resetActiveState(currChessBoard);
-      saveToLocal(currChessBoard, turn.current, knockedOutPieces.current);
+
+      // Check if King got checked
+      const { isKingChecked, checkedRow, checkedCol } =
+        isKingCheckedAfterMoveComplete(
+          turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE,
+          currChessBoard
+        );
+      if (isKingChecked) {
+        checkedKingPos.current = { row: checkedRow, col: checkedCol };
+      } else checkedKingPos.current = {};
+      saveToLocal(
+        currChessBoard,
+        turn.current,
+        knockedOutPieces.current,
+        checkedKingPos.current
+      );
+
+      // No need to continue further if King is in CHECK;
+      if (isKingChecked) return;
+
+      // Check if KING would get in check if the move gets completed - if YES, revert
+      if (
+        willKingBeCheckedAfterMoveByColor(
+          turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE,
+          currChessBoard
+        )
+      ) {
+        setShowInstructions({
+          instructions: [`Oops! Can't move there.`],
+        });
+        setTimeout(() => {
+          setShowInstructions(null);
+        }, 2000);
+        handleUndo();
+        return;
+      }
+      playAudio();
       return;
     }
 
     if (turn.current !== piece?.color) {
       //Turn wise moves only
       if (piece && !pressedPiece?.current?.piece) {
-        setShowInstructions(true);
+        setShowInstructions({
+          instructions: [`It's ${turn.current} color's turn!`],
+        });
         setTimeout(() => {
-          setShowInstructions(false);
+          setShowInstructions(null);
         }, 1500);
       }
       return;
@@ -165,10 +214,12 @@ export default function Chess() {
       configData.length &&
       configData[configData.length - 1]?.currChessBoard
     ) {
-      setChessboard(configData[configData.length - 1].currChessBoard);
       turn.current = configData[configData.length - 1].currentTurn;
       knockedOutPieces.current =
         configData[configData.length - 1].currKnockedOut;
+      checkedKingPos.current =
+        configData[configData.length - 1].currCheckedKingPos;
+      setChessboard(configData[configData.length - 1].currChessBoard);
     } else {
       const baseBoard = JSON.parse(JSON.stringify(BOARD));
       setChessboard(baseBoard);
@@ -176,6 +227,7 @@ export default function Chess() {
       knockedOutPieces.current = JSON.parse(
         JSON.stringify({ ...KNOCKED_OUT_BOARD })
       );
+      checkedKingPos.current = {};
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     if (lastData)
@@ -196,10 +248,12 @@ export default function Chess() {
       configData.length &&
       configData[configData.length - 1]?.currChessBoard
     ) {
-      setChessboard(configData[configData.length - 1].currChessBoard);
       turn.current = configData[configData.length - 1].currentTurn;
       knockedOutPieces.current =
         configData[configData.length - 1].currKnockedOut;
+      checkedKingPos.current =
+        configData[configData.length - 1].currCheckedKingPos;
+      setChessboard(configData[configData.length - 1].currChessBoard);
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     localStorage.setItem(REDO_KEY, JSON.stringify([...redoList]));
@@ -237,6 +291,9 @@ export default function Chess() {
                   <div
                     className={cx(styles.box, {
                       [styles.active]: isActive,
+                      [styles.checkedKing]:
+                        checkedKingPos?.current?.row === row &&
+                        checkedKingPos?.current?.col === col,
                       [styles.pointer]: !!piece,
                       [styles.dark]: color === COLORS.BLACK,
                     })}
@@ -315,9 +372,9 @@ export default function Chess() {
 
       {showInstructions ? (
         <Instructions
-          instructions={[`It's ${turn.current} color's turn!`]}
+          instructions={showInstructions?.instructions}
           className={styles.alert}
-          onClose={() => setShowInstructions(false)}
+          onClose={() => setShowInstructions(null)}
           overlayClassName={styles.alertOverlay}
         />
       ) : null}
