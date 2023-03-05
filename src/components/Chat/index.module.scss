@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   position: relative;
-  height: calc(100% - 57px);
+  height: calc(100vh - 172px);
   margin: 0 auto;
   .generateLink {
     height: fit-content;
@@ -30,9 +30,6 @@
 }
 
 @media only screen and (min-width: 1024px) {
-  .wrapper {
-    height: 100%;
-  }
   .chatInput {
     width: calc(100% - 240px);
     left: 220px;
