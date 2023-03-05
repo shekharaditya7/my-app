@@ -30,6 +30,9 @@
 }
 
 @media only screen and (min-width: 1024px) {
+  .wrapper {
+    height: 100%;
+  }
   .chatInput {
     width: calc(100% - 240px);
     left: 220px;

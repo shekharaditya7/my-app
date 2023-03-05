@@ -91,7 +91,7 @@ function createPoint(row, col) {
   };
 }
 
-export function isOpponentPiece(currPiece, piece) {
+export function isOpponentColorPiece(currPiece, piece) {
   return (
     currPiece?.color &&
     piece?.color &&
@@ -104,15 +104,18 @@ export function isOpponentPiece(currPiece, piece) {
     Calculate possible moves of a piece
 
     @params:
-        type : type of the piece
-        row, col : position of the piece,
-        board : current chess-board configuration
+        type      :  type of the piece
+        row, col  :  position of the piece,
+        board     :  current chess-board configuration
 */
 
 export function getMovesByType(type, row, col, board) {
   let movesArray = [];
   const color = board[row][col]?.piece?.color;
   switch (type) {
+    /*
+      KING's MOVES
+    */
     case TYPES.KING:
       if (isValidBox(row + 1, col + 1, board, color))
         movesArray.push([createPoint(row + 1, col + 1)]);
@@ -132,14 +135,20 @@ export function getMovesByType(type, row, col, board) {
         movesArray.push([createPoint(row, col + 1)]);
       return movesArray;
 
+    /*
+      QUEEEN's MOVES
+    */
     case TYPES.QUEEN: {
       let stopFlag = 0,
         tempMoves = [];
 
+      // Vertical and Horizontal Moves
       for (let i = row + 1; i <= 7; i++) {
         if (stopFlag === 0 && isValidBox(i, col, board, color)) {
           tempMoves.push(createPoint(i, col));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][col]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[i][col]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(i, col, board, color)) {
           stopFlag = 1;
@@ -151,7 +160,9 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row - 1; i >= 0; i--) {
         if (stopFlag === 0 && isValidBox(i, col, board, color)) {
           tempMoves.push(createPoint(i, col));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][col]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[i][col]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(i, col, board, color)) {
           stopFlag = 1;
@@ -163,7 +174,9 @@ export function getMovesByType(type, row, col, board) {
       for (let j = col + 1; j <= 7; j++) {
         if (stopFlag === 0 && isValidBox(row, j, board, color)) {
           tempMoves.push(createPoint(row, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[row][j]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[row][j]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(row, j, board, color)) {
           stopFlag = 1;
@@ -175,7 +188,9 @@ export function getMovesByType(type, row, col, board) {
       for (let j = col - 1; j >= 0; j--) {
         if (stopFlag === 0 && isValidBox(row, j, board, color)) {
           tempMoves.push(createPoint(row, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[row][j]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[row][j]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(row, j, board, color)) {
           stopFlag = 1;
@@ -183,14 +198,14 @@ export function getMovesByType(type, row, col, board) {
       }
       if (tempMoves.length) movesArray.push(tempMoves);
 
-      //Diagonals
+      //Diagonal Moves
       stopFlag = 0;
       tempMoves = [];
 
       for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; j--, i--) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -204,7 +219,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row - 1, j = col + 1; i >= 0 && j <= 7; i--, j++) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -218,7 +233,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row + 1, j = col + 1; i <= 7 && j <= 7; i++, j++) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -232,7 +247,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row + 1, j = col - 1; i <= 7 && j >= 0; i++, j--) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -244,18 +259,25 @@ export function getMovesByType(type, row, col, board) {
 
       return movesArray;
     }
+
+    /*
+      PAWN's MOVES
+    */
     case TYPES.PAWN: {
       const color = board[row][col]?.piece?.color;
       if (color === COLORS.BLACK) {
         if (row === 6) {
           if (
-            isValidBox(row - 1, col, board) &&
-            isValidBox(row - 2, col, board) &&
-            !isOpponentPiece(
+            isValidBox(row - 1, col, board, color) &&
+            isValidBox(row - 2, col, board, color) &&
+            !isOpponentColorPiece(
               board[row][col].piece,
               board[row - 1][col].piece
             ) &&
-            !isOpponentPiece(board[row][col].piece, board[row - 2][col].piece)
+            !isOpponentColorPiece(
+              board[row][col].piece,
+              board[row - 2][col].piece
+            )
           )
             movesArray.push([
               createPoint(row - 1, col),
@@ -263,45 +285,63 @@ export function getMovesByType(type, row, col, board) {
             ]);
           else if (
             isValidBox(row - 1, col, board, color) &&
-            !isOpponentPiece(board[row][col].piece, board[row - 1][col].piece)
+            !isOpponentColorPiece(
+              board[row][col].piece,
+              board[row - 1][col].piece
+            )
           ) {
             movesArray.push([createPoint(row - 1, col)]);
             if (
               isValidBox(row - 2, col, board, color) &&
-              !isOpponentPiece(board[row][col].piece, board[row - 2][col].piece)
+              !isOpponentColorPiece(
+                board[row][col].piece,
+                board[row - 2][col].piece
+              )
             )
               movesArray = [...movesArray, createPoint(row - 2, col)];
           }
         } else if (
           row >= 1 &&
           isValidBox(row - 1, col, board, color) &&
-          !isOpponentPiece(board[row][col].piece, board[row - 1][col].piece)
+          !isOpponentColorPiece(
+            board[row][col].piece,
+            board[row - 1][col].piece
+          )
         ) {
           movesArray.push([createPoint(row - 1, col)]);
         }
 
         if (
-          isValidBox(row - 1, col - 1, board) &&
-          isOpponentPiece(board[row][col].piece, board[row - 1][col - 1].piece)
+          isValidBox(row - 1, col - 1, board, color) &&
+          isOpponentColorPiece(
+            board[row][col].piece,
+            board[row - 1][col - 1].piece
+          )
         ) {
           movesArray.push([createPoint(row - 1, col - 1)]);
         }
         if (
-          isValidBox(row - 1, col + 1, board) &&
-          isOpponentPiece(board[row][col].piece, board[row - 1][col + 1].piece)
+          isValidBox(row - 1, col + 1, board, color) &&
+          isOpponentColorPiece(
+            board[row][col].piece,
+            board[row - 1][col + 1].piece
+          )
         ) {
           movesArray.push([createPoint(row - 1, col + 1)]);
         }
       } else if (color === COLORS.WHITE) {
         if (row === 1) {
           if (
-            isValidBox(row + 1, col, board) &&
-            isValidBox(row + 2, col, board) &&
-            !isOpponentPiece(
+            isValidBox(row + 1, col, board, color) &&
+            isValidBox(row + 2, col, board, color) &&
+            !isOpponentColorPiece(
               board[row][col].piece,
               board[row + 1][col].piece
             ) &&
-            !isOpponentPiece(board[row][col].piece, board[row + 2][col].piece)
+            !isOpponentColorPiece(
+              board[row][col].piece,
+              board[row + 2][col].piece
+            )
           )
             movesArray.push([
               createPoint(row + 1, col),
@@ -309,45 +349,65 @@ export function getMovesByType(type, row, col, board) {
             ]);
           else if (
             isValidBox(row + 1, col, board, color) &&
-            !isOpponentPiece(board[row][col].piece, board[row + 1][col].piece)
+            !isOpponentColorPiece(
+              board[row][col].piece,
+              board[row + 1][col].piece
+            )
           ) {
             movesArray.push([createPoint(row + 1, col)]);
             if (
               isValidBox(row + 2, col, board, color) &&
-              !isOpponentPiece(board[row][col].piece, board[row + 2][col].piece)
+              !isOpponentColorPiece(
+                board[row][col].piece,
+                board[row + 2][col].piece
+              )
             )
               movesArray = [...movesArray, createPoint(row + 2, col)];
           }
         } else if (
           row <= 6 &&
           isValidBox(row + 1, col, board, color) &&
-          !isOpponentPiece(board[row][col].piece, board[row + 1][col].piece)
+          !isOpponentColorPiece(
+            board[row][col].piece,
+            board[row + 1][col].piece
+          )
         ) {
           movesArray.push([createPoint(row + 1, col)]);
         }
         if (
-          isValidBox(row + 1, col + 1, board) &&
-          isOpponentPiece(board[row][col].piece, board[row + 1][col + 1].piece)
+          isValidBox(row + 1, col + 1, board, color) &&
+          isOpponentColorPiece(
+            board[row][col].piece,
+            board[row + 1][col + 1].piece
+          )
         ) {
           movesArray.push([createPoint(row + 1, col + 1)]);
         }
         if (
-          isValidBox(row + 1, col - 1, board) &&
-          isOpponentPiece(board[row][col].piece, board[row + 1][col - 1].piece)
+          isValidBox(row + 1, col - 1, board, color) &&
+          isOpponentColorPiece(
+            board[row][col].piece,
+            board[row + 1][col - 1].piece
+          )
         ) {
           movesArray.push([createPoint(row + 1, col - 1)]);
         }
       }
       return movesArray;
     }
+
+    /*
+      BISHOP's MOVES
+    */
     case TYPES.BISHOP: {
       let stopFlag = 0;
       let tempMoves = [];
 
+      //Diagonal Moves
       for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; j--, i--) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -361,7 +421,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row - 1, j = col + 1; i >= 0 && j <= 7; i--, j++) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -375,7 +435,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row + 1, j = col + 1; i <= 7 && j <= 7; i++, j++) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -389,7 +449,7 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row + 1, j = col - 1; i <= 7 && j >= 0; i++, j--) {
         if (stopFlag === 0 && isValidBox(i, j, board, color)) {
           tempMoves.push(createPoint(i, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][j]?.piece))
+          if (isOpponentColorPiece(board[row][col]?.piece, board[i][j]?.piece))
             stopFlag = 1;
         } else if (!isValidBox(i, j, board, color)) {
           stopFlag = 1;
@@ -401,6 +461,10 @@ export function getMovesByType(type, row, col, board) {
 
       return movesArray;
     }
+
+    /* 
+      KNIGHT's MOVES
+    */
     case TYPES.KNIGHT:
       if (isValidBox(row - 2, col + 1, board, color))
         movesArray.push([createPoint(row - 2, col + 1)]);
@@ -420,14 +484,20 @@ export function getMovesByType(type, row, col, board) {
         movesArray.push([createPoint(row + 1, col + 2)]);
       return movesArray;
 
+    /*
+      ROOK's MOVES
+    */
     case TYPES.ROOK:
       let stopFlag = 0,
         tempMoves = [];
 
+      // Horizontal and Vertical Moves
       for (let i = row + 1; i <= 7; i++) {
         if (stopFlag === 0 && isValidBox(i, col, board, color)) {
           tempMoves.push(createPoint(i, col));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][col]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[i][col]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(i, col, board, color)) {
           stopFlag = 1;
@@ -439,7 +509,9 @@ export function getMovesByType(type, row, col, board) {
       for (let i = row - 1; i >= 0; i--) {
         if (stopFlag === 0 && isValidBox(i, col, board, color)) {
           tempMoves.push(createPoint(i, col));
-          if (isOpponentPiece(board[row][col]?.piece, board[i][col]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[i][col]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(i, col, board, color)) {
           stopFlag = 1;
@@ -451,7 +523,9 @@ export function getMovesByType(type, row, col, board) {
       for (let j = col + 1; j <= 7; j++) {
         if (stopFlag === 0 && isValidBox(row, j, board, color)) {
           tempMoves.push(createPoint(row, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[row][j]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[row][j]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(row, j, board, color)) {
           stopFlag = 1;
@@ -463,7 +537,9 @@ export function getMovesByType(type, row, col, board) {
       for (let j = col - 1; j >= 0; j--) {
         if (stopFlag === 0 && isValidBox(row, j, board, color)) {
           tempMoves.push(createPoint(row, j));
-          if (isOpponentPiece(board[row][col]?.piece, board[row][j]?.piece))
+          if (
+            isOpponentColorPiece(board[row][col]?.piece, board[row][j]?.piece)
+          )
             stopFlag = 1;
         } else if (!isValidBox(row, j, board, color)) {
           stopFlag = 1;

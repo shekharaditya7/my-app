@@ -8,10 +8,17 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow: auto;
 }
 
 .rhsContent {
   padding: 20px;
   height: 100%;
   height: calc(100vh - 160px);
+}
+
+@media only screen and (min-width: 1024px) {
+  .rhsContent {
+    height: calc(100vh - 134px);
+  }
 }
