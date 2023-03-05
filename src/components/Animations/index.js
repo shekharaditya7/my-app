@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./index.module.scss";
 import ANIMATIONS from "./animations.constants";
-// import Tabs from "./../Widgets/Tabs";
 import CustomSelect from "../Widgets/CustomSelect";
 
 export default function Animations() {
