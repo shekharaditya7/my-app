@@ -137,10 +137,7 @@ export default function Chess() {
         checkedKingPos.current
       );
 
-      // No need to continue further if King is in CHECK;
-      if (isKingChecked) return;
-
-      // Check if KING would get in check if the move gets completed - if YES, revert
+      // Check if KING (of the color which just made the move) would get in check if the move gets completed - if YES, revert
       if (
         willKingBeCheckedAfterMoveByColor(
           turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE,
@@ -329,6 +326,14 @@ export default function Chess() {
           </div>
           <div
             className={cx(styles.metaItem, {
+              [styles.diabledMetaItem]: !isRedoAvailable,
+            })}
+            onClick={handleRedo}
+          >
+            Redo
+          </div>
+          <div
+            className={cx(styles.metaItem, {
               [styles.diabledMetaItem]: !isUndoAvailable,
             })}
             onClick={
@@ -336,14 +341,6 @@ export default function Chess() {
             }
           >
             Reset
-          </div>
-          <div
-            className={cx(styles.metaItem, {
-              [styles.diabledMetaItem]: !isRedoAvailable,
-            })}
-            onClick={handleRedo}
-          >
-            Redo
           </div>
         </div>
         <div className={styles.blackDeadWrapper}>
