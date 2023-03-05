@@ -8,11 +8,12 @@ export default function Button({
   onClick,
   isLoading,
   children,
+  isDisabled = false,
 }) {
   return (
     <button
-      className={cx(styles.btn, className)}
-      onClick={!isLoading ? (event) => onClick({ event }) : null}
+      className={cx(styles.btn, className, { [styles.disabled]: isDisabled })}
+      onClick={!isLoading || isDisabled ? (event) => onClick({ event }) : null}
     >
       {isLoading ? <CircularLoader /> : label}
       {children}

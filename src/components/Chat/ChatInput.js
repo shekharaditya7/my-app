@@ -21,7 +21,11 @@ export default function ChatInput({ handleSendMessage, className }) {
           className={styles.urlInput}
           autoFocus
         ></input>
-        <Button onClick={sendButtonClick} label={"Send"} />
+        <Button
+          onClick={sendButtonClick}
+          label={"Send"}
+          isDisabled={!textMessage}
+        />
       </div>
     </div>
   );
