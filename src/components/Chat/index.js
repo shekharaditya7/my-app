@@ -16,7 +16,6 @@ const { REACT_APP_WS_HOST } = process.env;
 
 export default function Chat() {
   const navigate = useNavigate();
-  const messageListRef = useRef();
   const [isConnecting, setIsConnecting] = useState(false);
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get("r") || "";
@@ -127,12 +126,7 @@ export default function Chat() {
     <div className={styles.wrapper}>
       {roomId && socket?.current?.connected ? (
         <>
-          <MessageList
-            messageListRef={messageListRef}
-            messages={messages}
-            socket={socket}
-            userEmail={user?.email}
-          />
+          <MessageList messages={messages} socket={socket} />
           <ChatInput
             className={styles.chatInput}
             handleSendMessage={sendMessage}

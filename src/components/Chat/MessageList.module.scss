@@ -1,14 +1,18 @@
 @import "./../../styles/index.scss";
 
-.messageList {
-  height: calc(100% - 54px);
+.messageListWrapper {
   width: 100%;
-  padding: 0 6px;
+  height: 100%;
+  padding: 4px 8px;
   display: flex;
-  justify-content: flex-end;
   flex-direction: column;
   overflow: auto;
   border: 0.1px solid hsla(0, 0%, 50.2%, 0.3);
+}
+
+.messageList {
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .message {
@@ -67,6 +71,9 @@
 }
 
 @include if-device(desktop-tablet) {
+  .messageListWrapper {
+    padding: 6px 10px;
+  }
   .message {
     font-size: 14px;
   }
