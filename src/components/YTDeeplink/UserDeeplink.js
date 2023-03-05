@@ -44,6 +44,7 @@ export default function UserDeeplink() {
           value={ytUrl}
           className={styles.urlInput}
           height={28}
+          autoFocus
         ></input>
         <Button
           onClick={() => setVideoId(matchYoutubeUrl(ytUrl))}

@@ -19,6 +19,7 @@ export default function ChatInput({ handleSendMessage, className }) {
           onChange={(event) => setTextMessage(event.target.value)}
           value={textMessage}
           className={styles.urlInput}
+          autoFocus
         ></input>
         <Button onClick={sendButtonClick} label={"Send"} />
       </div>
