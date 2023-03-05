@@ -228,7 +228,7 @@
     opacity: 0.6;
   }
 }
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 1160px) {
   .wrapper {
     flex-direction: column;
     justify-content: space-between;
@@ -285,5 +285,23 @@
   .alert {
     left: calc(50% - 130px);
     bottom: 60px;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1160px) {
+  .metaSection {
+    width: calc(100% - 190px);
+    left: 190px;
+  }
+  .box {
+    height: 44px;
+    width: 44px;
+  }
+  .whiteDeadWrapper,
+  .blackDeadWrapper {
+    .deadBox {
+      height: 44px;
+      width: 44px;
+    }
   }
 }

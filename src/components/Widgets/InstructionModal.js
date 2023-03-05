@@ -31,8 +31,12 @@ export default function InstructionModal({
         <>
           <p className={styles.noteTitle}>Note : </p>
           <ul>
-            {notes.map((note) => {
-              return <li className={styles.note}>{note}</li>;
+            {notes.map((note, index) => {
+              return (
+                <li key={index} className={styles.note}>
+                  {note}
+                </li>
+              );
             })}
           </ul>
         </>

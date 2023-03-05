@@ -1,7 +1,6 @@
 @import "./../../styles/index.scss";
 
 .modal {
-  font-family: "Times New Roman", Times, serif;
   margin-top: auto;
   margin-bottom: 0;
   height: fit-content;
@@ -19,6 +18,7 @@
 .step {
   font-size: 14px;
   display: block;
+  font-family: sans-serif;
   margin-bottom: 4px;
   &:last-child {
     margin-bottom: 0;
@@ -41,6 +41,7 @@
 .note {
   font-size: 14px;
   margin-bottom: 4px;
+  font-family: sans-serif;
 }
 
 @include if-device(desktop-tablet) {
@@ -58,5 +59,12 @@
   }
   .note {
     font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .modal {
+    position: relative;
+    left: 104px;
   }
 }
