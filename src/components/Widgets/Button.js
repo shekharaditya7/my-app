@@ -12,7 +12,7 @@ export default function Button({
   return (
     <button
       className={cx(styles.btn, className)}
-      onClick={(event) => onClick({ event })}
+      onClick={!isLoading ? (event) => onClick({ event }) : null}
     >
       {isLoading ? <CircularLoader /> : label}
       {children}
