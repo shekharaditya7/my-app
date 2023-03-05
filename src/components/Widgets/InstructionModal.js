@@ -29,7 +29,7 @@ export default function InstructionModal({
       ) : null}
       {notes?.length ? (
         <>
-          <p className={styles.noteTitle}>Note : </p>
+          <p className={styles.noteTitle}>Note </p>
           <ul>
             {notes.map((note, index) => {
               return (
