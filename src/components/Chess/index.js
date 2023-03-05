@@ -199,6 +199,7 @@ export default function Chess() {
     setChessboard(baseBoard);
     turn.current = COLORS.WHITE;
     knockedOutPieces.current = JSON.parse(JSON.stringify(KNOCKED_OUT_BOARD));
+    checkedKingPos.current = {};
     setShowConfirmationModal(false);
   };
 
