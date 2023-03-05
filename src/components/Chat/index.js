@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
-import Button from "../Widgets/Button";
-import cx from "classnames";
 
+import Button from "../Widgets/Button";
+import MessageList from "./MessageList";
 import ChatInput from "./ChatInput";
 import Instructions from "../Widgets/InstructionModal";
+
+import { EVENTS, USER_TYPES } from "./chat.constants";
+import pages from "../../pages";
 
 import styles from "./index.module.scss";
 
@@ -25,18 +28,26 @@ export default function Chat() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
+    // CASE : If user is generating the link, but he is not logged in => Ask him to login
     if (!roomId && !user?.name) {
       sessionStorage.setItem("redirectUrl", "/chat/");
       navigate({
-        pathname: "/auth/login/",
+        pathname: pages.LOGIN,
       });
     }
+
+    // CASE : If the user wants to join using a room link, but he is not logged in => Ask him to login
     if (roomId && !user?.name) {
-      sessionStorage.setItem("redirectUrl", `/chat/?r=${roomId}`);
+      sessionStorage.setItem("redirectUrl", `${pages.CHAT}?r=${roomId}`);
       navigate({
-        pathname: "/auth/login/",
+        pathname: pages.LOGIN,
       });
     } else if (roomId && !socket.current && user?.name) {
+      /*
+      Connect to socket (to the given room id) if
+        1. User is logged in, and
+        2. Is not already connected
+    */
       const handleJoinRoom = async () => {
         setIsConnecting(true);
         try {
@@ -45,12 +56,12 @@ export default function Chat() {
           socket.current = io(REACT_APP_WS_HOST, {
             query: { roomId: roomId, name: user.name },
           });
-          socket.current.on("messageFromServer", (msg = {}) => {
+          socket.current.on(EVENTS.MESSAGE_FROM_SERVER, (msg = {}) => {
             setMessages((prevMessages) => {
               return [...prevMessages, JSON.parse(msg)];
             });
           });
-          socket.current.on("connect", () => {
+          socket.current.on(EVENTS.CONNECT, () => {
             setIsConnecting(false);
           });
         } catch (e) {
@@ -61,18 +72,9 @@ export default function Chat() {
     }
   }, [roomId, user?.name, navigate]);
 
-  useEffect(() => {
-    if (messageListRef?.current) {
-      messageListRef.current.scrollTo({
-        top: messageListRef.current.scrollHeight,
-        behaviour: "smooth",
-      });
-    }
-  }, [messages]);
-
   const sendMessage = async (message) => {
     if (message && user?.name) {
-      await socket.current.emit("messageFromClient", {
+      await socket.current.emit(EVENTS.MESSAGE_FROM_CLIENT, {
         text: message,
         name: user.name,
       });
@@ -82,7 +84,7 @@ export default function Chat() {
           {
             text: message,
             socketId: socket.current.id,
-            type: "user",
+            type: USER_TYPES.USER,
             name: user.name,
           },
         ];
@@ -90,9 +92,12 @@ export default function Chat() {
     }
   };
 
+  /*
+    When the user generates the link by himself
+  */
   const createRoom = async (roomId) => {
     await navigator.clipboard.writeText(
-      `${window.location.origin}/chat/?r=${roomId}`
+      `${window.location.origin}${pages.CHAT}?r=${roomId}`
     );
     setIsConnecting(true);
     try {
@@ -100,12 +105,12 @@ export default function Chat() {
       const io = module.default;
 
       socket.current = io(REACT_APP_WS_HOST, { query: { roomId: roomId } });
-      socket.current.on("messageFromServer", (msg = {}) => {
+      socket.current.on(EVENTS.MESSAGE_FROM_SERVER, (msg = {}) => {
         setMessages((prevMessages) => {
           return [...prevMessages, JSON.parse(msg)];
         });
       });
-      socket.current.on("connect", () => {
+      socket.current.on(EVENTS.CONNECT, () => {
         setIsConnecting(false);
         setShowInstructions(true);
       });
@@ -122,25 +127,12 @@ export default function Chat() {
     <div className={styles.wrapper}>
       {roomId && socket?.current?.connected ? (
         <>
-          <div className={styles.messageList} ref={messageListRef}>
-            {messages.map(({ socketId, text, type, name } = {}, index) => (
-              <div
-                key={index}
-                className={cx(styles.message, {
-                  [styles.sentByMe]:
-                    socketId === socket?.current.id && type !== "server",
-                  [styles.sentByOther]:
-                    socketId !== socket?.current.id && type !== "server",
-                  [styles.sentByServer]: type === "server",
-                })}
-              >
-                {socketId !== socket?.current.id && type !== "server" ? (
-                  <p className={styles.name}>{name}</p>
-                ) : null}
-                <p className={styles.text}>{text}</p>
-              </div>
-            ))}
-          </div>
+          <MessageList
+            messageListRef={messageListRef}
+            messages={messages}
+            socket={socket}
+            userEmail={user?.email}
+          />
           <ChatInput
             className={styles.chatInput}
             handleSendMessage={sendMessage}

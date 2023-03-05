@@ -4,8 +4,8 @@ const INSTRUCTIONS = {
   [pages.HOME]: {
     title: "Hello there, welcome!",
     instructions: [
-      "The website is mostly about the little things you can do as a Frontend Developer.",
-      "It really amazes me when I think about what all you can do with HTML, CSS and JavaScript.",
+      "The website is mostly about the little and big things you can do as a Web Developer.",
+      "It really amazes me when I think about what all you can do with a few lines of code!",
     ],
   },
   [pages.DRAWER]: {
@@ -15,7 +15,7 @@ const INSTRUCTIONS = {
   [pages.NESTED_NAV]: {
     title: "Nested Navigation",
     instructions: [
-      "A simplistic use of recursion",
+      "A simplistic use of recursion.",
       "Takes JSON as an input in a predefined format.",
       "Shows the children as you keep clicking on particular nodes.",
     ],
@@ -23,7 +23,7 @@ const INSTRUCTIONS = {
   [pages.USER_DEEPLINK]: {
     title: "Deeplink URLs",
     instructions: [
-      "Solves the problem of Youtube URLs opening in - app / webviews on platforms such as LinkedIn, Instagram.",
+      "Solves the problem of Youtube URLs on platforms such as LinkedIn, Instagram ; opening in the app itself.",
       "Generates a URL that one can use to directly open the Youtube app, if installed.",
     ],
   },
