@@ -5,19 +5,28 @@
   margin-top: auto;
   margin-bottom: 0;
   height: fit-content;
+  background: black;
+  border: 0.1px solid gray;
 }
 .title {
-  font-weight: bold;
+  font-family: sans-serif;
   margin-bottom: 24px;
+  color: white;
+  font-size: 16px;
   width: fit-content;
   padding: 4px 10px;
-  background-color: rgb(210, 235, 243);
+  background-color: rgba(128, 128, 128, 0.3);
   border-radius: 6px;
 }
 
 .step {
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  color: rgb(127, 127, 127);
+  font-family: sans-serif;
+  &:last-child {
+    margin-bottom: 12px;
+  }
 }
 .buttons {
   display: flex;
@@ -31,7 +40,7 @@
 
 .cancel {
   flex: 1;
-  background-color: gray;
+  background-color: rgba(128, 128, 128, 0.3);
   float: right;
 }
 
@@ -41,11 +50,13 @@
     font-size: 16px;
     max-width: 360px;
   }
-
-  .title {
-    font-size: 18px;
-  }
   .step {
     font-size: 16px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .modal {
+    position: relative;
+    left: 102px;
   }
 }
