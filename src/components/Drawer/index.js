@@ -26,9 +26,6 @@ function Drawer() {
     canRef.current.height = height;
     ctx.current.fillStyle = "rgb(255,255,255)";
     ctx.current.fillRect(0, 0, width, height);
-    // canRef.current.addEventListener("touchstart", function (event) {
-    //   event.preventDefault();
-    // });
   }, [screenWidth]);
 
   useEffect(() => {
