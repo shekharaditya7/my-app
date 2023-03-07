@@ -18,6 +18,8 @@ function Drawer() {
   const isWideScreen = !!(screenWidth >= 1024);
 
   useEffect(() => {
+    console.log("Screen :", screenWidth);
+    console.log("Wrapper :", wrapperRef.current.clientWidth);
     ctx.current = canRef.current.getContext("2d");
     const width = wrapperRef.current.clientWidth;
     const height = wrapperRef.current.clientHeight;
@@ -74,8 +76,6 @@ function Drawer() {
   }, [pressed, color, size, isWideScreen]);
 
   function handleClear() {
-    // ctx.current.fillStyle = "rgb(0,0,0)";
-    // ctx.current.clearRect(0, 0, width, height);
     window.location.reload();
   }
 
