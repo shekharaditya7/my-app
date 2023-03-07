@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import cx from "classnames";
 import Instructions from "../Widgets/InstructionModal";
 import ConfirmationModal from "../Widgets/ConfirmationModal";
 import BOARD, {
@@ -16,13 +15,16 @@ import {
 } from "./chess.utils";
 import playAudio from "../../utils/audio";
 import styles from "./index.module.scss";
+import KnockedOutPieces from "./KnockedOutPieces";
+import Chessboard from "./Chessboard";
+import MetaSection from "./MetaSection";
 
 export default function Chess() {
   const [showInstructions, setShowInstructions] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [chessBoard, setChessboard] = useState([...BOARD]);
+  const [chessBoard, setChessboard] = useState(window.structuredClone(BOARD));
   const pressedPiece = useRef(null);
-  const knockedOutPieces = useRef({ ...KNOCKED_OUT_BOARD });
+  const knockedOutPieces = useRef(window.structuredClone(KNOCKED_OUT_BOARD));
   const turn = useRef(COLORS.WHITE);
   const checkedKingPos = useRef({});
 
@@ -42,12 +44,12 @@ export default function Chess() {
       configData.length &&
       configData[configData.length - 1]?.currChessBoard
     ) {
-      setChessboard(configData[configData.length - 1].currChessBoard);
       turn.current = configData[configData.length - 1].currentTurn;
       knockedOutPieces.current =
         configData[configData.length - 1].currKnockedOut;
       checkedKingPos.current =
         configData[configData.length - 1].currCheckedKingPos;
+      setChessboard(configData[configData.length - 1].currChessBoard);
     }
   }, []);
 
@@ -193,10 +195,10 @@ export default function Chess() {
     localStorage.removeItem(LOCAL_CONFIG_KEY);
     localStorage.removeItem(REDO_KEY);
     const baseBoard = JSON.parse(JSON.stringify(BOARD));
-    setChessboard(baseBoard);
     turn.current = COLORS.WHITE;
     knockedOutPieces.current = JSON.parse(JSON.stringify(KNOCKED_OUT_BOARD));
     checkedKingPos.current = {};
+    setChessboard(baseBoard);
     setShowConfirmationModal(false);
   };
 
@@ -220,12 +222,12 @@ export default function Chess() {
       setChessboard(configData[configData.length - 1].currChessBoard);
     } else {
       const baseBoard = JSON.parse(JSON.stringify(BOARD));
-      setChessboard(baseBoard);
       turn.current = COLORS.WHITE;
       knockedOutPieces.current = JSON.parse(
         JSON.stringify({ ...KNOCKED_OUT_BOARD })
       );
       checkedKingPos.current = {};
+      setChessboard(baseBoard);
     }
     localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(configData));
     if (lastData)
@@ -259,113 +261,28 @@ export default function Chess() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.whiteDeadWrapper}>
-        {knockedOutPieces.current?.[COLORS.WHITE].map((whitePiecesArr, row) => {
-          return (
-            <div className={styles.whiteCol} key={row}>
-              {whitePiecesArr.map((item, col) => {
-                return (
-                  <div className={styles.deadBox} key={`${row}-${col}`}>
-                    {item?.logoSrc ? (
-                      <img
-                        src={item.logoSrc}
-                        className={styles.whitePieceImg}
-                        alt="piece"
-                      ></img>
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
-      <div className={styles.board}>
-        {chessBoard.map((rowItems, row) => {
-          return (
-            <div className={styles.row} key={row}>
-              {rowItems.map(({ piece, color, isActive }, col) => {
-                return (
-                  <div
-                    className={cx(styles.box, {
-                      [styles.active]: isActive,
-                      [styles.checkedKing]:
-                        checkedKingPos?.current?.row === row &&
-                        checkedKingPos?.current?.col === col,
-                      [styles.pointer]: !!piece,
-                      [styles.dark]: color === COLORS.BLACK,
-                    })}
-                    key={`${row}-${col}`}
-                    onClick={() => handleBoxClick(row, col)}
-                  >
-                    {piece?.logoSrc ? (
-                      <img
-                        src={piece?.logoSrc}
-                        alt="chess-piece"
-                        className={cx(styles.pieceImg, {
-                          [styles.whitePieceImg]: piece?.color === COLORS.WHITE,
-                        })}
-                      ></img>
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
+      <KnockedOutPieces
+        pieces={knockedOutPieces.current?.[COLORS.WHITE]}
+        wrapperClassName={styles.whiteDeadWrapper}
+      />
+      <Chessboard
+        chessBoard={chessBoard}
+        handleBoxClick={handleBoxClick}
+        checkedKingPos={checkedKingPos}
+      />
       <div className={styles.boardRight}>
-        <div className={styles.metaSection}>
-          <div
-            className={cx(styles.metaItem, {
-              [styles.diabledMetaItem]: !isUndoAvailable,
-            })}
-            onClick={isUndoAvailable ? handleUndo : null}
-          >
-            Undo
-          </div>
-          <div
-            className={cx(styles.metaItem, {
-              [styles.diabledMetaItem]: !isRedoAvailable,
-            })}
-            onClick={handleRedo}
-          >
-            Redo
-          </div>
-          <div
-            className={cx(styles.metaItem, {
-              [styles.diabledMetaItem]: !isUndoAvailable,
-            })}
-            onClick={
-              isUndoAvailable ? () => setShowConfirmationModal(true) : null
-            }
-          >
-            Reset
-          </div>
-        </div>
-        <div className={styles.blackDeadWrapper}>
-          {knockedOutPieces.current?.[COLORS.BLACK].map(
-            (blackPiecesArr, row) => {
-              return (
-                <div className={styles.whiteCol} key={row}>
-                  {blackPiecesArr.map((item, col) => {
-                    return (
-                      <div className={styles.deadBox} key={`${row}-${col}`}>
-                        {item?.logoSrc ? (
-                          <img
-                            src={item.logoSrc}
-                            className={styles.blackPieceImg}
-                            alt="piece"
-                          ></img>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            }
-          )}
-        </div>
+        <MetaSection
+          handleRedo={handleRedo}
+          handleUndo={handleUndo}
+          handleReset={() => setShowConfirmationModal(true)}
+          isUndoAvailable={isUndoAvailable}
+          isRedoAvailable={isRedoAvailable}
+        />
+
+        <KnockedOutPieces
+          pieces={knockedOutPieces.current?.[COLORS.BLACK]}
+          wrapperClassName={styles.blackDeadWrapper}
+        />
       </div>
 
       {showInstructions ? (
