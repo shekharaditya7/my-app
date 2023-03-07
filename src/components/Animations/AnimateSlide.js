@@ -10,28 +10,36 @@ export default function AnimateFade() {
   const containerRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [fadeOutIndex, setFadeoutIndex] = useState(null);
+  const animationInProgress = useRef(false);
   const swipeDirection = useRef("");
   const items = useRef([...new Array(total)]);
 
   const handleNextClick = () => {
+    animationInProgress.current = true;
     swipeDirection.current = LEFT;
     setFadeoutIndex(activeSlide);
     setTimeout(() => {
       setActiveSlide((prev) => (prev + 1) % total);
+      animationInProgress.current = false;
     }, 500);
   };
 
   const handlePrevClick = () => {
+    animationInProgress.current = true;
     swipeDirection.current = RIGHT;
     setFadeoutIndex(activeSlide);
     setTimeout(() => {
       setActiveSlide((prev) => (total + prev - 1) % total);
+      animationInProgress.current = false;
     }, 500);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.prev} onClick={handlePrevClick}>
+      <div
+        className={styles.prev}
+        onClick={animationInProgress.current === true ? null : handlePrevClick}
+      >
         {"^"}
       </div>
       <div className={styles.wrapper}>
@@ -70,7 +78,10 @@ export default function AnimateFade() {
           })}
         </div>
       </div>
-      <div className={styles.next} onClick={handleNextClick}>
+      <div
+        className={styles.next}
+        onClick={animationInProgress.current === true ? null : handleNextClick}
+      >
         {"^"}
       </div>
     </div>

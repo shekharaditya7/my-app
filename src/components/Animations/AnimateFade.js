@@ -7,26 +7,34 @@ const total = 5;
 export default function AnimateFade() {
   const containerRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const animationInProgress = useRef(false);
   const [fadeOutIndex, setFadeoutIndex] = useState(null);
   const items = useRef([...new Array(total)]);
 
   const handleNextClick = () => {
+    animationInProgress.current = true;
     setFadeoutIndex(activeSlide);
     setTimeout(() => {
       setActiveSlide((prev) => (prev + 1) % total);
+      animationInProgress.current = false;
     }, 500);
   };
 
   const handlePrevClick = () => {
+    animationInProgress.current = true;
     setFadeoutIndex(activeSlide);
     setTimeout(() => {
       setActiveSlide((prev) => (total + prev - 1) % total);
+      animationInProgress.current = false;
     }, 500);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.prev} onClick={handlePrevClick}>
+      <div
+        className={styles.prev}
+        onClick={animationInProgress.current ? null : handlePrevClick}
+      >
         {"^"}
       </div>
       <div className={styles.wrapper}>
@@ -55,7 +63,10 @@ export default function AnimateFade() {
           })}
         </div>
       </div>
-      <div className={styles.next} onClick={handleNextClick}>
+      <div
+        className={styles.next}
+        onClick={animationInProgress.current ? null : handleNextClick}
+      >
         {"^"}
       </div>
     </div>
