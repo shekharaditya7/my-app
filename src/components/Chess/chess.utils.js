@@ -5,8 +5,29 @@ export const resetActiveState = (currChessBoard) => {
     Turn off dispaying possible moves
   */
   for (let i = 0; i <= 7; i++) {
-    for (let j = 0; j <= 7; j++) currChessBoard[i][j].isActive = false;
+    for (let j = 0; j <= 7; j++) {
+      currChessBoard[i][j].isActive = false;
+      currChessBoard[i][j].isMovedBox = false;
+    }
   }
+};
+
+export const showMovedBoxes = (
+  currChessBoard,
+  prevRow,
+  prevCol,
+  currRow,
+  currCol
+) => {
+  if (
+    currChessBoard !== undefined &&
+    prevRow !== undefined &&
+    prevCol !== undefined &&
+    currRow !== undefined &&
+    currCol !== undefined
+  )
+    currChessBoard[prevRow][prevCol].isMovedBox = true;
+  currChessBoard[currRow][currCol].isMovedBox = true;
 };
 
 /*
