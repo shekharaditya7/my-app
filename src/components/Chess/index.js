@@ -12,6 +12,7 @@ import {
   willKingBeCheckedAfterMoveByColor,
   isKingCheckedAfterMoveComplete,
   getMovesByType,
+  showMovedBoxes,
 } from "./chess.utils";
 import playAudio from "../../utils/audio";
 import styles from "./index.module.scss";
@@ -115,13 +116,22 @@ export default function Chess() {
         addKnockedOutPiece(piece);
       }
       currChessBoard[row][col].piece = { ...pressedPiece.current.piece };
+
+      resetActiveState(currChessBoard);
+
+      showMovedBoxes(
+        currChessBoard,
+        pressedPiece?.current?.pressedRow,
+        pressedPiece?.current?.pressedCol,
+        row,
+        col
+      );
       pressedPiece.current = null;
 
       //CHANGE TURN
       turn.current =
         turn.current === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
       setChessboard([...currChessBoard]);
-      resetActiveState(currChessBoard);
 
       // Check if King got checked
       const { isKingChecked, checkedRow, checkedCol } =

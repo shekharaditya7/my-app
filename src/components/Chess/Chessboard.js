@@ -12,7 +12,7 @@ export default function Chessboard({
       {chessBoard.map((rowItems, row) => {
         return (
           <div className={styles.row} key={row}>
-            {rowItems.map(({ piece, color, isActive }, col) => {
+            {rowItems.map(({ piece, color, isActive, isMovedBox }, col) => {
               return (
                 <div
                   className={cx(styles.box, {
@@ -22,6 +22,7 @@ export default function Chessboard({
                       checkedKingPos?.current?.col === col,
                     [styles.pointer]: !!piece,
                     [styles.dark]: color === COLORS.BLACK,
+                    [styles.movedBox]: isMovedBox === true,
                   })}
                   key={`${row}-${col}`}
                   onClick={() => handleBoxClick(row, col)}
