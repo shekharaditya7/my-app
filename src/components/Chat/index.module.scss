@@ -15,8 +15,10 @@
 
 .chatInput {
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
+  padding: 20px;
   margin: 0 auto;
+  background-color: black;
 
   button {
     height: 36px;
@@ -25,13 +27,13 @@
 
 @media only screen and (max-width: 1023.98px) {
   .chatInput {
-    width: calc(100% - 40px);
+    width: 100%;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .chatInput {
-    width: calc(100% - 240px);
-    left: 220px;
+    width: calc(100% - 200px);
+    left: 200px;
   }
 }
