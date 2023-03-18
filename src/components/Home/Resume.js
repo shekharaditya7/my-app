@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import cx from "classnames";
 import About from "./About";
 import Experience from "./Experience";
@@ -15,18 +15,11 @@ export default function Resume() {
   const activeTab = searchParams.get("tab");
   const [screenWidth] = useWindowResize();
 
-  useEffect(() => {
-    if (!activeTab) {
-      navigate({
-        search: `?tab=${ABOUT}`,
-      });
-    }
-  }, [activeTab, navigate]);
-
   const renderTabContent = () => {
     if (activeTab === ABOUT) return <About />;
     if (activeTab === EXPERIENCE) return <Experience />;
     if (activeTab === SKILLS) return <Skills />;
+    return <Navigate to={`/?tab=${ABOUT}`} replace={true} />;
   };
 
   useEffect(() => {
@@ -37,6 +30,7 @@ export default function Resume() {
       });
     }
   }, [activeTab, screenWidth]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.tabs}>
