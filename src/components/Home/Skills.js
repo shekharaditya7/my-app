@@ -23,7 +23,6 @@ const SKILL_ITEMS = [
       "Python",
       "PHP",
       "Django",
-      "Django REST",
       "Remix.js",
       "SQL",
       "Wordpress",
@@ -70,13 +69,25 @@ export default function Projects() {
                 <img className={styles.skillImg} src={logoSrc} alt={"logo"} />
                 {title}
               </div>
-              <div className={styles.skillDescription}>
-                {techList.map((techItem, index) => (
-                  <span className={styles.techItem} key={index}>
-                    {techItem}
-                    {index !== techList?.length - 1 ? "," : "."}{" "}
-                  </span>
-                ))}
+              <div className={styles.skillList}>
+                <ul className={styles.skillDescription}>
+                  {techList.map((techItem, index) =>
+                    index < techList.length / 2 ? (
+                      <li className={styles.techItem} key={index}>
+                        {techItem}
+                      </li>
+                    ) : null
+                  )}
+                </ul>
+                <ul className={styles.skillDescription}>
+                  {techList.map((techItem, index) =>
+                    index > techList.length / 2 ? (
+                      <li className={styles.techItem} key={index}>
+                        {techItem}
+                      </li>
+                    ) : null
+                  )}
+                </ul>
               </div>
             </div>
           </div>
