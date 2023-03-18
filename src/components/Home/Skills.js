@@ -8,9 +8,9 @@ const SKILL_ITEMS = [
     techList: [
       "JavaScript",
       "C++",
-      "React.js",
-      "Next.js",
-      "Node.js",
+      "ReactJS",
+      "NextJS",
+      "NodeJS",
       "HTML",
       "CSS",
       "TailwindCSS",
@@ -23,7 +23,7 @@ const SKILL_ITEMS = [
       "Python",
       "PHP",
       "Django",
-      "Remix.js",
+      "RemixJS",
       "SQL",
       "Wordpress",
       "TypeScript",
@@ -33,8 +33,37 @@ const SKILL_ITEMS = [
 
 const ACTION_ITEMS = [
   {
+    title: "My-App",
+    duration: ["HTML", "SCSS", "Javascript", "ReactJS"],
+    link: {
+      url: "https://github.com/shekharaditya7/my-app",
+      label: "Github Link",
+    },
+    description:
+      "Portfolio Website. It includes working examples of quite a few things that I've learnt over time.",
+  },
+  {
+    title: "User Service",
+    duration: ["NextJS", "MongoDB", "Javascript"],
+    link: {
+      url: "https://github.com/shekharaditya7/next-user-service",
+      label: "Github Link",
+    },
+    description: "User service backend for all of my applications.",
+  },
+  {
+    title: "Websocket Server",
+    duration: ["ExpressJS", "NodeJS", "Javascript", "Websockets", "Socket-io"],
+    link: {
+      url: "https://github.com/shekharaditya7/websocket-server",
+      label: "Github Link",
+    },
+    description:
+      "An express server that handles websocket connections for live chat.",
+  },
+  {
     title: "Social Web-application",
-    duration: "HTML, CSS, Javascript, Python, Django",
+    duration: ["HTML", "CSS", "Javascript", "Python", "Django"],
     link: {
       url: "https://github.com/shekharaditya7/socialSite",
       label: "Github Link",
@@ -44,7 +73,7 @@ const ACTION_ITEMS = [
   },
   {
     title: "Student Session Management",
-    duration: "HTML, CSS, Javascript, React.js, Django REST",
+    duration: ["HTML", "CSS", "Javascript", "React.js", "Django REST"],
     link: {
       url: "https://github.com/shekharaditya7/studentSession",
       label: "Github Link",
@@ -95,7 +124,7 @@ export default function Projects() {
       </div>
       <div className={styles.projects}>
         <h2 className={styles.projectHeader}>Projects</h2>
-        {ACTION_ITEMS.map(({ title, description, duration }, index) => (
+        {ACTION_ITEMS.map(({ title, description, duration, link }, index) => (
           <div
             className={cx(styles.actionItem, {
               [styles.leftBorder]: index !== ACTION_ITEMS.length - 1,
@@ -107,12 +136,15 @@ export default function Projects() {
               <div className={styles.dot}> </div>{" "}
             </div>
             <div className={styles.meta}>
-              <h3>{title}</h3>
+              <a href={link.url} target="_blank" rel="noreferrer">
+                {title}
+              </a>
               <p className={styles.description}>{description}</p>
-              <p className={styles.duration}>
-                <span>Tech Stack : </span>
-                {duration}
-              </p>
+              {duration.map((item) => (
+                <p className={styles.duration} key={item}>
+                  {item}
+                </p>
+              ))}
             </div>
           </div>
         ))}

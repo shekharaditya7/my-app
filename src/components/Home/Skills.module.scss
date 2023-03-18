@@ -127,16 +127,27 @@
     .position {
       font-size: 1rem;
     }
-    h3 {
+    a {
+      display: block;
+      width: fit-content;
       font-size: 1.3rem;
       margin-bottom: 8px;
+      cursor: pointer;
+
+      &:hover {
+        color: #58a6ff;
+        text-decoration: underline;
+      }
     }
     .duration {
-      font-size: 0.9rem;
-      color: #ceb15a;
-      span {
-        color: white;
-      }
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 14px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      color: #58a6ff;
+      background-color: rgba(56, 139, 253, 0.15);
     }
     .description {
       font-size: 1rem;
