@@ -40,10 +40,13 @@ export default function Resume() {
             className={cx(styles.tabItem, {
               [styles.active]: tabItem === activeTab,
             })}
-            onClick={() =>
-              navigate({
-                search: `?tab=${tabItem}`,
-              })
+            onClick={
+              tabItem !== activeTab
+                ? () =>
+                    navigate({
+                      search: `?tab=${tabItem}`,
+                    })
+                : null
             }
           >
             {" "}
