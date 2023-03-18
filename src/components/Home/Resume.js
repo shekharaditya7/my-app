@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import cx from "classnames";
 import About from "./About";
 import Experience from "./Experience";
@@ -9,8 +10,18 @@ import { TABS, ABOUT, EXPERIENCE, SKILLS } from "./resume.constants";
 import styles from "./Resume.module.scss";
 
 export default function Resume() {
-  const [activeTab, setActiveTab] = useState(ABOUT);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab");
   const [screenWidth] = useWindowResize();
+
+  useEffect(() => {
+    if (!activeTab) {
+      navigate({
+        search: `?tab=${ABOUT}`,
+      });
+    }
+  }, [activeTab, navigate]);
 
   const renderTabContent = () => {
     if (activeTab === ABOUT) return <About />;
@@ -35,7 +46,11 @@ export default function Resume() {
             className={cx(styles.tabItem, {
               [styles.active]: tabItem === activeTab,
             })}
-            onClick={() => setActiveTab(tabItem)}
+            onClick={() =>
+              navigate({
+                search: `?tab=${tabItem}`,
+              })
+            }
           >
             {" "}
             {tabItem}
