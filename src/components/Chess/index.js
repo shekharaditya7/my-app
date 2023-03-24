@@ -272,7 +272,7 @@ export default function Chess() {
   return (
     <div className={styles.wrapper}>
       <KnockedOutPieces
-        pieces={knockedOutPieces.current?.[COLORS.WHITE]}
+        pieces={knockedOutPieces.current?.[COLORS.BLACK]}
         wrapperClassName={styles.whiteDeadWrapper}
       />
       <Chessboard
@@ -290,7 +290,7 @@ export default function Chess() {
         />
 
         <KnockedOutPieces
-          pieces={knockedOutPieces.current?.[COLORS.BLACK]}
+          pieces={knockedOutPieces.current?.[COLORS.WHITE]}
           wrapperClassName={styles.blackDeadWrapper}
         />
       </div>

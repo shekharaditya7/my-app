@@ -286,7 +286,7 @@ export function getMovesByType(type, row, col, board) {
     */
     case TYPES.PAWN: {
       const color = board[row][col]?.piece?.color;
-      if (color === COLORS.BLACK) {
+      if (color === COLORS.WHITE) {
         if (row === 6) {
           if (
             isValidBox(row - 1, col, board, color) &&
@@ -350,7 +350,7 @@ export function getMovesByType(type, row, col, board) {
         ) {
           movesArray.push([createPoint(row - 1, col + 1)]);
         }
-      } else if (color === COLORS.WHITE) {
+      } else if (color === COLORS.BLACK) {
         if (row === 1) {
           if (
             isValidBox(row + 1, col, board, color) &&
