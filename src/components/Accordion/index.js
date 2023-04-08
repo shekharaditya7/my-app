@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import cx from "classnames";
 import styles from "./index.module.scss";
 
@@ -48,15 +48,19 @@ function AccordionItem({ accordionItem, level }) {
       style={{ width: `calc(100% - ${level === 0 ? 0 : 20}px)` }}
     >
       <div className={styles.title}>{title}</div>
-      {showDescription ? (
-        Array.isArray(description) ? (
+      <div className={styles.listWrapper}>
+        {Array.isArray(description) ? (
           description.map((accordionItem) => (
-            <AccordionItem accordionItem={accordionItem} level={level + 1} />
+            <AccordionItem
+              accordionItem={accordionItem}
+              level={level + 1}
+              key={accordionItem.title}
+            />
           ))
         ) : (
           <div class={styles.description}> {description} </div>
-        )
-      ) : null}
+        )}
+      </div>
     </div>
   );
 }
@@ -65,7 +69,11 @@ export default function Accordion() {
   return (
     <div className={styles.wrapper}>
       {itemList.map((accordionItem) => (
-        <AccordionItem accordionItem={accordionItem} level={0} />
+        <AccordionItem
+          accordionItem={accordionItem}
+          level={0}
+          key={accordionItem.title}
+        />
       ))}
     </div>
   );

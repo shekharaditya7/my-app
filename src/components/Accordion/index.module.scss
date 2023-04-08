@@ -5,15 +5,11 @@
   background: black;
   padding: 4px 16px 16px;
   border-radius: 8px;
+  user-select: none;
 }
 
 .wrapper > .accordionItem {
   left: 0;
-}
-
-.accordionItem .accordionItem {
-  // display: none;
-  // max-height: 0;
 }
 
 .accordionItem {
@@ -24,7 +20,7 @@
   left: 20px;
   max-width: 100%;
   padding: 12px 0;
-  transition: max-height 250ms ease-in;
+  transition: all 250ms ease-in;
 
   &:last-child {
     border: none;
@@ -53,9 +49,20 @@
   color: #8b949e;
 }
 
+.listWrapper {
+  max-height: 0;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+}
+
 .accordionOpen {
   &::after {
     transform: rotate(180deg);
+    transform-origin: center;
     top: 15px;
   }
+}
+
+.accordionOpen > .listWrapper {
+  max-height: 100vh;
 }
