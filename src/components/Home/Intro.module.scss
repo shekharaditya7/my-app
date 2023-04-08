@@ -75,6 +75,8 @@
   justify-content: space-between;
   gap: 16px;
   max-height: 0px;
+  padding: 0 20px;
+  transition: all 250ms ease-out;
 }
 
 .animateContact {
@@ -84,7 +86,6 @@
   max-height: 400px;
   padding: 16px 20px 16px 20px;
   visibility: visible;
-  transition: max-height 0.5s linear;
 }
 
 .email,
