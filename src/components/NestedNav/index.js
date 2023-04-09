@@ -8,7 +8,7 @@ import Button from "../Widgets/Button";
 
 export default function NestedNav() {
   const [isLoading, setIsLoading] = useState(false);
-  const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 2));
+  const [text, setText] = useState(JSON.stringify(defaultNavObject, null, 1));
   const [navObject, setNavObject] = useState(defaultNavObject);
   const handleTextChange = (event) => {
     setText(event.target.value);
