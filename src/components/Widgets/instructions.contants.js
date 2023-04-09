@@ -85,6 +85,14 @@ const INSTRUCTIONS = {
       "In order to use Google log-in, make sure pop-ups are enabled.",
     ],
   },
+  [pages.ACCORDION]: {
+    title: "Accordion",
+    instructions: [
+      "A nested accordion that can go upto several levels of depth.",
+      "Takes JSON as an input in a predefined format.",
+      "Click on the title to open and close the sub-list.",
+    ],
+  },
 };
 
 export default INSTRUCTIONS;
