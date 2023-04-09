@@ -59,7 +59,7 @@ const NAV_ITEMS = [
   {
     label: "Accordion",
     url: pages.ACCORDION,
-    logoSrc: "/images/sidebar/ImageIcon.webp",
+    logoSrc: "/images/sidebar/AccordionIcon.webp",
   },
 ];
 
