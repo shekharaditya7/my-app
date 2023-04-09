@@ -56,6 +56,11 @@ const NAV_ITEMS = [
     label: "Sign up",
     url: pages.SIGNUP,
   },
+  {
+    label: "Accordion",
+    url: pages.ACCORDION,
+    logoSrc: "/images/sidebar/AccordionIcon.webp",
+  },
 ];
 
 export default NAV_ITEMS;

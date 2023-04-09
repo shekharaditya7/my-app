@@ -10,6 +10,7 @@ const CHAT = "/chat/";
 const AUTH = "/auth/:step/";
 const LOGIN = "/auth/login/";
 const SIGNUP = "/auth/signup/";
+const ACCORDION = "/accordion/";
 
 const pages = {
   HOME,
@@ -24,6 +25,7 @@ const pages = {
   AUTH,
   LOGIN,
   SIGNUP,
+  ACCORDION,
 };
 
 export default pages;
