@@ -16,6 +16,7 @@ import Chess from "./components/Chess";
 import Chat from "./components/Chat";
 import Auth from "./components/Auth";
 import Accordion from "./components/Accordion";
+import Window from "./components/Window";
 
 function App() {
   /*
@@ -40,6 +41,7 @@ function App() {
           <Route path={pages.CHAT} element={<Chat />} />
           <Route path={pages.AUTH} element={<Auth />} />
           <Route path={pages.ACCORDION} element={<Accordion />} />
+          <Route path={pages.WINDOW} element={<Window> </Window>} />
           {/* Fallback for LinkedIn post */}
           <Route path={"/deeplink/"} element={<YTDeepLink />}></Route>
           <Route path={"*"} element={<Navigate to="/" />}></Route>

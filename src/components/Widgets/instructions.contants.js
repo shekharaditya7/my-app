@@ -93,6 +93,11 @@ const INSTRUCTIONS = {
       "Click on the title to open and close the sub-list.",
     ],
   },
+
+  [pages.WINDOW]: {
+    title: "Window",
+    instructions: ["A basic implementation of Browser Window Class"],
+  },
 };
 
 export default INSTRUCTIONS;

@@ -61,6 +61,11 @@ const NAV_ITEMS = [
     url: pages.ACCORDION,
     logoSrc: "/images/sidebar/AccordionIcon.webp",
   },
+  {
+    label: "Window",
+    url: pages.WINDOW,
+    logoSrc: "/images/intro/web-dev.webp",
+  },
 ];
 
 export default NAV_ITEMS;

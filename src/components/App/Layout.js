@@ -37,7 +37,7 @@ export default function Layout({ children }) {
         <Header onInfoIconClick={() => setShowInstructions(true)} />
         <div className={styles.rhsContent}>{children}</div>
       </div>
-      {showInstructions ? (
+      {showInstructions && INSTRUCTIONS[pages[activePathKey.current]] ? (
         <Instructions
           onClose={handleInstructionClose}
           {...INSTRUCTIONS[pages[activePathKey.current]]}

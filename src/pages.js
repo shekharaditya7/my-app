@@ -11,6 +11,7 @@ const AUTH = "/auth/:step/";
 const LOGIN = "/auth/login/";
 const SIGNUP = "/auth/signup/";
 const ACCORDION = "/accordion/";
+const WINDOW = "/window/";
 
 const pages = {
   HOME,
@@ -26,6 +27,7 @@ const pages = {
   LOGIN,
   SIGNUP,
   ACCORDION,
+  WINDOW,
 };
 
 export default pages;
