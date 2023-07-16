@@ -13,9 +13,31 @@ function Window() {
   const tabActions = useRef(null);
 
   useEffect(() => {
-    const len = tabList?.length;
+    const handleTabKeyPress = (event) => {
+      if (event.key === "Tab") {
+        event.preventDefault();
+        const activeTabIndex = getActiveTabData().index;
+        console.log(activeTabIndex);
+        if (activeTabIndex !== undefined) {
+          const len = tabList.length;
+          setActiveTab(tabList[(activeTabIndex + 1) % len]);
+        }
+        console.log("OK");
+      }
+    };
+    document.addEventListener("keydown", handleTabKeyPress);
 
-    if (len && !tabActions.current) setActiveTab(tabList[0]);
+    return () => {
+      document.removeEventListener("keydown", handleTabKeyPress);
+    };
+  }, [tabList, activeTab]);
+
+  useEffect(() => {
+    setActiveTab(tabList[0]);
+  }, []);
+
+  useEffect(() => {
+    const len = tabList?.length;
     switch (tabActions.current) {
       case TAB_ACTIONS.ADD:
         setActiveTab(tabList[len - 1]);
@@ -36,13 +58,14 @@ function Window() {
     tabActions.current = null;
   }, [tabList]);
 
-  console.log(activeTab);
-
   const getActiveTabData = () => {
     let activeTabData = {};
     if (!activeTab) return activeTabData;
-    tabList.forEach((tabItem) => {
-      if (tabItem.id === activeTab.id) activeTabData = tabItem;
+    tabList.forEach((tabItem, index) => {
+      if (tabItem.id === activeTab.id) {
+        activeTabData = tabItem;
+        activeTabData.index = index;
+      }
     });
     return activeTabData;
   };
@@ -84,6 +107,20 @@ function Window() {
     setTabList([...tabList, { id: Math.random(), title: "5", subTitle: "E" }]);
   };
 
+  const handleDragCallback = (tabItemData, indexToBeAddedAt) => {
+    if (tabItemData.index === indexToBeAddedAt) {
+      setActiveTab(tabItemData.tabItem);
+    }
+    tabList.splice(tabItemData.index, 1);
+    const newTabList = tabList;
+    setTabList([
+      ...newTabList.slice(0, indexToBeAddedAt),
+      tabItemData.tabItem,
+      ...newTabList.slice(indexToBeAddedAt),
+    ]);
+    setActiveTab(tabItemData.tabItem);
+  };
+
   return (
     <div className={styles.window}>
       <TabPrimaryHeader
@@ -93,8 +130,9 @@ function Window() {
         onCloseTabClick={handleTabCloseClick}
         onAddTabClick={handleAddTabClick}
         tabWrapperRef={tabWrapperRef}
+        handleDragCallback={handleDragCallback}
       />
-      <TabPrimaryContent tabData={getActiveTabData()} />
+      <TabPrimaryContent tabData={getActiveTabData()} breadCrumbList={{}} />
     </div>
   );
 }

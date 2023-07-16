@@ -1,5 +1,6 @@
 import styles from "./TabPrimaryHeader.module.scss";
 import cx from "classnames";
+import { useRef } from "react";
 
 function TabPrimaryHeader({
   tabList = [],
@@ -8,17 +9,40 @@ function TabPrimaryHeader({
   onCloseTabClick,
   onAddTabClick,
   tabWrapperRef,
+  handleDragCallback,
 }) {
+  const tabItemRef = useRef([]);
+  const currDragItem = useRef({});
+
+  const handleDrop = (event, tabItem, index) => {
+    handleDragCallback(currDragItem.current, index);
+  };
+
+  const handleDragStart = (event, tabItem, index) => {
+    currDragItem.current = {
+      tabItem,
+      index,
+    };
+  };
+
   return (
-    <div className={styles.tabWrapper} ref={tabWrapperRef}>
+    <div
+      className={styles.tabWrapper}
+      ref={tabWrapperRef}
+      onDragOver={(event) => event.preventDefault()}
+    >
       {tabList?.length
         ? tabList?.map((tabItem, index) => (
             <div
+              ref={(el) => (tabItemRef.current[index] = el)}
               key={tabItem?.id}
               className={cx(styles.tabHeader, {
                 [styles.tabHeaderActive]: tabItem.id === activeTab?.id,
               })}
               onClick={() => onPrimaryTabClick(tabItem)}
+              draggable
+              onDragStart={(event) => handleDragStart(event, tabItem, index)}
+              onDrop={(event) => handleDrop(event, tabItem, index)}
             >
               <div className={styles.title}>Tab Header - {tabItem.title} </div>
               <img

@@ -1,6 +1,6 @@
 import styles from "./TabPrimaryContent.module.scss";
 
-function TabPrimaryContent({ tabData }) {
+function TabPrimaryContent({ tabData = {} }) {
   return (
     <div className={styles.tabContent}>
       {Object.keys(tabData).length ? (
